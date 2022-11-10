@@ -1,0 +1,159 @@
+fileFormatVersion: 2
+guid: d11a16e7779d39a498a54d335710b03e
+timeCreated: 1500975391
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: TeslaPistol_arrow
+    100004: TeslaPistol_battery_low
+    100006: TeslaPistol_batteryCap_low
+    100008: TeslaPistol_body_low
+    100010: TeslaPistol_buttons
+    100012: TeslaPistol_dispGlass
+    100014: TeslaPistol_display
+    100016: TeslaPistol_display_low
+    100018: TeslaPistol_glass
+    100020: TeslaPistol_handle_low
+    100022: TeslaPistol_ring_high001
+    100024: TeslaPistol_trigger_low
+    100026: TeslaPistol_buttons1
+    100028: TeslaPistol_buttons2
+    400000: //RootNode
+    400002: TeslaPistol_arrow
+    400004: TeslaPistol_battery_low
+    400006: TeslaPistol_batteryCap_low
+    400008: TeslaPistol_body_low
+    400010: TeslaPistol_buttons
+    400012: TeslaPistol_dispGlass
+    400014: TeslaPistol_display
+    400016: TeslaPistol_display_low
+    400018: TeslaPistol_glass
+    400020: TeslaPistol_handle_low
+    400022: TeslaPistol_ring_high001
+    400024: TeslaPistol_trigger_low
+    400026: TeslaPistol_buttons1
+    400028: TeslaPistol_buttons2
+    2300000: TeslaPistol_arrow
+    2300002: TeslaPistol_battery_low
+    2300004: TeslaPistol_batteryCap_low
+    2300006: TeslaPistol_body_low
+    2300008: TeslaPistol_buttons
+    2300010: TeslaPistol_dispGlass
+    2300012: TeslaPistol_display
+    2300014: TeslaPistol_display_low
+    2300016: TeslaPistol_glass
+    2300018: TeslaPistol_handle_low
+    2300020: TeslaPistol_ring_high001
+    2300022: TeslaPistol_trigger_low
+    2300024: TeslaPistol_buttons1
+    2300026: TeslaPistol_buttons2
+    3300000: TeslaPistol_arrow
+    3300002: TeslaPistol_battery_low
+    3300004: TeslaPistol_batteryCap_low
+    3300006: TeslaPistol_body_low
+    3300008: TeslaPistol_buttons
+    3300010: TeslaPistol_dispGlass
+    3300012: TeslaPistol_display
+    3300014: TeslaPistol_display_low
+    3300016: TeslaPistol_glass
+    3300018: TeslaPistol_handle_low
+    3300020: TeslaPistol_ring_high001
+    3300022: TeslaPistol_trigger_low
+    3300024: TeslaPistol_buttons1
+    3300026: TeslaPistol_buttons2
+    4300000: TeslaPistol_arrow
+    4300002: TeslaPistol_buttons
+    4300004: TeslaPistol_dispGlass
+    4300006: TeslaPistol_display
+    4300008: TeslaPistol_handle_low
+    4300010: TeslaPistol_body_low
+    4300012: TeslaPistol_batteryCap_low
+    4300014: TeslaPistol_glass
+    4300016: TeslaPistol_battery_low
+    4300018: TeslaPistol_ring_high001
+    4300020: TeslaPistol_trigger_low
+    4300022: TeslaPistol_display_low
+    4300024: TeslaPistol_buttons1
+    4300026: TeslaPistol_buttons2
+    7400000: Take 001
+    7400002: Take 001 //// TeslaPistol_base
+    9500000: //RootNode
+    11100000: //RootNode
+    11100002: TeslaPistol_arrow
+    11100004: TeslaPistol_battery_low
+    11100006: TeslaPistol_batteryCap_low
+    11100008: TeslaPistol_body_low
+    11100010: TeslaPistol_buttons
+    11100012: TeslaPistol_dispGlass
+    11100014: TeslaPistol_display
+    11100016: TeslaPistol_display_low
+    11100018: TeslaPistol_glass
+    11100020: TeslaPistol_handle_low
+    11100022: TeslaPistol_ring_high001
+    11100024: TeslaPistol_trigger_low
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: TeslaPistol_handle_low
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: TeslaPistol_handle_low
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

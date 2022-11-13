@@ -32,5 +32,7 @@ public class CamMove : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(_rotationX, _rotationY, 0);
         orientation.rotation = Quaternion.Euler(0, _rotationY, 0);
+
+        _rotationX = _rotationX;
     }
 }

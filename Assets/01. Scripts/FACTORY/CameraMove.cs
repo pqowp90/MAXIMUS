@@ -49,6 +49,14 @@ public class CameraMove : MonoBehaviour
     private void WASD_Move()
     {
         inputDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if(Input.GetKey(KeyCode.Q))
+        {
+            
+        }
+        if(Input.GetKey(KeyCode.E))
+        {
+            
+        }
         realMove = Vector3.Lerp(realMove, inputDir.normalized, cameraMoveDemp * Time.deltaTime);
         Quaternion rotate = transform.rotation;
 

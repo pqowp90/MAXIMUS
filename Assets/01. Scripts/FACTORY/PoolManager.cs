@@ -14,12 +14,24 @@ public class PoolManager
        Queue<T> q = new Queue<T>();
        T prefab = Resources.Load<T>("Prefabs/" + name);
 
+        if(typeof(T)==typeof(Building))
+        {
+            Building b = prefab as Building;
+            foreach (var range in b.range)
+            {
+                GridManager.Instance.ranges[(int)Enum.Parse(typeof(BuildingType), name)].Add(range);
+            }
+        }
+
        for (int i = 0; i < count; i++)
        {
+            
            GameObject g = GameObject.Instantiate(prefab.gameObject, parent.transform);
 
            g.SetActive(false);
            q.Enqueue(g.GetComponent<T>());
+
+           
        }
 
        try

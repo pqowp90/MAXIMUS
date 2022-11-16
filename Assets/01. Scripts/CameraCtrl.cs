@@ -39,6 +39,7 @@ public class CameraCtrl : MonoBehaviour
         if (_objTargetTransform == null) _objTargetTransform = objTarget.transform;
 
         ThirdCamera();
+        RotateCamera();
     }
 
     private void Start()
@@ -78,5 +79,31 @@ public class CameraCtrl : MonoBehaviour
         _camTransform.position = new Vector3(_camTransform.position.x, _nowHeight, _camTransform.position.z);
 
         _camTransform.LookAt(_objTargetTransform);
+    }
+
+    private void RotateCamera()
+    {
+        //마우스 x,y 축 값 가져오기
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        float rotationX;
+        float rotationY;
+
+        //카메라의 y각도에 마우스(마우스 * 디테일)값만큼 움직인다. 
+        //마우스를 움직이지 않았다면 0이다.
+        rotationX = _objTargetTransform.localEulerAngles.y + mouseX * 0.5f;
+
+        //마이너스 각도를 조절하기 위해 각도를 조절해준다.
+        //각도 조절을 안해주면 마이너스로 각도가 바뀌는 순간 튀는 것을 확인 할 수 있다.
+        rotationX = (rotationX > 180.0f) ? rotationX - 360.0f : rotationX;
+
+        //현재 y값에 마우스가 움직인 값(마우스 + 디테일)만큼 더해준다.
+        rotationY = mouseY * 0.5f;
+        //역시 마이너스 각도 조절을 하기 위해 
+        rotationY = (rotationY > 180.0f) ? rotationY - 360.0f : rotationY;
+
+        //마우스의 x,y축이 실제 x,y축과 반대여서 반대로 Vector를 만들어 준다.
+        _objTargetTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0f);
     }
 }

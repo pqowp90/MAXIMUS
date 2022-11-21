@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -35,11 +36,17 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
-    private void Start()
+    Animator animator;
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        animator = GetComponentInChildren<Animator>();
+    }
 
+    private void Start()
+    {
+        rb.freezeRotation = true;
         readyToJump = true;
     }
 
@@ -83,6 +90,17 @@ public class PlayerMovement : MonoBehaviour
     {
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        if(moveDirection == Vector3.zero)
+        {
+            if(animator.GetBool("Walk") == true)
+                animator.SetBool("Walk", false);
+        }
+        else
+        {
+            if (animator.GetBool("Walk") == false)
+                animator.SetBool("Walk", true);
+        }
 
         // on ground
         if (grounded)

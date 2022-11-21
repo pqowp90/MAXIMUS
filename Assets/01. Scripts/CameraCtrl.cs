@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -9,7 +10,8 @@ public class CameraCtrl : MonoBehaviour
     private Transform _camTransform = null; //카메라 캐싱준비
     public GameObject objTarget = null;
     private Transform _objTargetTransform = null;
-    public Transform player = null;
+    [SerializeField]
+    private Transform _lookObj = null;
 
     [Header("3인칭 카메라")]
     //떨어진 거리
@@ -21,14 +23,16 @@ public class CameraCtrl : MonoBehaviour
     public float heightDamp = 2.0f;
     public float rotateDamp = 3.0f;
 
-    private void Update()
+    private void Start()
     {
-        if(Input.GetMouseButton(1))
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        _camTransform = GetComponent<Transform>();
+
+        if (objTarget != null)
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            float rotationX = _camTransform.localEulerAngles.y + mouseX * 10f;
-            rotationX = (rotationX > 180.0f) ? rotationX - 360.0f : rotationX;
-            _camTransform.localEulerAngles = new Vector3(-_camTransform.rotation.y, rotationX);
+            _objTargetTransform = objTarget.transform;
         }
     }
 
@@ -39,16 +43,9 @@ public class CameraCtrl : MonoBehaviour
         if (_objTargetTransform == null) _objTargetTransform = objTarget.transform;
 
         ThirdCamera();
-        RotateCamera();
-    }
-
-    private void Start()
-    {
-        _camTransform = GetComponent<Transform>();
-
-        if (objTarget != null)
+        if(Input.GetMouseButton(1))
         {
-            _objTargetTransform = objTarget.transform;
+            RotateCamera();
         }
     }
 
@@ -78,7 +75,7 @@ public class CameraCtrl : MonoBehaviour
 
         _camTransform.position = new Vector3(_camTransform.position.x, _nowHeight, _camTransform.position.z);
 
-        _camTransform.LookAt(_objTargetTransform);
+        _camTransform.LookAt(_lookObj);
     }
 
     private void RotateCamera()

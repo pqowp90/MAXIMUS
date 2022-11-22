@@ -102,7 +102,12 @@ public class GridManager : MonoSingleton<GridManager>
             Vector2Int pos = new Vector2Int(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.z));
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.blue, 0.1f);
             List<Vector2Int> vector2Ints = ranges[(int)curBuilding];
-            for (int i = 0; i < vector2Ints.Count; i++)
+            
+            
+
+            
+
+            for (int i = 0; i < vector2Ints.Count; i++) 
             {
                 rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + pos.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + pos.y);
             }
@@ -157,11 +162,18 @@ public class GridManager : MonoSingleton<GridManager>
             if (Input.GetAxis("Mouse ScrollWheel") < 0f ) // forward
             {
                 curRotate++;
-                
+                for (int j = 0; j < vector2Ints.Count; j++)
+                {
+                    vector2Ints[j] = new Vector2Int(vector2Ints[j].y, -vector2Ints[j].x);
+                }
             }
             else if (Input.GetAxis("Mouse ScrollWheel") > 0f ) // backwards
             {
                 curRotate--;
+                for (int j = 0; j < vector2Ints.Count; j++)
+                {
+                    vector2Ints[j] = new Vector2Int(-vector2Ints[j].y, vector2Ints[j].x);
+                }
             }
             
 
@@ -175,10 +187,6 @@ public class GridManager : MonoSingleton<GridManager>
 
             rightClickUI?.SetActive(buildingMode);
         }
-        
-            
-        
-
     }
     public void SetBuilding(int building)
     {

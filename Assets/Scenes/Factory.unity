@@ -361,6 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7d88ff95c180c468539ccc4fd48919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildMode: 1
   rightClickUI: {fileID: 2097007236}
   rangeGameobjects: []
   curRotate: 0
@@ -368,6 +369,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  pos: {x: 0, y: 0}
 --- !u!4 &464238706
 Transform:
   m_ObjectHideFlags: 0

@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 2957240880280914930}
   - component: {fileID: 2957240880280914931}
   - component: {fileID: 8955196014687207117}
+  - component: {fileID: 4852870816722146554}
   m_Layer: 8
   m_Name: Inserter
   m_TagString: Untagged
@@ -664,6 +665,20 @@ MonoBehaviour:
   range:
   - {x: 0, y: 0}
   canJupe: 1
+  buildingType: 0
+--- !u!65 &4852870816722146554
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2957240880280914928}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.0376353, z: 1}
+  m_Center: {x: 0, y: 0.5188176, z: 0}
 --- !u!1 &6351011382267891826
 GameObject:
   m_ObjectHideFlags: 0

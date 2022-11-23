@@ -652,6 +652,7 @@ MonoBehaviour:
   - {x: 0, y: -2}
   - {x: -1, y: -2}
   canJupe: 0
+  buildingType: 0
 --- !u!1 &1656223019395680847
 GameObject:
   m_ObjectHideFlags: 0

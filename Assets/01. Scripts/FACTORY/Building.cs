@@ -15,7 +15,6 @@ public class Building : MonoBehaviour, IPoolable
     {
         string myName = this.gameObject.name;
         myName = myName.Split('(')[0];
-        Debug.Log(myName);
         buildingType = Enum.Parse<BuildingType>(myName);
     }
     public void OnPool()

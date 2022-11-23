@@ -109,21 +109,28 @@ public class GridManager : MonoSingleton<GridManager>
         {
             DisassemblyMouse();
         }
+        if(Input.GetKeyDown(KeyCode.F)){
+            disassemblyMode = !disassemblyMode;
+        }
     }
     private void DisassemblyMouse()
     {
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
         {
-            List<Vector2Int> vector2Ints = ranges[(int)curBuilding];
-
+            
             Building building = hit.collider.GetComponentInParent<Building>();
-
-            GetRanges((int)building.buildingType);
+            RemoveRanges();
+            GetRanges((int)building.buildingType, true);
+            List<Vector2Int> vector2Ints = ranges[(int)building.buildingType];
             for (int i = 0; i < vector2Ints.Count; i++) 
             {
-                rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.y);
+                rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.z);
             }
+        }
+        else
+        {
+            RemoveRanges();
         }
     }
     private void BuildingMouse()
@@ -345,6 +352,7 @@ public class GridManager : MonoSingleton<GridManager>
         RemoveRanges();
         GetRanges(building);
         buildingMode = true;
+        disassemblyMode = false;
         juping = false;
         curBuilding = (BuildingType)building;
         curBuildingName.text = curBuilding.ToString();
@@ -357,11 +365,13 @@ public class GridManager : MonoSingleton<GridManager>
 
         buildingGameObject.Add(createdBuilding.gameObject);
     }
-    private void GetRanges(int building)
+    private void GetRanges(int building, bool startRed = false)
     {
         for (int i = 0; i < ranges[building].Count; i++)
         {
-            rangeGameobjects.Add(PoolManager.GetItem<Range>("InstallationRange"));
+            Range range = PoolManager.GetItem<Range>("InstallationRange");
+            range.ChangeMaterial(startRed);
+            rangeGameobjects.Add(range);
         }
     }
     private void RemoveBuildings()

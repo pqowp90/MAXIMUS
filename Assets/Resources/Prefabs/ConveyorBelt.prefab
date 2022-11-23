@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8617069671647956522}
   - component: {fileID: 3044746707507817350}
   - component: {fileID: 8403498628148954845}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1006072164476760363}
   - component: {fileID: 287126138798521256}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 3113899954729487191}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.506, z: -0.044}
-  m_LocalScale: {x: 0.43431, y: 0.43431, z: 0.43431}
+  m_LocalScale: {x: 0.43431, y: 0.64, z: 0.43431}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8617069671647956522}
@@ -178,8 +178,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1325999597838153958}
   - component: {fileID: 7174116353680775469}
-  m_Layer: 0
-  m_Name: Foundation
+  m_Layer: 8
+  m_Name: ConveyorBelt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

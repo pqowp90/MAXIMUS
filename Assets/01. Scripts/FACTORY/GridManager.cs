@@ -43,7 +43,7 @@ public class Grid
 public enum BuildingType
 {
     Empty = 0,
-    Foundation,
+    ConveyorBelt,
     Hub,
     Inserter,
     // ...
@@ -80,11 +80,13 @@ public class GridManager : MonoSingleton<GridManager>
     [SerializeField]
     private float rotateDemp = 0f;                              //각도댐프
     [SerializeField]
-    private LayerMask layerMask;
+    private LayerMask groundLayerMask;
+    [SerializeField]
+    private LayerMask buildingLayerMask;
     private bool juping = false;
     private Vector2Int jupingPos = Vector2Int.zero;
     [SerializeField]
-    private Vector2Int pos;
+    private bool disassemblyMode = false;
 
     private void Awake()
     {
@@ -103,17 +105,35 @@ public class GridManager : MonoSingleton<GridManager>
     private void Update() {
         if(buildingMode){
             BuildingMouse();
+        }else if(disassemblyMode)
+        {
+            DisassemblyMouse();
         }
-        
+    }
+    private void DisassemblyMouse()
+    {
+        RaycastHit hit;
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
+        {
+            List<Vector2Int> vector2Ints = ranges[(int)curBuilding];
+
+            Building building = hit.collider.GetComponentInParent<Building>();
+
+            GetRanges((int)building.buildingType);
+            for (int i = 0; i < vector2Ints.Count; i++) 
+            {
+                rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.y);
+            }
+        }
     }
     private void BuildingMouse()
     {
         
 
         RaycastHit hit;
-        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Camera.main.focalLength, layerMask))
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, groundLayerMask))
         {
-            pos = new Vector2Int(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.z));
+            Vector2Int pos = new Vector2Int(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.z));
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.blue, 0.1f);
             List<Vector2Int> vector2Ints = ranges[(int)curBuilding];
             
@@ -248,6 +268,14 @@ public class GridManager : MonoSingleton<GridManager>
                 juping = false;
                 RemoveBuildings();
                 RemoveRanges();
+            }
+
+            if(Input.GetKeyDown(KeyCode.F)){
+                buildingMode = false;
+                juping = false;
+                RemoveBuildings();
+                RemoveRanges();
+                disassemblyMode = true;
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f ) // forward

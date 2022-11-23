@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using TMPro;
 public class Grid
 {
     private int width, height;
@@ -59,6 +59,8 @@ public enum BuildMode
 public class GridManager : MonoSingleton<GridManager>
 {
     [SerializeField]
+    private TMP_Text curBuildingName;
+    [SerializeField]
     private BuildMode buildMode = BuildMode.Single;
     [SerializeField]
     private GameObject rightClickUI;
@@ -101,7 +103,6 @@ public class GridManager : MonoSingleton<GridManager>
     private void Update() {
         if(buildingMode){
             BuildingMouse();
-            
         }
         
     }
@@ -205,8 +206,9 @@ public class GridManager : MonoSingleton<GridManager>
                         {
                             grid.SetGrid(vector2Ints[i] + pos, (int)curBuilding);
                         }
-                        if(buildMode == BuildMode.Single)
+                        if(buildingGameObject.Count>0){
                             buildingGameObject[0].transform.position = new Vector3(pos.x, 0, pos.y);
+                        }
                             
                         foreach (var item in buildingGameObject)
                         {
@@ -315,11 +317,17 @@ public class GridManager : MonoSingleton<GridManager>
         RemoveRanges();
         GetRanges(building);
         buildingMode = true;
+        juping = false;
         curBuilding = (BuildingType)building;
+        curBuildingName.text = curBuilding.ToString();
 
-        
+        Building createdBuilding = PoolManager.GetItem<Building>(curBuilding.ToString());
+        if(!createdBuilding.canJupe && buildMode == BuildMode.Jupe)
+        {
+            buildMode = BuildMode.Single;
+        } 
 
-        buildingGameObject.Add(PoolManager.GetItem<Building>(curBuilding.ToString()).gameObject);
+        buildingGameObject.Add(createdBuilding.gameObject);
     }
     private void GetRanges(int building)
     {

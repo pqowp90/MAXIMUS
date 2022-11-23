@@ -663,6 +663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range:
   - {x: 0, y: 0}
+  canJupe: 1
 --- !u!1 &6351011382267891826
 GameObject:
   m_ObjectHideFlags: 0

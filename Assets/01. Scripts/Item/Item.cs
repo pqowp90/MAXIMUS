@@ -22,10 +22,11 @@ public class Item : ScriptableObject
     public int item_ID = -1;
     public ITEM_TYPE item_type = ITEM_TYPE.Item;
     public bool isStackable = false;
+    public int amount = 0;
 
     [Header("이미지")]
-    public Sprite icon;
-    public GameObject modelPrefab;
+    public Material material;
+    public Mesh mesh;
 
     [Header("설명")]
     [TextArea(15, 20)]

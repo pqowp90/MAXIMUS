@@ -54,16 +54,19 @@ public enum BuildMode
     
     Single,
     Jupe,
+    End,
 
 }
 public class GridManager : MonoSingleton<GridManager>
 {
     [SerializeField]
-    private TMP_Text curBuildingName;
+    private CanvasGroupAlpha curBuildingName;
     [SerializeField]
     private BuildMode buildMode = BuildMode.Single;
     [SerializeField]
-    private GameObject rightClickUI;
+    private CanvasGroupAlpha rightClickUI;
+    [SerializeField]
+    private CanvasGroupAlpha buildModeUI;
     // 우클릭을 눌러서 취소
     public List<List<Vector2Int>> ranges = new List<List<Vector2Int>>();
     // 앞으로 설치할 렌지들
@@ -90,7 +93,7 @@ public class GridManager : MonoSingleton<GridManager>
 
     private void Awake()
     {
-        rightClickUI?.SetActive(buildingMode);
+        rightClickUI?.TurnOnOffGroup(buildingMode);
         ranges.Add(new List<Vector2Int>());
         for (int i = 1; i < (int)BuildingType.Count; i++)
         {
@@ -110,8 +113,14 @@ public class GridManager : MonoSingleton<GridManager>
             DisassemblyMouse();
         }
         if(Input.GetKeyDown(KeyCode.F)){
+            if(disassemblyMode)
+            {
+                curBuildingName.TurnOnOffGroup(false);
+                RemoveRanges();
+            }
             disassemblyMode = !disassemblyMode;
         }
+        rightClickUI?.TurnOnOffGroup(buildingMode);
     }
     private void DisassemblyMouse()
     {
@@ -122,20 +131,58 @@ public class GridManager : MonoSingleton<GridManager>
             Building building = hit.collider.GetComponentInParent<Building>();
             RemoveRanges();
             GetRanges((int)building.buildingType, true);
+            curBuildingName.TurnOnOffGroup(true, building.buildingType.ToString());
             List<Vector2Int> vector2Ints = ranges[(int)building.buildingType];
             for (int i = 0; i < vector2Ints.Count; i++) 
             {
                 rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.z);
             }
+            if(Input.GetMouseButtonDown(0))
+            {
+                building.gameObject.SetActive(false);
+                for (int i = 0; i < vector2Ints.Count; i++) 
+                {
+                    grid.SetGrid(new Vector2Int(Mathf.RoundToInt(vector2Ints[i].x) + (int)building.transform.position.x, Mathf.RoundToInt(vector2Ints[i].y) + (int)building.transform.position.z), 0);
+                }
+                RemoveRanges();
+                curBuildingName.TurnOnOffGroup(false);
+            }
+
+
+
+            
+            // if(Input.GetMouseButtonDown(1))
+            // {
+            //     disassemblyMode = false;
+            // }
         }
         else
         {
             RemoveRanges();
+            curBuildingName.TurnOnOffGroup(false);
         }
     }
     private void BuildingMouse()
     {
-        
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            int nextIndex = (int)buildMode;
+            nextIndex = (nextIndex+1)%(int)BuildMode.End;
+            buildMode = (BuildMode)nextIndex;
+
+            juping = false;
+            int rangeCount = rangeGameobjects.Count;
+            for (int i = 1; i < rangeCount; i++)
+            {
+                buildingGameObject[1].gameObject.SetActive(false);
+                buildingGameObject.Remove(buildingGameObject[1]);
+
+                rangeGameobjects[1].gameObject.SetActive(false);
+                rangeGameobjects.Remove(rangeGameobjects[1]);
+            }
+
+            buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
+        }
 
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, groundLayerMask))
@@ -216,7 +263,7 @@ public class GridManager : MonoSingleton<GridManager>
                 
                 
                 if(!canBuild) return;
-
+                curBuildingName.TurnOnOffGroup(false);
                 {
                     
                     
@@ -271,6 +318,7 @@ public class GridManager : MonoSingleton<GridManager>
             
 
             if(Input.GetMouseButtonDown(1)){
+                curBuildingName.TurnOnOffGroup(false);
                 buildingMode = false;
                 juping = false;
                 RemoveBuildings();
@@ -278,6 +326,7 @@ public class GridManager : MonoSingleton<GridManager>
             }
 
             if(Input.GetKeyDown(KeyCode.F)){
+                curBuildingName.TurnOnOffGroup(false);
                 buildingMode = false;
                 juping = false;
                 RemoveBuildings();
@@ -305,6 +354,7 @@ public class GridManager : MonoSingleton<GridManager>
 
 
             if(buildingGameObject.Count>0){
+                
                 foreach (var item in buildingGameObject)
                 {
                     item.transform.rotation = Quaternion.Euler(new Vector3(0, realCurRotate * 90f, 0));
@@ -315,7 +365,7 @@ public class GridManager : MonoSingleton<GridManager>
 
             realCurRotate = Mathf.Lerp(realCurRotate, curRotate, Time.deltaTime * rotateDemp);
 
-            rightClickUI?.SetActive(buildingMode);
+            
         }
     }
     private void SetListByCount(int cnt)
@@ -355,7 +405,9 @@ public class GridManager : MonoSingleton<GridManager>
         disassemblyMode = false;
         juping = false;
         curBuilding = (BuildingType)building;
-        curBuildingName.text = curBuilding.ToString();
+
+        curBuildingName.TurnOnOffGroup(true, curBuilding.ToString());
+        buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
 
         Building createdBuilding = PoolManager.GetItem<Building>(curBuilding.ToString());
         if(!createdBuilding.canJupe && buildMode == BuildMode.Jupe)

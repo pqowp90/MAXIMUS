@@ -63,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            ItemManager.Instance.DropItem(transform.position + new Vector3(10f, 10f, 0)); 
+        }
     }
 
     private void FixedUpdate()

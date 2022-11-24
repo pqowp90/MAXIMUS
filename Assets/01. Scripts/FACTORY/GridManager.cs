@@ -46,6 +46,8 @@ public enum BuildingType
     ConveyorBelt,
     Hub,
     Inserter,
+    Foundry,
+    SteelWorks,
     // ...
     Count,
 }
@@ -337,17 +339,24 @@ public class GridManager : MonoSingleton<GridManager>
             if (Input.GetAxis("Mouse ScrollWheel") < 0f ) // forward
             {
                 curRotate++;
-                for (int j = 0; j < vector2Ints.Count; j++)
+                for (int i = 0; i < ranges.Count; i++)
                 {
-                    vector2Ints[j] = new Vector2Int(vector2Ints[j].y, -vector2Ints[j].x);
+                    for (int j = 0; j < ranges[i].Count; j++)
+                    {
+                        ranges[i][j] = new Vector2Int(ranges[i][j].y, -ranges[i][j].x);
+                    }
                 }
+                
             }
             else if (Input.GetAxis("Mouse ScrollWheel") > 0f ) // backwards
             {
                 curRotate--;
-                for (int j = 0; j < vector2Ints.Count; j++)
+                for (int i = 0; i < ranges.Count; i++)
                 {
-                    vector2Ints[j] = new Vector2Int(-vector2Ints[j].y, vector2Ints[j].x);
+                    for (int j = 0; j < ranges[i].Count; j++)
+                    {
+                        ranges[i][j] = new Vector2Int(-ranges[i][j].y, ranges[i][j].x);
+                    }
                 }
             }
             

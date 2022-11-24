@@ -80,6 +80,9 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        animator.SetFloat("x", horizontalInput);
+        animator.SetFloat("y", verticalInput);
+
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {

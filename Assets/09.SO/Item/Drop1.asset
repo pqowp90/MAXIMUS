@@ -15,6 +15,8 @@ MonoBehaviour:
   item_name: "\uB4DC\uB78D\uD15C"
   item_ID: 0
   item_type: 0
-  icon: {fileID: 0}
-  modelPrefab: {fileID: 0}
+  isStackable: 1
+  amount: 0
+  material: {fileID: 2100000, guid: c044a25523c282a438403af3df9b9155, type: 2}
+  mesh: {fileID: 7106427230469912855, guid: 0b944c859df3d2642bfe931e123fb752, type: 3}
   explain: 

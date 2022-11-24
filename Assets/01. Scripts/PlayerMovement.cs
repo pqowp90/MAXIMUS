@@ -63,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            ItemManager.Instance.DropItem(transform.position + new Vector3(10f, 10f, 0)); 
+        }
     }
 
     private void FixedUpdate()
@@ -74,6 +79,9 @@ public class PlayerMovement : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        animator.SetFloat("x", horizontalInput);
+        animator.SetFloat("y", verticalInput);
 
         // when to jump
         if (Input.GetKey(jumpKey) && readyToJump && grounded)

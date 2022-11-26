@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3862293054439394323}
   - component: {fileID: 7395008329168993362}
   - component: {fileID: 1835851075754772473}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_LavaPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4537643526831315146}
   - component: {fileID: 2427785813548773750}
   - component: {fileID: 19684478538138376}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_UpperBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5203600318680663413}
   - component: {fileID: 3761235390762351896}
   - component: {fileID: 4551917079766292449}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_Lava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,8 @@ GameObject:
   - component: {fileID: 1550847040057679113}
   - component: {fileID: 1550847040057679115}
   - component: {fileID: 1550847040057679112}
-  m_Layer: 0
+  - component: {fileID: 1609390909915075830}
+  m_Layer: 8
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,6 +334,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1609390909915075830
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847040057679118}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1550847040302059977
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +358,8 @@ GameObject:
   - component: {fileID: 1550847040302059976}
   - component: {fileID: 1550847040302059978}
   - component: {fileID: 1550847040302059979}
-  m_Layer: 0
+  - component: {fileID: 2272202516203939664}
+  m_Layer: 8
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,6 +431,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2272202516203939664
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847040302059977}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: -0.00000005960496, z: 0.00000011920929}
 --- !u!1 &1550847040473445326
 GameObject:
   m_ObjectHideFlags: 0
@@ -427,7 +455,8 @@ GameObject:
   - component: {fileID: 1550847040473445321}
   - component: {fileID: 1550847040473445323}
   - component: {fileID: 1550847040473445320}
-  m_Layer: 0
+  - component: {fileID: 3403120714740385484}
+  m_Layer: 8
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,6 +528,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &3403120714740385484
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847040473445326}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: 0.000000059604645, y: -0.00000005960547, z: -0.00000011920929}
 --- !u!1 &1550847040588081509
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +552,7 @@ GameObject:
   - component: {fileID: 1550847040588081508}
   - component: {fileID: 1550847040588081510}
   - component: {fileID: 1550847040588081511}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5334,7 +5376,8 @@ GameObject:
   - component: {fileID: 1550847040640327181}
   - component: {fileID: 1550847040640327183}
   - component: {fileID: 1550847040640327180}
-  m_Layer: 0
+  - component: {fileID: 7993877202641462849}
+  m_Layer: 8
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5406,6 +5449,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7993877202641462849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847040640327170}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: -3.637979e-12, y: -0.00000005960507, z: 0.00000011920929}
 --- !u!1 &1550847040642643134
 GameObject:
   m_ObjectHideFlags: 0
@@ -5417,7 +5473,8 @@ GameObject:
   - component: {fileID: 1550847040642643129}
   - component: {fileID: 1550847040642643131}
   - component: {fileID: 1550847040642643128}
-  m_Layer: 0
+  - component: {fileID: 1287225801329090687}
+  m_Layer: 8
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5489,6 +5546,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1287225801329090687
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847040642643134}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: -0.00000023841858, y: -0.000000059605, z: 0.0000000037225618}
 --- !u!1 &1550847040764564089
 GameObject:
   m_ObjectHideFlags: 0
@@ -5500,7 +5570,7 @@ GameObject:
   - component: {fileID: 1550847040764564088}
   - component: {fileID: 1550847040764564090}
   - component: {fileID: 1550847040764564091}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10324,7 +10394,8 @@ GameObject:
   - component: {fileID: 1550847040909117330}
   - component: {fileID: 1550847040909117340}
   - component: {fileID: 1550847040909117341}
-  m_Layer: 0
+  - component: {fileID: 5817422783207791893}
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10396,6 +10467,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5817422783207791893
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847040909117331}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: 0.000000059604645, y: -0.00000005960534, z: 0.0000000037271093}
 --- !u!1 &1550847040931346597
 GameObject:
   m_ObjectHideFlags: 0
@@ -10407,7 +10491,7 @@ GameObject:
   - component: {fileID: 1550847040931346596}
   - component: {fileID: 1550847040931346598}
   - component: {fileID: 1550847040931346599}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15234,7 +15318,7 @@ GameObject:
   - component: {fileID: 1550847041379649729}
   - component: {fileID: 1550847041379649734}
   - component: {fileID: 1550847041379649735}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15521,7 +15605,8 @@ GameObject:
   - component: {fileID: 1550847041487831704}
   - component: {fileID: 1550847041487831706}
   - component: {fileID: 1550847041487831707}
-  m_Layer: 0
+  - component: {fileID: 7266537090204161611}
+  m_Layer: 8
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15593,6 +15678,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7266537090204161611
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847041487831705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: -0.00000023841858, y: -0.000000059605156, z: -0.00000011920929}
 --- !u!1 &1550847041500857907
 GameObject:
   m_ObjectHideFlags: 0
@@ -15604,7 +15702,8 @@ GameObject:
   - component: {fileID: 1550847041500857906}
   - component: {fileID: 1550847041500857916}
   - component: {fileID: 1550847041500857917}
-  m_Layer: 0
+  - component: {fileID: 151925632613106184}
+  m_Layer: 8
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15676,6 +15775,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &151925632613106184
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847041500857907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: -0.00000023841858, y: -0.000000059604844, z: 0.00000011920929}
 --- !u!1 &1550847041610594555
 GameObject:
   m_ObjectHideFlags: 0
@@ -15687,7 +15799,8 @@ GameObject:
   - component: {fileID: 1550847041610594554}
   - component: {fileID: 1550847041610594500}
   - component: {fileID: 1550847041610594501}
-  m_Layer: 0
+  - component: {fileID: 4426639823372061357}
+  m_Layer: 8
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15759,6 +15872,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4426639823372061357
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847041610594555}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: -0.00000005960524, z: -0.00000011920929}
 --- !u!1 &1550847041633260332
 GameObject:
   m_ObjectHideFlags: 0
@@ -15773,7 +15899,7 @@ GameObject:
   - component: {fileID: 1550847041633260328}
   - component: {fileID: 1550847041633260329}
   - component: {fileID: 1550847041633260334}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16060,7 +16186,8 @@ GameObject:
   - component: {fileID: 1550847041658179145}
   - component: {fileID: 1550847041658179147}
   - component: {fileID: 1550847041658179144}
-  m_Layer: 0
+  - component: {fileID: 5606031974127610934}
+  m_Layer: 8
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16132,6 +16259,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &5606031974127610934
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847041658179150}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: -0.00000005960512, z: 0.000000003723926}
 --- !u!1 &1550847041775897641
 GameObject:
   m_ObjectHideFlags: 0
@@ -16142,7 +16282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1550847041775897640}
   - component: {fileID: 1550847041775897643}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Foundry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16203,7 +16343,8 @@ GameObject:
   - component: {fileID: 1550847041967260769}
   - component: {fileID: 1550847041967260771}
   - component: {fileID: 1550847041967260768}
-  m_Layer: 0
+  - component: {fileID: 8018835868392955969}
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16275,6 +16416,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8018835868392955969
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847041967260774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: 0.000000059604645, y: -0.000000059605185, z: 0.00000011920929}
 --- !u!1 &1550847041987038160
 GameObject:
   m_ObjectHideFlags: 0
@@ -16286,7 +16440,8 @@ GameObject:
   - component: {fileID: 1550847041987038163}
   - component: {fileID: 1550847041987038173}
   - component: {fileID: 1550847041987038162}
-  m_Layer: 0
+  - component: {fileID: 9002785811102043777}
+  m_Layer: 8
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16358,6 +16513,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9002785811102043777
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847041987038160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.99999994, y: 0.99999994, z: 1}
+  m_Center: {x: -5.456968e-12, y: -0.000000059605355, z: -0.00000011920929}
 --- !u!1 &1820825319848797911
 GameObject:
   m_ObjectHideFlags: 0
@@ -16367,7 +16535,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1301274586996784237}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16424,7 +16592,7 @@ GameObject:
   - component: {fileID: 6431242162221434578}
   - component: {fileID: 879142163752084984}
   - component: {fileID: 2160142548588637738}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16507,7 +16675,7 @@ GameObject:
   - component: {fileID: 5649343985191710356}
   - component: {fileID: 506572282519555626}
   - component: {fileID: 2149758301486488277}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16590,7 +16758,7 @@ GameObject:
   - component: {fileID: 7449118642711769711}
   - component: {fileID: 1129002392606790021}
   - component: {fileID: 4241537334495857566}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16673,7 +16841,7 @@ GameObject:
   - component: {fileID: 3731361405561644375}
   - component: {fileID: 5414117035399534655}
   - component: {fileID: 3375457573873330068}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16756,7 +16924,7 @@ GameObject:
   - component: {fileID: 4323535063121029695}
   - component: {fileID: 4597953953695485822}
   - component: {fileID: 3229365569137323197}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Smeltery_Foundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

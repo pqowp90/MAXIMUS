@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, 0.1f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -74,17 +74,23 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
     }
-
+    private float realHorizontalInput;
+    private float realVerticalInput;
+    [SerializeField]
+    private float moveAnimationDamp = 5f;
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("x", horizontalInput);
-        animator.SetFloat("y", verticalInput);
+        realHorizontalInput = Mathf.Lerp(realHorizontalInput, horizontalInput, Time.deltaTime * moveAnimationDamp);
+        realVerticalInput = Mathf.Lerp(realVerticalInput, verticalInput, Time.deltaTime * moveAnimationDamp);
+
+        animator.SetFloat("x", realHorizontalInput);
+        animator.SetFloat("y", realVerticalInput);
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -109,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
             if (animator.GetBool("Walk") == false)
                 animator.SetBool("Walk", true);
         }
-
+        animator.SetBool("IsGround", grounded);
         // on ground
         if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
@@ -133,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        animator.SetTrigger("Jump");
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 

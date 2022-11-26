@@ -68,6 +68,10 @@ public class GridManager : MonoSingleton<GridManager>
     [SerializeField]
     private CanvasGroupAlpha rightClickUI;
     [SerializeField]
+    private CanvasGroupAlpha nomalUI;
+    [SerializeField]
+    private CanvasGroupAlpha disassemblyUI;
+    [SerializeField]
     private CanvasGroupAlpha buildModeUI;
     // 우클릭을 눌러서 취소
     public List<List<Vector2Int>> ranges = new List<List<Vector2Int>>();
@@ -76,6 +80,7 @@ public class GridManager : MonoSingleton<GridManager>
     [SerializeField]
     private List<Range> rangeGameobjects = new List<Range>();   // 범위표시 프리펩 위치
     private bool buildingMode = false;                          // 건물을 짓는중인가
+    private bool disassemblyMode = false;                       // 파괴모드
     private BuildingType curBuilding = BuildingType.Empty;      // 현재 지으려고 하는 빌딩
     public Grid grid = new Grid(1000, 1000);                    // 건물의 정보가 그리드에 저장됨
     private List<GameObject> buildingGameObject = new List<GameObject>();               // 미리보기 건물임, 설치하면 고정됨
@@ -91,11 +96,11 @@ public class GridManager : MonoSingleton<GridManager>
     private bool juping = false;
     private Vector2Int jupingPos = Vector2Int.zero;
     [SerializeField]
-    private bool disassemblyMode = false;
+    private VignettingEffect vignettingEffect;
 
     private void Awake()
     {
-        rightClickUI?.TurnOnOffGroup(buildingMode);
+        
         ranges.Add(new List<Vector2Int>());
         for (int i = 1; i < (int)BuildingType.Count; i++)
         {
@@ -105,24 +110,57 @@ public class GridManager : MonoSingleton<GridManager>
         PoolManager.CreatePool<Range>("InstallationRange", gameObject, 10);
         //Build(new Vector2Int(10, 10), BuildingType.Foundation);
         //Build(new Vector2Int(10, 10), BuildingType.Hub);
+        vignettingEffect = FindObjectOfType<VignettingEffect>();
     }
     Vector3 point;
+    private void ChangeMode(ref bool mode, bool onoff = true)
+    {
+        if(onoff)
+        {
+            buildingMode = false;
+            disassemblyMode = false;
+            
+            mode = true;
+        }
+        else
+        {
+            buildingMode = false;
+            disassemblyMode = false;
+        }
+        
+    }
     private void Update() {
+
+
+        nomalUI?.TurnOnOffGroup(!buildingMode && !disassemblyMode);
+        rightClickUI?.TurnOnOffGroup(buildingMode);
+        disassemblyUI?.TurnOnOffGroup(disassemblyMode);
+
+
         if(buildingMode){
             BuildingMouse();
         }else if(disassemblyMode)
         {
             DisassemblyMouse();
         }
-        if(Input.GetKeyDown(KeyCode.F)){
+        
+        if(Input.GetKeyDown(KeyCode.F)){ // 파괴모드 ㄱㄱ
             if(disassemblyMode)
             {
+                ChangeMode(ref disassemblyMode, false);
                 curBuildingName.TurnOnOffGroup(false);
                 RemoveRanges();
             }
-            disassemblyMode = !disassemblyMode;
+            else
+            {
+                ChangeMode(ref disassemblyMode);
+                curBuildingName.TurnOnOffGroup(false);
+                juping = false;
+                RemoveBuildings();
+                RemoveRanges();
+            }
+            vignettingEffect.StartEffect(disassemblyMode);
         }
-        rightClickUI?.TurnOnOffGroup(buildingMode);
     }
     private void DisassemblyMouse()
     {
@@ -139,7 +177,7 @@ public class GridManager : MonoSingleton<GridManager>
             {
                 rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.z);
             }
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(0)) // 건물을 파괴
             {
                 building.gameObject.SetActive(false);
                 for (int i = 0; i < vector2Ints.Count; i++) 
@@ -149,42 +187,24 @@ public class GridManager : MonoSingleton<GridManager>
                 RemoveRanges();
                 curBuildingName.TurnOnOffGroup(false);
             }
-
-
-
             
-            // if(Input.GetMouseButtonDown(1))
-            // {
-            //     disassemblyMode = false;
-            // }
         }
         else
         {
             RemoveRanges();
             curBuildingName.TurnOnOffGroup(false);
         }
+        if(Input.GetMouseButtonDown(1))
+        {
+            ChangeMode(ref disassemblyMode, false);
+            curBuildingName.TurnOnOffGroup(false);
+            RemoveRanges();
+            vignettingEffect.StartEffect(disassemblyMode);
+        }
     }
     private void BuildingMouse()
     {
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            int nextIndex = (int)buildMode;
-            nextIndex = (nextIndex+1)%(int)BuildMode.End;
-            buildMode = (BuildMode)nextIndex;
-
-            juping = false;
-            int rangeCount = rangeGameobjects.Count;
-            for (int i = 1; i < rangeCount; i++)
-            {
-                buildingGameObject[1].gameObject.SetActive(false);
-                buildingGameObject.Remove(buildingGameObject[1]);
-
-                rangeGameobjects[1].gameObject.SetActive(false);
-                rangeGameobjects.Remove(rangeGameobjects[1]);
-            }
-
-            buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
-        }
+        
 
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, groundLayerMask))
@@ -258,8 +278,37 @@ public class GridManager : MonoSingleton<GridManager>
 
             
 
+            if(Input.GetKeyDown(KeyCode.R)) // 건축모드 변경
+            {
+                int nextIndex = (int)buildMode;
+                nextIndex = (nextIndex+1)%(int)BuildMode.End;
+                buildMode = (BuildMode)nextIndex;
 
-            if(Input.GetMouseButtonDown(0)){
+                juping = false;
+
+                if(!buildingGameObject[0].GetComponent<Building>().canJupe)
+                {
+                    buildMode = BuildMode.Single;
+                } 
+
+
+                int rangeCount = buildingGameObject.Count;
+                if(rangeCount>1)
+                {
+                    for (int i = 1; i < rangeCount; i++)
+                    {
+                        buildingGameObject[1].gameObject.SetActive(false);
+                        buildingGameObject.Remove(buildingGameObject[1]);
+        
+                        rangeGameobjects[1].gameObject.SetActive(false);
+                        rangeGameobjects.Remove(rangeGameobjects[1]);
+                    }
+                }
+
+                buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
+            }
+
+            if(Input.GetMouseButtonDown(0)){ // 짓는중에 건물의 위치를 확정
                 if(UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == true)
                     return;
                 
@@ -276,7 +325,7 @@ public class GridManager : MonoSingleton<GridManager>
                     {
                         case BuildMode.Single:
                         RemoveRanges();
-                        buildingMode = false;
+                        ChangeMode(ref buildingMode, false);
 
                         for (int i = 0; i < vector2Ints.Count; i++)
                         {
@@ -305,9 +354,13 @@ public class GridManager : MonoSingleton<GridManager>
                                 Vector2 rangePos = new Vector2(rangeGameobjects[i].transform.position.x, rangeGameobjects[i].transform.position.z);
                                 grid.SetGrid(Vector2Int.RoundToInt(rangePos), (int)curBuilding);
                             }
+                            foreach (var item in buildingGameObject)
+                            {
+                                item.transform.rotation = Quaternion.Euler(new Vector3(0, curRotate * 90f, 0));
+                            }
                             juping = false;
                             RemoveRanges();
-                            buildingMode = false;
+                            ChangeMode(ref buildingMode, false);
                         }
                         
                         break;
@@ -319,24 +372,17 @@ public class GridManager : MonoSingleton<GridManager>
             }
             
 
-            if(Input.GetMouseButtonDown(1)){
+            if(Input.GetMouseButtonDown(1)){ // 짓는중에 취소할때
                 curBuildingName.TurnOnOffGroup(false);
-                buildingMode = false;
+                ChangeMode(ref buildingMode, false);
                 juping = false;
                 RemoveBuildings();
                 RemoveRanges();
             }
 
-            if(Input.GetKeyDown(KeyCode.F)){
-                curBuildingName.TurnOnOffGroup(false);
-                buildingMode = false;
-                juping = false;
-                RemoveBuildings();
-                RemoveRanges();
-                disassemblyMode = true;
-            }
+            
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f ) // forward
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f ) // 오른쪽으로 회전
             {
                 curRotate++;
                 for (int i = 0; i < ranges.Count; i++)
@@ -410,19 +456,20 @@ public class GridManager : MonoSingleton<GridManager>
         RemoveBuildings();
         RemoveRanges();
         GetRanges(building);
-        buildingMode = true;
-        disassemblyMode = false;
+        ChangeMode(ref buildingMode);
+        vignettingEffect.StartEffect(disassemblyMode);
         juping = false;
         curBuilding = (BuildingType)building;
 
+
         curBuildingName.TurnOnOffGroup(true, curBuilding.ToString());
-        buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
 
         Building createdBuilding = PoolManager.GetItem<Building>(curBuilding.ToString());
         if(!createdBuilding.canJupe && buildMode == BuildMode.Jupe)
         {
             buildMode = BuildMode.Single;
         } 
+        buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
 
         buildingGameObject.Add(createdBuilding.gameObject);
     }

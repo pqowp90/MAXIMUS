@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -6,18 +6,18 @@ using UnityEngine.Rendering.Universal;
 
 public class CameraCtrl : MonoBehaviour
 {
-    [Header("Ä«¸Ş¶ó ±âº»¼Ó¼º")]
-    private Transform _camTransform = null; //Ä«¸Ş¶ó Ä³½ÌÁØºñ
+    [Header("ì¹´ë©”ë¼ ê¸°ë³¸ì†ì„±")]
+    private Transform _camTransform = null; //ì¹´ë©”ë¼ ìºì‹±ì¤€ë¹„
     public GameObject objTarget = null;
     private Transform _objTargetTransform = null;
     [SerializeField]
     private Transform _lookObj = null;
 
-    [Header("3ÀÎÄª Ä«¸Ş¶ó")]
-    //¶³¾îÁø °Å¸®
+    [Header("3ì¸ì¹­ ì¹´ë©”ë¼")]
+    //ë–¨ì–´ì§„ ê±°ë¦¬
     public float distance = 6.0f;
 
-    //Ãß°¡µÈ ³ôÀÌ
+    //ì¶”ê°€ëœ ë†’ì´
     public float height = 1.75f;
 
     public float heightDamp = 2.0f;
@@ -50,7 +50,7 @@ public class CameraCtrl : MonoBehaviour
     }
 
     /// <summary>
-    /// 3ÀÎÄª Ä«¸Ş¶ó
+    /// 3ì¸ì¹­ ì¹´ë©”ë¼
     /// </summary>
     void ThirdCamera()
     {
@@ -65,12 +65,12 @@ public class CameraCtrl : MonoBehaviour
 
         _nowHeight = Mathf.Lerp(_nowHeight, _objHeight, heightDamp * Time.deltaTime);
 
-        //À¯´ÏÆ¼°¡ eulerÀ» ¸ø ÀĞÀ¸´Ï quaternionÀ¸·Î º¯È¯
+        //ìœ ë‹ˆí‹°ê°€ eulerì„ ëª» ì½ìœ¼ë‹ˆ quaternionìœ¼ë¡œ ë³€í™˜
         Quaternion _nowRotation = Quaternion.Euler(0f, _nowRotationAngle, 0f);
 
         _camTransform.position = _objTargetTransform.position;
-        //_nowRotation * Vector3.forward: ¹æÇâ¹éÅÍ
-        // ¹æÇâ¹éÅÍ¶û °Å¸®¶û °öÇÑ ÈÄ »©´Ï±î °Å¸®¸¸Å­ µÚ·Î°¨
+        //_nowRotation * Vector3.forward: ë°©í–¥ë°±í„°
+        // ë°©í–¥ë°±í„°ë‘ ê±°ë¦¬ë‘ ê³±í•œ í›„ ë¹¼ë‹ˆê¹Œ ê±°ë¦¬ë§Œí¼ ë’¤ë¡œê°
         _camTransform.position -= _nowRotation * Vector3.forward * distance;
 
         _camTransform.position = new Vector3(_camTransform.position.x, _nowHeight, _camTransform.position.z);
@@ -80,27 +80,27 @@ public class CameraCtrl : MonoBehaviour
 
     private void RotateCamera()
     {
-        //¸¶¿ì½º x,y Ãà °ª °¡Á®¿À±â
+        //ë§ˆìš°ìŠ¤ x,y ì¶• ê°’ ê°€ì ¸ì˜¤ê¸°
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
         float rotationX;
         float rotationY;
 
-        //Ä«¸Ş¶óÀÇ y°¢µµ¿¡ ¸¶¿ì½º(¸¶¿ì½º * µğÅ×ÀÏ)°ª¸¸Å­ ¿òÁ÷ÀÎ´Ù. 
-        //¸¶¿ì½º¸¦ ¿òÁ÷ÀÌÁö ¾Ê¾Ò´Ù¸é 0ÀÌ´Ù.
+        //ì¹´ë©”ë¼ì˜ yê°ë„ì— ë§ˆìš°ìŠ¤(ë§ˆìš°ìŠ¤ * ë””í…Œì¼)ê°’ë§Œí¼ ì›€ì§ì¸ë‹¤. 
+        //ë§ˆìš°ìŠ¤ë¥¼ ì›€ì§ì´ì§€ ì•Šì•˜ë‹¤ë©´ 0ì´ë‹¤.
         rotationX = _objTargetTransform.localEulerAngles.y + mouseX * 0.5f;
 
-        //¸¶ÀÌ³Ê½º °¢µµ¸¦ Á¶ÀıÇÏ±â À§ÇØ °¢µµ¸¦ Á¶ÀıÇØÁØ´Ù.
-        //°¢µµ Á¶ÀıÀ» ¾ÈÇØÁÖ¸é ¸¶ÀÌ³Ê½º·Î °¢µµ°¡ ¹Ù²î´Â ¼ø°£ Æ¢´Â °ÍÀ» È®ÀÎ ÇÒ ¼ö ÀÖ´Ù.
+        //ë§ˆì´ë„ˆìŠ¤ ê°ë„ë¥¼ ì¡°ì ˆí•˜ê¸° ìœ„í•´ ê°ë„ë¥¼ ì¡°ì ˆí•´ì¤€ë‹¤.
+        //ê°ë„ ì¡°ì ˆì„ ì•ˆí•´ì£¼ë©´ ë§ˆì´ë„ˆìŠ¤ë¡œ ê°ë„ê°€ ë°”ë€ŒëŠ” ìˆœê°„ íŠ€ëŠ” ê²ƒì„ í™•ì¸ í•  ìˆ˜ ìˆë‹¤.
         rotationX = (rotationX > 180.0f) ? rotationX - 360.0f : rotationX;
 
-        //ÇöÀç y°ª¿¡ ¸¶¿ì½º°¡ ¿òÁ÷ÀÎ °ª(¸¶¿ì½º + µğÅ×ÀÏ)¸¸Å­ ´õÇØÁØ´Ù.
+        //í˜„ì¬ yê°’ì— ë§ˆìš°ìŠ¤ê°€ ì›€ì§ì¸ ê°’(ë§ˆìš°ìŠ¤ + ë””í…Œì¼)ë§Œí¼ ë”í•´ì¤€ë‹¤.
         rotationY = mouseY * 0.5f;
-        //¿ª½Ã ¸¶ÀÌ³Ê½º °¢µµ Á¶ÀıÀ» ÇÏ±â À§ÇØ 
+        //ì—­ì‹œ ë§ˆì´ë„ˆìŠ¤ ê°ë„ ì¡°ì ˆì„ í•˜ê¸° ìœ„í•´ 
         rotationY = (rotationY > 180.0f) ? rotationY - 360.0f : rotationY;
 
-        //¸¶¿ì½ºÀÇ x,yÃàÀÌ ½ÇÁ¦ x,yÃà°ú ¹İ´ë¿©¼­ ¹İ´ë·Î Vector¸¦ ¸¸µé¾î ÁØ´Ù.
+        //ë§ˆìš°ìŠ¤ì˜ x,yì¶•ì´ ì‹¤ì œ x,yì¶•ê³¼ ë°˜ëŒ€ì—¬ì„œ ë°˜ëŒ€ë¡œ Vectorë¥¼ ë§Œë“¤ì–´ ì¤€ë‹¤.
         _objTargetTransform.localEulerAngles = new Vector3(-rotationY, rotationX, 0f);
     }
 }

@@ -22,8 +22,10 @@ namespace KBluePurple.Wave
             _enemies = new WaveEnemy[enemyCount];
 
             _enemies[0] = new WaveEnemy(0);
-
-            for (var i = 1; i < enemyCount; i++) _enemies[i] = new WaveEnemy(i);
+            for (var i = 1; i < enemyCount; i++)
+            {
+                _enemies[i] = new WaveEnemy(i);
+            }
 
             _enemies[0].Ratio = 1 - _enemies[1..].Sum(x => x.Ratio);
         }
@@ -44,18 +46,24 @@ namespace KBluePurple.Wave
 
         public WaveEnemy GetEnemy()
         {
-            var random = Random.Range(0f, 1f);
+            return _enemies[Random.Range(0, EnemyDataContainer.Instance.enemyData.Length)];
+
+            /*var random = Random.Range(0f, 2f);
             var sum = 0f;
 
             EnemyCount--;
 
+
             for (var i = 0; i < EnemyCount; i++)
             {
                 sum += _enemies[i].Ratio;
-                if (random <= sum) return _enemies[i];
+                if (random <= sum)
+                {
+                    return _enemies[i];
+                }
             }
 
-            return _enemies[0];
+            return _enemies[0];*/
         }
     }
 }

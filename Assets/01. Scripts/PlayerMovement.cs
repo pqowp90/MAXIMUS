@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float groundDrag;
 
+    [SerializeField]
+    private float runMultiplier = 1.5f;
     public float jumpForce;
     public float jumpCooldown;
     public float airMultiplier;
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
     public KeyCode jumpKey = KeyCode.Space;
+    public KeyCode runKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
     public float playerHeight;
@@ -53,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
+        grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, whatIsGround);
 
         MyInput();
         SpeedControl();
@@ -74,24 +77,50 @@ public class PlayerMovement : MonoBehaviour
     {
         MovePlayer();
     }
-
+    private float realHorizontalInput;
+    private float realVerticalInput;
+    [SerializeField]
+    private float moveAnimationDamp = 5f;
+    private float realRun;
+    [SerializeField]
+    private float runAnimationDamp = 10f;
+    
     private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("x", horizontalInput);
-        animator.SetFloat("y", verticalInput);
+        realHorizontalInput = Mathf.Lerp(realHorizontalInput, horizontalInput, Time.deltaTime * moveAnimationDamp);
+        realVerticalInput = Mathf.Lerp(realVerticalInput, verticalInput, Time.deltaTime * moveAnimationDamp);
+
+        animator.SetFloat("x", realHorizontalInput * realRun);
+        animator.SetFloat("y", realVerticalInput * realRun);
 
         // when to jump
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        // if (Input.GetKeyDown(jumpKey) && readyToJump && grounded) // 아니 누가 점프에 쿨다운을 넣어 이것땜에 점프 씹힘
+        // {
+        //     readyToJump = false;
+
+        //     Jump();
+
+        //     Invoke(nameof(ResetJump), jumpCooldown);
+        // }
+        if (Input.GetKeyDown(jumpKey) && grounded)
         {
-            readyToJump = false;
 
             Jump();
 
-            Invoke(nameof(ResetJump), jumpCooldown);
         }
+
+        if (Input.GetKey(runKey) && grounded)
+        {
+            realRun = Mathf.Lerp(realRun, 2, Time.deltaTime * runAnimationDamp);
+        }
+        else
+        {
+            realRun = Mathf.Lerp(realRun, 1, Time.deltaTime * runAnimationDamp);
+        }
+        
     }
 
     private void MovePlayer()
@@ -99,24 +128,26 @@ public class PlayerMovement : MonoBehaviour
         // calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
-        if(moveDirection == Vector3.zero)
-        {
-            if(animator.GetBool("Walk") == true)
-                animator.SetBool("Walk", false);
-        }
-        else
-        {
-            if (animator.GetBool("Walk") == false)
-                animator.SetBool("Walk", true);
-        }
+        animator.SetBool("Walk", (moveDirection != Vector3.zero));
 
+        // if(moveDirection == Vector3.zero) // 어차피 겟불하면 검색을 한번 해버려서 그냥 연산 안하고 넣어주는게 빠름
+        // {
+        //     if(animator.GetBool("Walk") == true)
+        //         animator.SetBool("Walk", false);
+        // }
+        // else
+        // {
+        //     if (animator.GetBool("Walk") == false)
+        //         animator.SetBool("Walk", true);
+        // }
+        animator.SetBool("IsGround", grounded);
         // on ground
         if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * (runMultiplier * realRun) * 10f, ForceMode.Force);
 
         // in air
         else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(moveDirection.normalized * moveSpeed * (runMultiplier * realRun) * 10f * airMultiplier, ForceMode.Force);
     }
 
     private void SpeedControl()
@@ -133,13 +164,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        animator.SetTrigger("Jump");
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
+
     private void ResetJump()
     {
         readyToJump = true;
     }
+
+
 }

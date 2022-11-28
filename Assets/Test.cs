@@ -20,7 +20,8 @@ public class Test : MonoBehaviour
     [ContextMenu("컨베이어벨트에 삽입")]
     public void TestFuck()
     {
-        conveyorBelt.item = ItemManager.Instance.DropItem(Vector3.zero, 0);
+        conveyorBelt.Item = ItemManager.Instance.DropItem(Vector3.zero, 0);
+        
         
     }
 }

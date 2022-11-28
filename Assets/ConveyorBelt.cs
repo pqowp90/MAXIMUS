@@ -5,7 +5,8 @@ using UnityEngine;
 public class ConveyorBelt : MonoBehaviour
 {
     public int rotation;
-    public DropItem item;
+    private DropItem item;
+    public DropItem Item{set{item = value; item?.OffRb(true);}get{return item;}}
     public Vector2Int pos;
     public int GroupID;
     public ConveyorBelt nextConveyorBelt;

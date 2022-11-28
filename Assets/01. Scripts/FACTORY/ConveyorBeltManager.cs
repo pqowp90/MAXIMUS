@@ -95,11 +95,11 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
     {
         foreach (var item in conveyorBelt.beforeConveyorBelts)
         {
-            if(conveyorBelt.item == null)
+            if(conveyorBelt.Item == null)
             {
-                var temp = item.item;
-                item.item = null;
-                conveyorBelt.item = temp;
+                var temp = item.Item;
+                item.Item = null;
+                conveyorBelt.Item = temp;
             }
             RecursiveSearch(item);
         }

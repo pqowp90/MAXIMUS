@@ -41,6 +41,7 @@ public class CameraCtrl : MonoBehaviour
         {
             _objTargetTransform = objTarget.transform;
         }
+        camTransform = _camTransform.position;
     }
 
     private void LateUpdate()
@@ -56,6 +57,9 @@ public class CameraCtrl : MonoBehaviour
         }
     }
 
+    private float _nowDistance;
+    private Vector3 camTransform;
+
     /// <summary>
     /// 3인칭 카메라
     /// </summary>
@@ -63,7 +67,7 @@ public class CameraCtrl : MonoBehaviour
     {
         height = Mathf.Clamp(height, heightMinLemit, heightMaxLemit);
 
-        Vector3 cameraPos = _camTransform.position;
+        Vector3 cameraPos = camTransform;
         Vector3 targetPos = _lookObj.position;
 
         float _objTargetRotationAngle = _lookObj.eulerAngles.y;
@@ -71,31 +75,38 @@ public class CameraCtrl : MonoBehaviour
 
         float _nowRotationAngle = _camTransform.eulerAngles.y;
         float _nowHeight = cameraPos.y;
+        
 
         _nowRotationAngle = Mathf.LerpAngle(_nowRotationAngle, _objTargetRotationAngle, rotateDamp * Time.deltaTime);
+        //_nowRotationAngle = _objTargetRotationAngle;
 
-        _nowHeight = Mathf.Lerp(_nowHeight, _objHeight, heightDamp * Time.deltaTime);
+        _nowHeight = Mathf.Lerp(_nowHeight, _objHeight, rotateDamp * Time.deltaTime);
+        //_nowHeight = _objHeight;
+        
+        _nowDistance = Mathf.Clamp((distance - height * 0.1f), 0f, 100f);
 
         //유니티가 euler을 못 읽으니 quaternion으로 변환
         Quaternion _nowRotation = Quaternion.Euler(0f, _nowRotationAngle, 0f);
 
-        cameraPos = targetPos - _nowRotation * Vector3.forward * Mathf.Clamp((distance - height * 0.5f), 0f, 100f);
+        cameraPos = targetPos - _nowRotation * Vector3.forward * _nowDistance;
         //_nowRotation * Vector3.forward: 방향백터
         // 방향백터랑 거리랑 곱한 후 빼니까 거리만큼 뒤로감
 
         cameraPos = new Vector3(cameraPos.x, _nowHeight, cameraPos.z);
+        camTransform = cameraPos;
+        camTransform = Vector3.Lerp(camTransform, cameraPos, heightDamp * Time.deltaTime);
 
         RaycastHit raycastHit;
         if(Physics.Linecast(targetPos, cameraPos, out raycastHit, whatIsGround))
         {
             cameraPos = raycastHit.point;
+            cameraPos = Vector3.Lerp(targetPos, raycastHit.point, 0.9f);
         }
         Debug.DrawLine(targetPos, cameraPos, Color.red, 0.1f);
         //_objTargetTransform.position + new Vector3(0f, 1f, 0f)
         //raycastHit.point
 
-        //cameraPos = Vector3.Lerp(_objTargetTransform.position + new Vector3(0f, 0.5f, 0f), cameraPos, 0.9f);
-
+        
 
         _camTransform.position = cameraPos;
 
@@ -120,7 +131,7 @@ public class CameraCtrl : MonoBehaviour
         rotationX = (rotationX > 180.0f) ? rotationX - 360.0f : rotationX;
 
         //현재 y값에 마우스가 움직인 값(마우스 + 디테일)만큼 더해준다.
-        rotationY = height + -mouseY * 0.2f;
+        rotationY = height + -mouseY * 0.1f;
 
         //역시 마이너스 각도 조절을 하기 위해 
         rotationY = (rotationY > 180.0f) ? rotationY - 360.0f : rotationY;

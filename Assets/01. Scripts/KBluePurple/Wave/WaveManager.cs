@@ -7,13 +7,16 @@ namespace KBluePurple.Wave
     public class WaveManager : MonoSingleton<WaveManager>
     {
         [SerializeField] private float radius = 10f;
-        [SerializeField] private Vector2 waveSize = new(5f, 1f);
+        [SerializeField] private Vector3 waveSize = new(5f, 1f, 5f);
 
         [SerializeField] private float timer;
         [SerializeField] private float nextSpawnTime;
         [SerializeField] private bool isBloodMoon;
         [SerializeField] private bool isWaveProgressing;
 
+        [SerializeField] private Transform player;
+        [SerializeField] private LayerMask _groundLayer;
+         
         private readonly WaveRange[] _waveRanges = { new(), new(), new(), new() };
         public Action<EnemySpawnArgs> OnEnemySpawn = args => { };
         public Action<WaveEndArgs> OnWaveEnd = args => { };
@@ -42,26 +45,26 @@ namespace KBluePurple.Wave
 
             foreach (var waveRange in WaveRanges)
             {
-                var position = transform.position;
+                var position = player.position;
 
                 Gizmos.color = Color.white;
                 Gizmos.DrawLine(position, new Vector3(waveRange.position.x, waveRange.position.y, position.z));
                 Gizmos.color = Color.yellow;
-                Gizmos.DrawWireCube(new Vector3(waveRange.position.x, waveRange.position.y),
-                    new Vector3(waveRange.size.x, waveRange.size.y));
+                Gizmos.DrawWireCube(new Vector3(waveRange.position.x, waveRange.position.y, waveRange.position.z),
+                    new Vector3(waveRange.size.x, waveRange.size.y, waveRange.size.z));
             }
         }
 
         private WaveRange[] UpdateWaveRange()
         {
-            var position = transform.position;
+            var position = player.position;
 
-            _waveRanges[0].position = position + Vector3.up * radius;
+            _waveRanges[0].position = position + Vector3.forward * radius;
             _waveRanges[0].size = waveSize;
-            _waveRanges[1].position = position + Vector3.down * radius;
+            _waveRanges[1].position = position + Vector3.back * radius;
             _waveRanges[1].size = waveSize;
 
-            var reversed = new Vector2(waveSize.y, waveSize.x);
+            var reversed = new Vector3(waveSize.z, waveSize.y, waveSize.x);
             _waveRanges[2].position = position + Vector3.left * radius;
             _waveRanges[2].size = reversed;
             _waveRanges[3].position = position + Vector3.right * radius;
@@ -106,12 +109,17 @@ namespace KBluePurple.Wave
         private void SpawnEnemy()
         {
             var waveRange = CurrentWave.SpawnRanges[Random.Range(0, CurrentWave.SpawnRanges.Length)];
-            var position = new Vector2(
+            var position = new Vector3(
                 Random.Range(waveRange.position.x - waveRange.size.x / 2f,
                     waveRange.position.x + waveRange.size.x / 2f),
-                Random.Range(waveRange.position.y - waveRange.size.y / 2f,
-                    waveRange.position.y + waveRange.size.y / 2f)
+                100f,
+                Random.Range(waveRange.position.z - waveRange.size.z / 2f,
+                    waveRange.position.z + waveRange.size.z / 2f)
             );
+
+            RaycastHit hit;
+            Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity, _groundLayer);
+            position = new Vector3(position.x, hit.point.y + 0.5f, position.z);
 
             OnEnemySpawn?.Invoke(new EnemySpawnArgs(CurrentWave.GetEnemy(), position));
         }

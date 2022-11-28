@@ -4,16 +4,16 @@ namespace KBluePurple.Wave
 {
     public class WaveRange
     {
-        public Vector2 position;
-        public Vector2 size;
+        public Vector3 position;
+        public Vector3 size;
 
         public WaveRange()
         {
-            position = Vector2.zero;
-            size = Vector2.zero;
+            position = Vector3.zero;
+            size = Vector3.zero;
         }
 
-        public WaveRange(Vector2 position, Vector2 size)
+        public WaveRange(Vector3 position, Vector3 size)
         {
             this.position = position;
             this.size = size;

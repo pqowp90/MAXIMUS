@@ -12,7 +12,7 @@ namespace KBluePurple.Wave
         [SerializeField] private float distance;
         [SerializeField] private float maxDistance;
 
-        [SerializeField] private Vector2 targetPosition = Vector2.zero;
+        [SerializeField] private Vector3 targetPosition = Vector3.zero;
         [SerializeField] private Entity target;
 
         [SerializeField] private EntityType targetEnemyTypes;
@@ -72,7 +72,7 @@ namespace KBluePurple.Wave
             foreach (var entity in EntityManager.Instance.Entities)
             {
                 if (entity.Type != EntityType.Player && entity.Type != EntityType.Structure) continue;
-                var closestDistance = Vector2.Distance(entity.transform.position, transform.position);
+                var closestDistance = Vector3.Distance(entity.transform.position, transform.position);
 
                 if (!(closestDistance < closeDistance)) continue;
                 closeDistance = closestDistance;
@@ -87,9 +87,9 @@ namespace KBluePurple.Wave
         {
             if (target == null) FindTarget();
 
-            if (Vector2.Distance(transform.position, targetPosition) >= maxDistance)
+            if (Vector3.Distance(transform.position, targetPosition) >= maxDistance)
                 transform.position =
-                    Vector2.MoveTowards(transform.position, targetPosition, Data.speed * Time.deltaTime);
+                    Vector3.MoveTowards(transform.position, targetPosition, Data.speed * Time.deltaTime);
         }
 
         public void AddTarget(EntityType type)

@@ -2,7 +2,7 @@
 
 namespace KBluePurple.Wave
 {
-    public record EnemySpawnArgs(IEnemy Enemy, Vector2 Position);
+    public record EnemySpawnArgs(IEnemy Enemy, Vector3 Position);
 
     public record WaveStartArgs(int Index, bool IsBloodMoon);
 

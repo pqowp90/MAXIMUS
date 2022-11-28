@@ -17,18 +17,18 @@ public enum ITEM_TYPE : int
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Items/Item")]
 public class Item : ScriptableObject
 {
-    [Header("±âº»¼Ó¼º")]
+    [Header("ï¿½âº»ï¿½Ó¼ï¿½")]
     public string item_name = "";
     public int item_ID = -1;
     public ITEM_TYPE item_type = ITEM_TYPE.Item;
     public bool isStackable = false;
     public int amount = 0;
 
-    [Header("ÀÌ¹ÌÁö")]
+    [Header("ï¿½Ì¹ï¿½ï¿½ï¿½")]
     public Material material;
     public Mesh mesh;
 
-    [Header("¼³¸í")]
+    [Header("ï¿½ï¿½ï¿½ï¿½")]
     [TextArea(15, 20)]
     public string explain;
 }

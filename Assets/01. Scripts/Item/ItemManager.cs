@@ -13,16 +13,16 @@ public class ItemManager : MonoSingleton<ItemManager>
 
     [Header("Item Drop")]
     [SerializeField]
-    private GameObject _poolObj;                // Ç®¸µ ¿ÀºêÁ§Æ®°¡ µé¾î°¥ ºÎ¸ð ¿ÀºêÁ§Æ®
+    private GameObject _poolObj;                // Ç®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½î°¥ ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-    public float dropTime = 60.0f;                // ¾ÆÀÌÅÛÀÌ µå¶øµÇ¾îÀÖ´Â ½Ã°£
+    public float dropTime = 60.0f;                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ ï¿½Ã°ï¿½
 
     private void Start()
     {
         PoolManager.CreatePool<DropItem>("DropItem", _poolObj, 50);
     }
 
-    public void DropItem(Vector3 pos, int id = -1)
+    public DropItem DropItem(Vector3 pos, int id = -1)
     {
         Item drop;
         if(id != -1)
@@ -39,6 +39,8 @@ public class ItemManager : MonoSingleton<ItemManager>
         itemObj.meshRenderer.material = itemObj.item.material;
         itemObj.meshFilter.mesh = itemObj.item.mesh;
         itemObj.transform.position = pos + new Vector3(0, 0.5f, 0);
+
+        return itemObj;
     }
 
     public void GetItem(Item item)

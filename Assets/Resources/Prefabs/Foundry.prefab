@@ -16317,6 +16317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a9434df160bd746964bc8c2f14b7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onoff: 0
   range:
   - {x: -2, y: -1}
   - {x: -2, y: 0}
@@ -16332,6 +16333,20 @@ MonoBehaviour:
   - {x: 1, y: 1}
   canJupe: 0
   buildingType: 4
+  renderAndMaterials:
+  - meshRenderer: {fileID: 1550847041633260328}
+    material1: {fileID: 2100000, guid: 764ca85244fe1b84098c95e706e8bd59, type: 2}
+    material2: {fileID: 2100000, guid: 9a6a1f621970ab645bd847bb54e6459a, type: 2}
+  - meshRenderer: {fileID: 1550847041379649729}
+    material1: {fileID: 2100000, guid: 764ca85244fe1b84098c95e706e8bd59, type: 2}
+    material2: {fileID: 2100000, guid: 9a6a1f621970ab645bd847bb54e6459a, type: 2}
+  - meshRenderer: {fileID: 4551917079766292449}
+    material1: {fileID: 2100000, guid: a37021fcd76f6734eb91ccef438471ff, type: 2}
+    material2: {fileID: 2100000, guid: 9a6a1f621970ab645bd847bb54e6459a, type: 2}
+  onOffGameObjects:
+  - {fileID: 1550847040588081509}
+  - {fileID: 1550847040931346597}
+  - {fileID: 1550847040764564089}
 --- !u!1 &1550847041967260774
 GameObject:
   m_ObjectHideFlags: 0

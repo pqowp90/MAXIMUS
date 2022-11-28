@@ -79,7 +79,7 @@ public class CameraCtrl : MonoBehaviour
         //유니티가 euler을 못 읽으니 quaternion으로 변환
         Quaternion _nowRotation = Quaternion.Euler(0f, _nowRotationAngle, 0f);
 
-        cameraPos = targetPos - _nowRotation * Vector3.forward * distance;
+        cameraPos = targetPos - _nowRotation * Vector3.forward * Mathf.Clamp((distance - height * 0.5f), 0f, 100f);
         //_nowRotation * Vector3.forward: 방향백터
         // 방향백터랑 거리랑 곱한 후 빼니까 거리만큼 뒤로감
 

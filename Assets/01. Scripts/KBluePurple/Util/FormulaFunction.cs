@@ -10,7 +10,7 @@ namespace KBluePurple
         public static int EnemyCount()
         {
             // return WaveCount * 2;
-            return 10;
+            return 1;
         }
 
         public static bool IsBloodMoon()

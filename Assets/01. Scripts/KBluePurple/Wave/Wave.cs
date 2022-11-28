@@ -46,6 +46,7 @@ namespace KBluePurple.Wave
 
         public WaveEnemy GetEnemy()
         {
+            EnemyCount--;
             return _enemies[Random.Range(0, EnemyDataContainer.Instance.enemyData.Length)];
 
             /*var random = Random.Range(0f, 2f);

@@ -192,6 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1325999597838153958}
   - component: {fileID: 7174116353680775469}
+  - component: {fileID: 8685199386319511805}
   m_Layer: 8
   m_Name: ConveyorBelt
   m_TagString: Untagged
@@ -227,7 +228,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a9434df160bd746964bc8c2f14b7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onoff: 0
   range:
   - {x: 0, y: 0}
   canJupe: 1
   buildingType: 0
+  renderAndMaterials: []
+  onOffGameObjects: []
+  curPos: {x: 0, y: 0}
+  curRotation: 0
+--- !u!114 &8685199386319511805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4330445045157808150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 731247abe54ff984492ce10b2087b5c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  conveyorBelt: {fileID: 0}

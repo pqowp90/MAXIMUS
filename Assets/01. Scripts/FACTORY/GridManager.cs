@@ -180,7 +180,10 @@ public class GridManager : MonoSingleton<GridManager>
             if(Input.GetMouseButtonDown(0)) // 건물을 파괴
             {
                 building.gameObject.SetActive(false);
-                for (int i = 0; i < vector2Ints.Count; i++) 
+
+                ConveyorBeltManager.Instance.DestroyBelt(building.GetComponent<ConveyorBelt>());
+
+                for (int i = 0; i < vector2Ints.Count; i++)
                 {
                     grid.SetGrid(new Vector2Int(Mathf.RoundToInt(vector2Ints[i].x) + (int)building.transform.position.x, Mathf.RoundToInt(vector2Ints[i].y) + (int)building.transform.position.z), 0);
                 }
@@ -324,7 +327,6 @@ public class GridManager : MonoSingleton<GridManager>
                     switch(buildMode)
                     {
                         case BuildMode.Single:
-                        RemoveRanges();
                         ChangeMode(ref buildingMode, false);
 
                         for (int i = 0; i < vector2Ints.Count; i++)
@@ -333,6 +335,7 @@ public class GridManager : MonoSingleton<GridManager>
                         }
                         if(buildingGameObject.Count>0){
                             buildingGameObject[0].transform.position = new Vector3(pos.x, 0, pos.y);
+                            
                         }
                             
                         foreach (var item in buildingGameObject)
@@ -340,6 +343,16 @@ public class GridManager : MonoSingleton<GridManager>
                             item.transform.rotation = Quaternion.Euler(new Vector3(0, realCurRotate * 90f, 0));
                         }
 
+                        foreach (var item in buildingGameObject)
+                        {
+                            Vector2 rangePos = new Vector2(item.transform.position.x, item.transform.position.z);
+                            Building _building = item.GetComponent<Building>();
+                            _building.curRotation = curRotate;
+                            _building.curPos = Vector2Int.RoundToInt(rangePos);
+                            _building.SetConveyor();
+                        }
+
+                        RemoveRanges();
                         break;
                         case BuildMode.Jupe:
                         if(juping == false)
@@ -353,10 +366,23 @@ public class GridManager : MonoSingleton<GridManager>
                             {
                                 Vector2 rangePos = new Vector2(rangeGameobjects[i].transform.position.x, rangeGameobjects[i].transform.position.z);
                                 grid.SetGrid(Vector2Int.RoundToInt(rangePos), (int)curBuilding);
+                                //buildingGameObject[i].GetComponent<Building>().curPos = Vector2Int.RoundToInt(rangePos);
                             }
                             foreach (var item in buildingGameObject)
                             {
                                 item.transform.rotation = Quaternion.Euler(new Vector3(0, curRotate * 90f, 0));
+                                
+
+                            }
+                            
+
+                            foreach (var item in buildingGameObject)
+                            {
+                                Vector2 rangePos = new Vector2(item.transform.position.x, item.transform.position.z);
+                                Building _building = item.GetComponent<Building>();
+                                _building.curRotation = curRotate;
+                                _building.curPos = Vector2Int.RoundToInt(rangePos);
+                                _building.SetConveyor();
                             }
                             juping = false;
                             RemoveRanges();
@@ -365,6 +391,8 @@ public class GridManager : MonoSingleton<GridManager>
                         
                         break;
                     }
+                    
+
 
 
 

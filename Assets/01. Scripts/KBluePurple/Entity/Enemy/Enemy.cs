@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 namespace KBluePurple.Wave
 {
@@ -19,7 +20,8 @@ namespace KBluePurple.Wave
 
         [field: SerializeField] public float Health { get; set; }
 
-        private SpriteRenderer _spriteRenderer;
+        private MeshRenderer _meshRenderer;
+        private Rigidbody _rigidbody;
 
         private Transform _transform;
 
@@ -28,7 +30,8 @@ namespace KBluePurple.Wave
         private void Awake()
         {
             Type = EntityType.Enemy;
-            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _rigidbody = GetComponent<Rigidbody>();
             _transform = transform;
         }
 
@@ -39,13 +42,7 @@ namespace KBluePurple.Wave
         }
 
         private void Update()
-        {
-            var position = _transform.position;
-
-            //var hit = Physics2D.Raycast(position, targetPosition - (Vector2)position, 0.3f, enemyLayerMask);
-            //if (hit.collider) return;
-
-            FindTarget();
+        {   FindTarget();
             Move();
         }
 
@@ -62,7 +59,7 @@ namespace KBluePurple.Wave
             Data = EnemyDataContainer.Instance.Cache[enemy.EnemyType];
             EnemyType = Data.type;
             Health = Data.health;
-            _spriteRenderer.sprite = Data.sprite;
+            _meshRenderer.material = Data.meterial;
         }
 
         private void FindTarget()

@@ -6,11 +6,11 @@ namespace KBluePurple.Wave
 {
     public class Entity : MonoBehaviour, IEntity
     {
-        public Collider2D Collider { get; private set; }
+        public Collider Collider { get; private set; }
 
         private void Awake()
         {
-            Collider = GetComponent<Collider2D>();
+            Collider = GetComponent<Collider>();
             SceneManager.sceneUnloaded += OnSceneUnloaded;
             SceneManager.sceneLoaded += OnSceneLoaded;
         }

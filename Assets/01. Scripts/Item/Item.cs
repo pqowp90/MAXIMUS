@@ -7,28 +7,24 @@ public enum ITEM_TYPE : int
 {
     Item,
     Potion,
-    Helmet,
-    Body,
-    Patns,
-    Botts,
     Gun
 }
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Items/Item")]
 public class Item : ScriptableObject
 {
-    [Header("�⺻�Ӽ�")]
+    [Header("아이템 정보")]
     public string item_name = "";
     public int item_ID = -1;
     public ITEM_TYPE item_type = ITEM_TYPE.Item;
     public bool isStackable = false;
     public int amount = 0;
 
-    [Header("�̹���")]
+    [Header("텍스쳐")]
     public Material material;
     public Mesh mesh;
 
-    [Header("����")]
+    [Header("설명")]
     [TextArea(15, 20)]
     public string explain;
 }

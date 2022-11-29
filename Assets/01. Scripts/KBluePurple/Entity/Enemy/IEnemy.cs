@@ -1,7 +1,4 @@
-﻿namespace KBluePurple.Wave
+﻿public interface IEnemy
 {
-    public interface IEnemy
-    {
-        public int EnemyType { get; }
-    }
+    public int EnemyType { get; }
 }

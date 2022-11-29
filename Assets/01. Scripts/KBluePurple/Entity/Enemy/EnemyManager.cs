@@ -3,69 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace KBluePurple.Wave
+// TODO: 적 매니저 ( 나중에 만들던가 말던가 )
+public class EnemyManager : MonoSingleton<EnemyManager>
 {
-    // TODO: 적 매니저 ( 나중에 만들던가 말던가 )
-    public class EnemyManager : MonoSingleton<EnemyManager>
+    public GameObject enemyPrefab;
+    public Transform enemyParent;
+    public List<Enemy> Enemies = new();
+
+    [SerializeField] private GameObject chestPrefab;
+
+    public int EnemyCount => Enemies.Count;
+
+    private void Start()
     {
-        public GameObject enemyPrefab;
-        public Transform enemyParent;
-        public List<Enemy> Enemies = new();
+        WaveManager.Instance.OnEnemySpawn += OnEnemySpawn;
+        WaveManager.Instance.OnWaveEnd += OnWaveEnd;
+    }
 
-        [SerializeField] private GameObject chestPrefab;
+    // 적 한번에 모두 처치 ( 디버그용 )
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         var enemies = new Enemy[Enemies.Count];
+    //         Enemies.CopyTo(enemies);
+    //         foreach (var enemy in enemies)
+    //         {
+    //             enemy.TakeDamage(100);
+    //         }
+    //     }
+    // }
 
-        public int EnemyCount => Enemies.Count;
+    private void OnWaveEnd(WaveEndArgs e)
+    {
+    }
 
-        private void Start()
-        {
-            WaveManager.Instance.OnEnemySpawn += OnEnemySpawn;
-            WaveManager.Instance.OnWaveEnd += OnWaveEnd;
-        }
+    private void OnEnemySpawn(EnemySpawnArgs e)
+    {
+        SpawnEnemy(e.Enemy, e.Position);
+    }
 
-        // 적 한번에 모두 처치 ( 디버그용 )
-        // private void Update()
-        // {
-        //     if (Input.GetKeyDown(KeyCode.Space))
-        //     {
-        //         var enemies = new Enemy[Enemies.Count];
-        //         Enemies.CopyTo(enemies);
-        //         foreach (var enemy in enemies)
-        //         {
-        //             enemy.TakeDamage(100);
-        //         }
-        //     }
-        // }
+    private void SpawnEnemy(IEnemy enemy, Vector3 position)
+    {
+        var enemyObject = Instantiate(enemyPrefab, position, Quaternion.identity);
+        enemyObject.transform.SetParent(enemyParent);
+        var enemyComponent = enemyObject.GetComponent<Enemy>();
+        enemyComponent.Init(enemy);
+        Enemies.Add(enemyComponent);
+    }
 
-        private void OnWaveEnd(WaveEndArgs e)
-        {
-        }
+    public void DeathEnemy(Enemy enemy)
+    {
+        Enemies.Remove(enemy);
+        Destroy(enemy.gameObject);
+        EntityManager.Instance.UnregisterEntity(enemy);
 
-        private void OnEnemySpawn(EnemySpawnArgs e)
-        {
-            SpawnEnemy(e.Enemy, e.Position);
-        }
+        var chestChance = FormulaFunction.DropChestChance(enemy);
 
-        private void SpawnEnemy(IEnemy enemy, Vector3 position)
-        {
-            var enemyObject = Instantiate(enemyPrefab, position, Quaternion.identity);
-            enemyObject.transform.SetParent(enemyParent);
-            var enemyComponent = enemyObject.GetComponent<Enemy>();
-            enemyComponent.Init(enemy);
-            Enemies.Add(enemyComponent);
-        }
+        if (!(Random.Range(0f, 1f) < chestChance)) return;
 
-        public void DeathEnemy(Enemy enemy)
-        {
-            Enemies.Remove(enemy);
-            Destroy(enemy.gameObject);
-            EntityManager.Instance.UnregisterEntity(enemy);
-
-            var chestChance = FormulaFunction.DropChestChance(enemy);
-
-            if (!(Random.Range(0f, 1f) < chestChance)) return;
-
-            var chest = Instantiate(chestPrefab, enemy.transform.position, Quaternion.identity);
-            chest.transform.SetParent(enemyParent);
-        }
+        var chest = Instantiate(chestPrefab, enemy.transform.position, Quaternion.identity);
+        chest.transform.SetParent(enemyParent);
     }
 }

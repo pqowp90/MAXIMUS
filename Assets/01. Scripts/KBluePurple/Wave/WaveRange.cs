@@ -1,22 +1,18 @@
 ﻿using UnityEngine;
-
-namespace KBluePurple.Wave
+public class WaveRange
 {
-    public class WaveRange
+    public Vector3 position;
+    public Vector3 size;
+
+    public WaveRange()
     {
-        public Vector3 position;
-        public Vector3 size;
+        position = Vector3.zero;
+        size = Vector3.zero;
+    }
 
-        public WaveRange()
-        {
-            position = Vector3.zero;
-            size = Vector3.zero;
-        }
-
-        public WaveRange(Vector3 position, Vector3 size)
-        {
-            this.position = position;
-            this.size = size;
-        }
+    public WaveRange(Vector3 position, Vector3 size)
+    {
+        this.position = position;
+        this.size = size;
     }
 }

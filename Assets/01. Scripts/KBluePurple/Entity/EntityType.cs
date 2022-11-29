@@ -1,14 +1,11 @@
 ﻿using System;
 
-namespace KBluePurple.Wave
+[Flags]
+public enum EntityType
 {
-    [Flags]
-    public enum EntityType
-    {
-        Enemy = 1 << 0,
-        Player = 1 << 1,
-        Structure = 1 << 2,
-        Chest = 1 << 3,
-        All = Enemy | Player | Structure | Chest
-    }
+    Enemy = 1 << 0,
+    Player = 1 << 1,
+    Structure = 1 << 2,
+    Chest = 1 << 3,
+    All = Enemy | Player | Structure | Chest
 }

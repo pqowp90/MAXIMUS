@@ -1,15 +1,12 @@
-﻿namespace KBluePurple.Wave
+﻿public class WaveEnemy : IEnemy
 {
-    public class WaveEnemy : IEnemy
+    public float Ratio;
+
+    public WaveEnemy(int type)
     {
-        public float Ratio;
-
-        public WaveEnemy(int type)
-        {
-            EnemyType = type;
-            Ratio = FormulaFunction.EnemyRatio(type);
-        }
-
-        public int EnemyType { get; set; }
+        EnemyType = type;
+        Ratio = FormulaFunction.EnemyRatio(type);
     }
+
+    public int EnemyType { get; set; }
 }

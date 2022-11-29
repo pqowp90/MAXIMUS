@@ -1,53 +1,49 @@
-﻿using KBluePurple.Wave;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace KBluePurple
+public static class FormulaFunction
 {
-    public static class FormulaFunction
+    private static int WaveCount => WaveManager.Instance.WaveCount;
+
+    public static int EnemyCount()
     {
-        private static int WaveCount => WaveManager.Instance.WaveCount;
+        // return WaveCount * 2;
+        return 1;
+    }
 
-        public static int EnemyCount()
+    public static bool IsBloodMoon()
+    {
+        return false;
+    }
+
+    public static float EnemyRatio(int type)
+    {
+        float EliteEnemy()
         {
-            // return WaveCount * 2;
-            return 1;
+            return 0.1f;
         }
 
-        public static bool IsBloodMoon()
+        return type switch
         {
-            return false;
-        }
+            0 => 0f,
+            1 => EliteEnemy(),
+            _ => 0f
+        };
+    }
 
-        public static float EnemyRatio(int type)
+    public static int DirectionCount()
+    {
+        return Random.Range(1, 3);
+    }
+
+    public static float DropChestChance(IEnemy enemy)
+    {
+        var enemyType = enemy.EnemyType;
+
+        return enemyType switch
         {
-            float EliteEnemy()
-            {
-                return 0.1f;
-            }
-
-            return type switch
-            {
-                0 => 0f,
-                1 => EliteEnemy(),
-                _ => 0f
-            };
-        }
-
-        public static int DirectionCount()
-        {
-            return Random.Range(1, 3);
-        }
-
-        public static float DropChestChance(IEnemy enemy)
-        {
-            var enemyType = enemy.EnemyType;
-
-            return enemyType switch
-            {
-                0 => 0.1f,
-                1 => 0.2f,
-                _ => 0f
-            };
-        }
+            0 => 0.1f,
+            1 => 0.2f,
+            _ => 0f
+        };
     }
 }

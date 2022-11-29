@@ -12,5 +12,5 @@ public class EnemyData : ScriptableObject
     public float speed;
     public float damage;
 
-    public Item[]
+    public DropItemTableSO dropItemTable;
 }

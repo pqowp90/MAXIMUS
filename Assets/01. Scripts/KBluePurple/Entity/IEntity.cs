@@ -1,7 +1,4 @@
-﻿namespace KBluePurple.Wave
+﻿public interface IEntity
 {
-    public interface IEntity
-    {
-        EntityType Type { get; }
-    }
+    EntityType Type { get; }
 }

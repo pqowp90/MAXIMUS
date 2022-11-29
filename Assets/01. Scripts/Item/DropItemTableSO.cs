@@ -13,8 +13,8 @@ public class DropItemInfo
 [CreateAssetMenu(fileName = "Drop Item Table SO", menuName = "Inventory/Items/DropItemTable")]
 public class DropItemTableSO : ScriptableObject
 {
-    public List<DropItemInfo> itemList;
 
+    public List<DropItemInfo> itemList;
     public Item GetDropItem()
     {
         float sum = 0f;

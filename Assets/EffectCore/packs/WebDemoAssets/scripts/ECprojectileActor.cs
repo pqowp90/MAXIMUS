@@ -30,7 +30,7 @@ public class ECprojectileActor : MonoBehaviour {
 
 
     string FauxName;
-    public Text UiText;
+    //public Text UiText;
 
     public bool UImaster = true;
     public bool CameraShake = true;
@@ -56,34 +56,21 @@ public class ECprojectileActor : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        if (UImaster)
-        {
-            UiText.text = bombList[bombType].name.ToString();
-        }
+        //if (UImaster)
+        //{
+        //    UiText.text = bombList[bombType].name.ToString();
+        //}
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Movement
-        if(Input.GetButton("Horizontal"))
-        {
-            if (Input.GetAxis("Horizontal") < 0)
-            {
-                gameObject.transform.Rotate(Vector3.up, -25 * Time.deltaTime);
-            }
-            else
-            {
-                gameObject.transform.Rotate(Vector3.up, 25 * Time.deltaTime);
-            }
-        }
-
         //BULLETS
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Switch(-1);
         }
-        if (Input.GetButtonDown("Fire2") || Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             Switch(1);
         }
@@ -128,7 +115,7 @@ public class ECprojectileActor : MonoBehaviour {
             }
         if (UImaster)
         {
-            UiText.text = bombList[bombType].name.ToString();
+            //UiText.text = bombList[bombType].name.ToString();
         }
     }
 
@@ -136,7 +123,7 @@ public class ECprojectileActor : MonoBehaviour {
     {
         if(CameraShake)
         {
-            CameraShakeCaller.ShakeCamera();
+            CameraShakeCaller?.ShakeCamera();
         }
         Instantiate(bombList[bombType].muzzleflare, spawnLocatorMuzzleFlare.position, spawnLocatorMuzzleFlare.rotation);
         //   bombList[bombType].muzzleflare.Play();
@@ -145,7 +132,7 @@ public class ECprojectileActor : MonoBehaviour {
         {
             Instantiate(bombList[bombType].shellPrefab, shellLocator.position, shellLocator.rotation);
         }
-        recoilAnimator.SetTrigger("recoil_trigger");
+        //recoilAnimator?.SetTrigger("recoil_trigger");
 
         Rigidbody rocketInstance;
         rocketInstance = Instantiate(bombList[bombType].bombPrefab, spawnLocator.position,spawnLocator.rotation) as Rigidbody;

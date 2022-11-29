@@ -32,7 +32,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
             timmer -= tickTime;
             foreach (var item in conveyorBelts)
             {
-                RecursiveSearch(item, item);
+                StartRecursiveSearch(item, item);
             }
         }
     }
@@ -126,18 +126,30 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
             RecursiveSearchID(item);
         }
     }
+    private List<DropItem> dropItems = new List<DropItem>();
+    public void StartRecursiveSearch(ConveyorBelt conveyorBelt, ConveyorBelt firstConveyorBelt)
+    {
+        dropItems.Clear();
+        RecursiveSearch(conveyorBelt, firstConveyorBelt);
+    }
     public void RecursiveSearch(ConveyorBelt conveyorBelt, ConveyorBelt firstConveyorBelt)
     {
         foreach (var item in conveyorBelt.beforeConveyorBelts)
         {
-            if(firstConveyorBelt != item)
+            DropItem dropItem = dropItems.Find(x => x == item.Item);
+            if(dropItem == null)
             {
                 if(conveyorBelt.Item == null)
                 {
+                    dropItems.Add(item.Item);
                     var temp = item.Item;
                     item.Item = null;
                     conveyorBelt.Item = temp;
                 }
+            }
+            if(firstConveyorBelt != item)
+            {
+                
                 RecursiveSearch(item, firstConveyorBelt);
             }
         }

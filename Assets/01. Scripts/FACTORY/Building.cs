@@ -22,8 +22,7 @@ public class Building : MonoBehaviour, IPoolable
     private List<RenderAndMaterial> renderAndMaterials = new List<RenderAndMaterial>();
     [SerializeField]
     private List<GameObject> onOffGameObjects = new List<GameObject>();
-    public Vector2Int curPos;
-    public int curRotation;
+
     private void Awake() 
     {
         string myName = this.gameObject.name;
@@ -31,12 +30,14 @@ public class Building : MonoBehaviour, IPoolable
         buildingType = Enum.Parse<BuildingType>(myName);
         
     }
-    public void SetConveyor()
+    public void SetBuildingType(Vector2Int curPos, int curRotation)
     {
-        if(buildingType == BuildingType.ConveyorBelt)
+        switch(buildingType)
         {
+            case BuildingType.ConveyorBelt:
             ConveyorBelt conveyorBelt = gameObject.AddComponent<ConveyorBelt>();
             ConveyorBeltManager.Instance.AddConveyorBelt(curPos, curRotation, conveyorBelt);
+            break;
         }
     }
     public void OnPool()

@@ -347,9 +347,7 @@ public class GridManager : MonoSingleton<GridManager>
                         {
                             Vector2 rangePos = new Vector2(item.transform.position.x, item.transform.position.z);
                             Building _building = item.GetComponent<Building>();
-                            _building.curRotation = curRotate;
-                            _building.curPos = Vector2Int.RoundToInt(rangePos);
-                            _building.SetConveyor();
+                            _building.SetBuildingType(Vector2Int.RoundToInt(rangePos), curRotate);
                         }
 
                         RemoveRanges();
@@ -380,9 +378,7 @@ public class GridManager : MonoSingleton<GridManager>
                             {
                                 Vector2 rangePos = new Vector2(item.transform.position.x, item.transform.position.z);
                                 Building _building = item.GetComponent<Building>();
-                                _building.curRotation = curRotate;
-                                _building.curPos = Vector2Int.RoundToInt(rangePos);
-                                _building.SetConveyor();
+                                _building.SetBuildingType(Vector2Int.RoundToInt(rangePos), curRotate);
                             }
                             juping = false;
                             RemoveRanges();

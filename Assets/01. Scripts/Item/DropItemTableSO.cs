@@ -3,16 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Drop Item Talbe SO", menuName = "Inventory/Items/DropItemTable")]
+[Serializable]
+public class DropItemInfo
+{
+    public Item item;
+    public float rate;
+}
+
+[CreateAssetMenu(fileName = "Drop Item Table SO", menuName = "Inventory/Items/DropItemTable")]
 public class DropItemTableSO : ScriptableObject
 {
-    [Serializable]
-    public class DropItemInfo
-    {
-        public Item item;
-        public float rate;
-    }
-
     public List<DropItemInfo> itemList;
 
     public Item GetDropItem()

@@ -5,6 +5,8 @@ using UnityEngine;
 public class Test : MonoBehaviour
 {
     [SerializeField]
+    private int id;
+    [SerializeField]
     private ConveyorBelt conveyorBelt;
     // Start is called before the first frame update
     void Start()
@@ -18,10 +20,11 @@ public class Test : MonoBehaviour
         
     }
     [ContextMenu("컨베이어벨트에 삽입")]
-    public void TestFuck()
+    public void TestFunc()
     {
-        conveyorBelt.Item = ItemManager.Instance.DropItem(Vector3.zero, 0);
-        
+        if(!conveyorBelt)
+            conveyorBelt = GetComponent<ConveyorBelt>();
+        conveyorBelt.Item = ItemManager.Instance.DropItem(Vector3.zero, id);
         
     }
 }

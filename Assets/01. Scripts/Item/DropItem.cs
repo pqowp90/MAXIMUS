@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class DropItem : MonoBehaviour
+public class DropItem : MonoBehaviour, IPoolable
 {
     public Item item;
 
@@ -20,10 +20,6 @@ public class DropItem : MonoBehaviour
         rb = GetComponentInChildren<Rigidbody>();
     }
 
-    private void OnEnable()
-    {
-        Invoke("DestroyItem", ItemManager.Instance.dropTime);
-    }
     private void OnDisable() {
         OffRb(false);
     }
@@ -34,9 +30,14 @@ public class DropItem : MonoBehaviour
 
     private void DestroyItem()
     {
-        if(gameObject.activeSelf == true)
+        if(gameObject.activeSelf == true && !rb.isKinematic)
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void OnPool()
+    {
+        Invoke("DestroyItem", ItemManager.Instance.dropTime);
     }
 }

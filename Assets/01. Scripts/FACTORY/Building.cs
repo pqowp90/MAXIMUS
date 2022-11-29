@@ -36,9 +36,6 @@ public class Building : MonoBehaviour, IPoolable
         if(buildingType == BuildingType.ConveyorBelt)
         {
             ConveyorBelt conveyorBelt = gameObject.AddComponent<ConveyorBelt>();
-            Debug.Log(conveyorBelt);
-            Debug.Log(curPos);
-            Debug.Log(curRotation);
             ConveyorBeltManager.Instance.AddConveyorBelt(curPos, curRotation, conveyorBelt);
         }
     }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ConveyorBelt : MonoBehaviour
 {
-    public int rotation;
+    private int rotation;
+    public int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
     private DropItem item;
     public DropItem Item{set{item = value; item?.OffRb(true);}get{return item;}}
     public Vector2Int pos;
@@ -15,6 +16,6 @@ public class ConveyorBelt : MonoBehaviour
     private float itemMoveDamp = 10f;
     private void Update() {
         if(item!=null)
-            item.transform.position = Vector3.Lerp(item.transform.position, transform.position, itemMoveDamp * Time.deltaTime);
+            item.transform.position = Vector3.Lerp(item.transform.position, transform.position + Vector3.up * 0.3f, itemMoveDamp * Time.deltaTime);
     }
 }

@@ -10,6 +10,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
     Dictionary<int, int> conveyorBeltListDictionary = new Dictionary<int, int>();
     [SerializeField]
     List<ConveyorBelt> conveyorBelts = new List<ConveyorBelt>();
+    private int idCount = 1;
 
 
     [SerializeField]
@@ -31,7 +32,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
             timmer -= tickTime;
             foreach (var item in conveyorBelts)
             {
-                RecursiveSearch(item);
+                RecursiveSearch(item, item);
             }
         }
     }
@@ -40,7 +41,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
         conveyorBelts.Remove(conveyorBelt);
         ConveyorBelt getConveyorBelt = null;
 
-        if(conveyorPoss.TryGetValue(conveyorBelt.pos + dir_rotation[conveyorBelt.rotation], out getConveyorBelt))
+        if(conveyorPoss.TryGetValue(conveyorBelt.pos + dir_rotation[conveyorBelt.Rotation], out getConveyorBelt))
         {
             getConveyorBelt.beforeConveyorBelts.Remove(conveyorBelt);
         }
@@ -49,7 +50,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
         {
             if(conveyorPoss.TryGetValue(conveyorBelt.pos + item, out getConveyorBelt))
             {
-                if(dir_rotation[getConveyorBelt.rotation] == -item)// 만약 나를 바라보고 있는 컨베이어 벨트가 있으면
+                if(dir_rotation[getConveyorBelt.Rotation] == -item)// 만약 나를 바라보고 있는 컨베이어 벨트가 있으면
                 {
                     getConveyorBelt.nextConveyorBelt = null;
                     conveyorBelts.Add(getConveyorBelt);
@@ -61,16 +62,19 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
     }
     public void AddConveyorBelt(Vector2Int _pos, int _rotation, ConveyorBelt conveyorBelt)
     {
+        bool imSolo = true;
         conveyorBelt.pos = _pos;
-        conveyorBelt.rotation = _rotation;
+        conveyorBelt.Rotation = _rotation;
         if(conveyorPoss.TryAdd(conveyorBelt.pos, conveyorBelt)){
             ConveyorBelt getConveyorBelt = null;
             // 먼저 자기가 보는 방향의 컨베이어 벨트를 찾고 없으면 자기자신을 마지막 컨베이어 벨트 리스트에 넣는다
-            if(!conveyorPoss.TryGetValue(_pos + dir_rotation[conveyorBelt.rotation], out getConveyorBelt))
+            if(!conveyorPoss.TryGetValue(_pos + dir_rotation[conveyorBelt.Rotation], out getConveyorBelt))
             {
                 conveyorBelts.Add(conveyorBelt);
             }else// 그게 아니면 자신의 앞에있는 벨트의 비폴컨베이어를 자기자신으로 하고 자신의 넥스트를 앞에있는걸로 지정한다
             {
+                imSolo = false;
+                conveyorBelt.GroupID = getConveyorBelt.GroupID;
                 getConveyorBelt.beforeConveyorBelts.Add(conveyorBelt);
                 conveyorBelt.nextConveyorBelt = getConveyorBelt;
                 getConveyorBelt = null;
@@ -79,8 +83,18 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
             foreach (var item in dir_rotation)// 마지막으로 인접한 4방향의 컨베이어 벨트를 찾고
             {
                 if(conveyorPoss.TryGetValue(_pos + item, out getConveyorBelt))
-                    if(dir_rotation[getConveyorBelt.rotation] == -item)// 만약 나를 바라보고 있는 컨베이어 벨트가 있으면
+                    if(dir_rotation[getConveyorBelt.Rotation] == -item)// 만약 나를 바라보고 있는 컨베이어 벨트가 있으면
                     {
+                        if(imSolo)
+                        {
+                            conveyorBelt.GroupID = getConveyorBelt.GroupID;
+                        }
+                        else
+                        {
+                            getConveyorBelt.GroupID = conveyorBelt.GroupID;
+                            RecursiveSearchID(getConveyorBelt);
+                        }
+                        
                         if(getConveyorBelt.nextConveyorBelt == null)// 내가 그것을 막고있으면 마지막 벨트에서 해제한다
                         {
                             conveyorBelts.Remove(getConveyorBelt);
@@ -89,19 +103,43 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
                         conveyorBelt.beforeConveyorBelts.Add(getConveyorBelt);// 내 이전벨트에 추가한다
                     }
             }
+
+            if(imSolo && conveyorBelt.GroupID == 0)
+            {
+                conveyorBelt.GroupID = idCount;
+                idCount++;
+            }
+            List<ConveyorBelt> conveyor = conveyorBelts.FindAll(x => x.GroupID == conveyorBelt.GroupID);
+            if(conveyor.Count == 0)
+            {
+                conveyorBelts.Add(conveyorBelt);
+            }
+
+
         }
     }
-    public void RecursiveSearch(ConveyorBelt conveyorBelt)
+    public void RecursiveSearchID(ConveyorBelt conveyorBelt)
     {
         foreach (var item in conveyorBelt.beforeConveyorBelts)
         {
-            if(conveyorBelt.Item == null)
+            item.GroupID = conveyorBelt.GroupID;
+            RecursiveSearchID(item);
+        }
+    }
+    public void RecursiveSearch(ConveyorBelt conveyorBelt, ConveyorBelt firstConveyorBelt)
+    {
+        foreach (var item in conveyorBelt.beforeConveyorBelts)
+        {
+            if(firstConveyorBelt != item)
             {
-                var temp = item.Item;
-                item.Item = null;
-                conveyorBelt.Item = temp;
+                if(conveyorBelt.Item == null)
+                {
+                    var temp = item.Item;
+                    item.Item = null;
+                    conveyorBelt.Item = temp;
+                }
+                RecursiveSearch(item, firstConveyorBelt);
             }
-            RecursiveSearch(item);
         }
     }
 }

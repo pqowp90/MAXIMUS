@@ -16,7 +16,6 @@ namespace KBluePurple.Wave
 
         [SerializeField] private bool isCycling = true;
         [SerializeField] private Cycle currentCycle = Cycle.Day;
-        [SerializeField] private GameObject Night;
 
         [SerializeField] private float timer;
 
@@ -50,12 +49,10 @@ namespace KBluePurple.Wave
             switch (currentCycle)
             {
                 case Cycle.Day:
-                    Night.SetActive(false);
                     WaveManager.Instance.EndWave(CombatManager.Instance.KillCount, CombatManager.Instance.KillCount);
                     CombatManager.Instance.ResetCount();
                     break;
                 case Cycle.Night:
-                    Night.SetActive(true);
                     WaveManager.Instance.StartWave();
                     break;
                 default:

@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using System;
+using System.Collections;
 
-namespace KBluePurple.Wave
+[CreateAssetMenu(fileName = "EnemyData", menuName = "KBluePurple/Data/EnemyData")]
+public class EnemyData : ScriptableObject
 {
-    [CreateAssetMenu(fileName = "EnemyData", menuName = "KBluePurple/Data/EnemyData")]
-    public class EnemyData : ScriptableObject
-    {
-        public int type;
-        public Sprite sprite;
-        public float health;
-        public float speed;
-        public float damage;
-    }
+    public int type;
+    public Material meterial;
+    public float health;
+    public float speed;
+    public float damage;
+
+    public Item[]
 }

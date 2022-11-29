@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f440dfea16a2e594695f60a8e95fbecc, type: 3}
   m_Name: MonsterDropItemTable
   m_EditorClassIdentifier: 
+  itemList:
+  - item: {fileID: 0}
+    rate: 0

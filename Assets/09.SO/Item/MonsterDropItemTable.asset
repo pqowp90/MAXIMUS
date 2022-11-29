@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16b91bf4b97bb4d4a95715c10d33ef51, type: 3}
-  m_Name: InventorySO
+  m_Script: {fileID: 11500000, guid: f440dfea16a2e594695f60a8e95fbecc, type: 3}
+  m_Name: MonsterDropItemTable
   m_EditorClassIdentifier: 
-  itemList:
-  - {fileID: 11400000, guid: 960e48bcb9e24bc4cabe1527ecdfa6ea, type: 2}

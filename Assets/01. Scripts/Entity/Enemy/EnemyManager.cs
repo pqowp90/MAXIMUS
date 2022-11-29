@@ -56,13 +56,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     {
         Enemies.Remove(enemy);
         Destroy(enemy.gameObject);
+        ItemManager.Instance.DropItem(enemy.transform.position, enemy.Data.dropItemTable.GetDropItem().item_ID);
         EntityManager.Instance.UnregisterEntity(enemy);
-
-        var chestChance = FormulaFunction.DropChestChance(enemy);
-
-        if (!(Random.Range(0f, 1f) < chestChance)) return;
-
-        var chest = Instantiate(chestPrefab, enemy.transform.position, Quaternion.identity);
-        chest.transform.SetParent(enemyParent);
     }
 }

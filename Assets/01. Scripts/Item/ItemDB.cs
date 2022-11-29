@@ -14,4 +14,14 @@ public class ItemDB : ScriptableObject
             itemList[i].item_ID = i;
         }
     }
+
+    [ContextMenu("인벤 초기화")]
+    public void InventoryReset()
+    {
+        foreach(Item item in itemList)
+        {
+            item.amount = 0;
+        }
+        itemList.Clear();
+    }
 }

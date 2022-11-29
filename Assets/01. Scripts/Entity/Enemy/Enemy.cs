@@ -2,8 +2,9 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
 
-public sealed class Enemy : Entity, IEnemy, IDamageable
+public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 {
     [field: SerializeField] public UnityEvent<float> OnDamageTaken { get; set; }
 
@@ -117,5 +118,10 @@ public sealed class Enemy : Entity, IEnemy, IDamageable
     private void Death()
     {
         EnemyManager.Instance.DeathEnemy(this);
+    }
+
+    public void OnPool()
+    {
+        throw new System.NotImplementedException();
     }
 }

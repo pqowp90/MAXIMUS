@@ -57,6 +57,7 @@ public class ItemManager : MonoSingleton<ItemManager>
             }
         }
 
+        item.amount = 1;
         inventorySO.itemList.Add(item);
     }
 }

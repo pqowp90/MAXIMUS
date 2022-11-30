@@ -13,10 +13,13 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
     private int idCount = 1;
 
 
-    [SerializeField]
-    private float tickTime = 1f;
-    [SerializeField]
-    private float timmer = 0f;
+    public void MoveConveyorBelt()
+    {
+        foreach (var item in conveyorBelts)
+        {
+            StartRecursiveSearch(item, item);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -26,15 +29,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
     // Update is called once per frame
     void Update()
     {
-        timmer += Time.deltaTime;
-        if(timmer >= tickTime)
-        {
-            timmer -= tickTime;
-            foreach (var item in conveyorBelts)
-            {
-                StartRecursiveSearch(item, item);
-            }
-        }
+        
     }
     public void DestroyBelt(ConveyorBelt conveyorBelt)
     {

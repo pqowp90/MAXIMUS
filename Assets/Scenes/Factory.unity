@@ -1159,7 +1159,7 @@ MonoBehaviour:
     m_Bits: 64
   buildingLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 2048
   vignettingEffect: {fileID: 0}
 --- !u!4 &464238706
 Transform:

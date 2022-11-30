@@ -35,7 +35,8 @@ public class Building : MonoBehaviour, IPoolable
         switch(buildingType)
         {
             case BuildingType.ConveyorBelt:
-            ConveyorBelt conveyorBelt = gameObject.AddComponent<ConveyorBelt>();
+            ConveyorBelt conveyorBelt = gameObject.GetComponent<ConveyorBelt>();
+            conveyorBelt.SetTransform(curRotation, curPos); 
             ConveyorBeltManager.Instance.AddConveyorBelt(curPos, curRotation, conveyorBelt);
             break;
         }

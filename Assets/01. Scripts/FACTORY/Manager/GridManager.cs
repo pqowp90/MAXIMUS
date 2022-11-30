@@ -98,9 +98,9 @@ public class GridManager : MonoSingleton<GridManager>
     [SerializeField]
     private VignettingEffect vignettingEffect;
 
-    private void Awake()
+    public override void Awake()
     {
-        
+        base.Awake();
         ranges.Add(new List<Vector2Int>());
         for (int i = 1; i < (int)BuildingType.Count; i++)
         {

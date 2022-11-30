@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2957240879910214733}
   - component: {fileID: 2957240879910214834}
   - component: {fileID: 2957240879910214835}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 2957240880280914931}
   - component: {fileID: 8955196014687207117}
   - component: {fileID: 4852870816722146554}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Inserter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -662,10 +662,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a9434df160bd746964bc8c2f14b7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onoff: 0
   range:
   - {x: 0, y: 0}
   canJupe: 1
   buildingType: 0
+  renderAndMaterials: []
+  onOffGameObjects: []
 --- !u!65 &4852870816722146554
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -689,7 +692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4226425465004965141}
   - component: {fileID: 2103540584329682192}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

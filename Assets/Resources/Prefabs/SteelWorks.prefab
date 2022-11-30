@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3954828813760635664}
   - component: {fileID: 7307731099288382929}
   - component: {fileID: 7747744514228053838}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SteelWorks_Foundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3314648523864955262}
   - component: {fileID: 8296152508531242021}
   - component: {fileID: 6300880853478200977}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 4342942553502739071}
   - component: {fileID: 4247501565921694211}
   - component: {fileID: 3050149182625231887}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SteelWorks_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   - component: {fileID: 676249757657443941}
   - component: {fileID: 2984652999528875878}
   - component: {fileID: 1889598919850885203}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SteelWorks_Furnace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4041723969664357425}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SteelWorks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,7 @@ GameObject:
   - component: {fileID: 6460052486899934220}
   - component: {fileID: 4782212438866545816}
   - component: {fileID: 5959108918611256479}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SteelWorks_Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -491,7 +491,7 @@ GameObject:
   - component: {fileID: 4584013458379516181}
   - component: {fileID: 4584013458379516182}
   - component: {fileID: 483947362073350033}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 4584013458440666150}
   - component: {fileID: 4584013458440666151}
   - component: {fileID: 6586628289556399525}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +685,7 @@ GameObject:
   - component: {fileID: 4584013458514726085}
   - component: {fileID: 4584013458514726086}
   - component: {fileID: 6399328462291232679}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 4584013458797678731}
   - component: {fileID: 4584013458797678732}
   - component: {fileID: 1921334904124979266}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +878,7 @@ GameObject:
   - component: {fileID: 4584013458990880878}
   - component: {fileID: 4584013458990880876}
   - component: {fileID: 4584013458990880877}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5703,7 +5703,7 @@ GameObject:
   - component: {fileID: 4584013459786970484}
   - component: {fileID: 4584013459786970485}
   - component: {fileID: 3009882524196694713}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5800,7 +5800,7 @@ GameObject:
   - component: {fileID: 4584013459830095602}
   - component: {fileID: 4584013459830095603}
   - component: {fileID: 4038658381889503144}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5897,7 +5897,7 @@ GameObject:
   - component: {fileID: 4584013459832025375}
   - component: {fileID: 4584013459832025360}
   - component: {fileID: 3024540907571900825}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5993,7 +5993,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4584013459924016844}
   - component: {fileID: 4584013459924016843}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SteelWorks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6028,6 +6028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a9434df160bd746964bc8c2f14b7c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _onoff: 0
   range:
   - {x: 0, y: -1}
   - {x: 0, y: 0}
@@ -6062,7 +6063,7 @@ GameObject:
   - component: {fileID: 4584013460218911707}
   - component: {fileID: 4584013460218911708}
   - component: {fileID: 3364890049662681064}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6159,7 +6160,7 @@ GameObject:
   - component: {fileID: 4584013460227798379}
   - component: {fileID: 4584013460227798380}
   - component: {fileID: 1724318203216864239}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6258,7 +6259,7 @@ GameObject:
   - component: {fileID: 4584013460265833682}
   - component: {fileID: 4584013460265833683}
   - component: {fileID: 4584013460265833684}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6546,7 +6547,7 @@ GameObject:
   - component: {fileID: 4584013460373924711}
   - component: {fileID: 4584013460373924696}
   - component: {fileID: 733207947825028716}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6643,7 +6644,7 @@ GameObject:
   - component: {fileID: 4584013460379291727}
   - component: {fileID: 4584013460379291712}
   - component: {fileID: 4837390399254711404}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6739,7 +6740,7 @@ GameObject:
   - component: {fileID: 852787412033604736}
   - component: {fileID: 1075867565597802677}
   - component: {fileID: 3754363632481067842}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: SteelWorks_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6822,7 +6823,7 @@ GameObject:
   - component: {fileID: 9058365008237342774}
   - component: {fileID: 9185958707424167756}
   - component: {fileID: 9185617817090538882}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

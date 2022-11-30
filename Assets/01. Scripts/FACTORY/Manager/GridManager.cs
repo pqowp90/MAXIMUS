@@ -77,6 +77,9 @@ public class GridManager : MonoSingleton<GridManager>
     public List<List<Vector2Int>> ranges = new List<List<Vector2Int>>();
     // 앞으로 설치할 렌지들
 
+    public Dictionary<Vector2Int, ItemCarrierBase> canInsertPoss = new Dictionary<Vector2Int, ItemCarrierBase>();
+    
+
     [SerializeField]
     private List<Range> rangeGameobjects = new List<Range>();   // 범위표시 프리펩 위치
     private bool buildingMode = false;                          // 건물을 짓는중인가
@@ -180,8 +183,8 @@ public class GridManager : MonoSingleton<GridManager>
             if(Input.GetMouseButtonDown(0)) // 건물을 파괴
             {
                 building.gameObject.SetActive(false);
-
-                ConveyorBeltManager.Instance.DestroyBelt(building.GetComponent<ConveyorBelt>());
+                if(building.buildingType == BuildingType.ConveyorBelt)
+                    ConveyorBeltManager.Instance.DestroyBelt(building.GetComponent<ConveyorBelt>());
 
                 for (int i = 0; i < vector2Ints.Count; i++)
                 {

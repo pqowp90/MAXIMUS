@@ -21,6 +21,7 @@ public class TickManager : MonoSingleton<TickManager>
         if(timmer >= tickTime)
         {
             timmer -= tickTime;
+            InserterManager.Instance.MoveInserter();
             ConveyorBeltManager.Instance.MoveConveyorBelt();
         }
     }

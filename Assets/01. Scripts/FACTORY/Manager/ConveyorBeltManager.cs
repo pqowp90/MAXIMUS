@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
 {
+    
     Vector2Int[] dir_rotation = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
     Dictionary<Vector2Int, ConveyorBelt> conveyorPoss = new Dictionary<Vector2Int, ConveyorBelt>();
     Dictionary<int, int> conveyorBeltListDictionary = new Dictionary<int, int>();
@@ -35,7 +36,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
     {
         conveyorBelts.Remove(conveyorBelt);
         ConveyorBelt getConveyorBelt = null;
-
+        GridManager.Instance.canInsertPoss.Remove(conveyorBelt.pos);
         if(conveyorPoss.TryGetValue(conveyorBelt.pos + dir_rotation[conveyorBelt.Rotation], out getConveyorBelt))
         {
             getConveyorBelt.beforeConveyorBelts.Remove(conveyorBelt);
@@ -61,6 +62,8 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>
         conveyorBelt.pos = _pos;
         conveyorBelt.Rotation = _rotation;
         if(conveyorPoss.TryAdd(conveyorBelt.pos, conveyorBelt)){
+            GridManager.Instance.canInsertPoss.TryAdd(_pos, conveyorBelt);
+            conveyorBelt.SetTransform(_rotation, _pos); 
             ConveyorBelt getConveyorBelt = null;
             // 먼저 자기가 보는 방향의 컨베이어 벨트를 찾고 없으면 자기자신을 마지막 컨베이어 벨트 리스트에 넣는다
             if(!conveyorPoss.TryGetValue(_pos + dir_rotation[conveyorBelt.Rotation], out getConveyorBelt))

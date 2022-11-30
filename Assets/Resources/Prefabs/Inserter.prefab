@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 2957240880280914930}
   - component: {fileID: 2957240880280914931}
   - component: {fileID: 8955196014687207117}
+  - component: {fileID: 2153186557973577206}
   - component: {fileID: 4852870816722146554}
   m_Layer: 11
   m_Name: Inserter
@@ -669,6 +670,21 @@ MonoBehaviour:
   buildingType: 0
   renderAndMaterials: []
   onOffGameObjects: []
+--- !u!114 &2153186557973577206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2957240880280914928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afae752d1a139e34a8626911645478b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0}
+  nextItemCarrierBase: {fileID: 0}
+  beforeItemCarrierBase: {fileID: 0}
 --- !u!65 &4852870816722146554
 BoxCollider:
   m_ObjectHideFlags: 0

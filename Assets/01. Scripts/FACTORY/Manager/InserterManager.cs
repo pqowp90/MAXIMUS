@@ -46,14 +46,17 @@ public class InserterManager : MonoSingleton<InserterManager>
         inserters.Remove(_inserter);
         inserterPoss.Add(_inserter.pos, _inserter);
     }
+    private List<DropItem> dropItems = new List<DropItem>();
     public void MoveInserter()
     {
+        dropItems.Clear();
         foreach (var item in inserters)
         {
             if(item.nextItemCarrierBase != null && item.beforeItemCarrierBase != null)
             {
                 if(item.nextItemCarrierBase.item == null && item.beforeItemCarrierBase.item != null)
                 {
+                    DropItem dropItem = dropItems.Find(x => x == item.beforeItemCarrierBase.item);
                     item.nextItemCarrierBase.item = item.beforeItemCarrierBase.item;
                     item.beforeItemCarrierBase.item = null;
                 }

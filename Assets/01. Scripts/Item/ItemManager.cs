@@ -60,4 +60,22 @@ public class ItemManager : MonoSingleton<ItemManager>
         item.amount = 1;
         inventorySO.itemList.Add(item);
     }
+
+    public Item GetItemFromInventory(int item_id)
+    {
+        foreach (var _item in inventorySO.itemList)
+        {
+            if (_item.item_ID == item_id)
+            {
+                _item.amount -= 1;
+                if(_item.amount <= 0)
+                {
+                    inventorySO.itemList.Remove(_item);
+                }
+                return _item;
+            }
+        }
+
+        return itemSO.itemList[0];
+    }
 }

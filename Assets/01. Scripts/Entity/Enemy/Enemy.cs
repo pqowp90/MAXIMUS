@@ -34,12 +34,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
         _transform = transform;
     }
 
-    private void Start()
-    {
-        targetPosition = WaveManager.Instance.transform.position;
-        maxDistance = distance;
-    }
-
     private void Update()
     {
         FindTarget();
@@ -122,6 +116,7 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     public void OnPool()
     {
-        throw new System.NotImplementedException();
+        targetPosition = WaveManager.Instance.transform.position;
+        maxDistance = distance;
     }
 }

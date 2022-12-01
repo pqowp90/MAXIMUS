@@ -8,18 +8,17 @@ public class ItemManager : MonoSingleton<ItemManager>
 {
     [SerializeField]
     private ItemDB itemSO;                          // Item SO
-    [SerializeField]
-    private ItemDB inventorySO;                  // Inventory SO
+    public ItemDB inventorySO;                  // Inventory SO
 
     [Header("Item Drop")]
     [SerializeField]
-    private GameObject _poolObj;                // Ǯ�� ������Ʈ�� �� �θ� ������Ʈ
+    public GameObject poolObj;                // 풀링 부모;
 
     public float dropTime = 60.0f;                // �������� ����Ǿ��ִ� �ð�
 
     private void Start()
     {
-        PoolManager.CreatePool<DropItem>("DropItem", _poolObj, 50);
+        PoolManager.CreatePool<DropItem>("DropItem", poolObj, 50);
     }
 
     public DropItem DropItem(Vector3 pos, int id = -1)

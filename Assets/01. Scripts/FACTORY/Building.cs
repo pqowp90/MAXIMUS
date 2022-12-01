@@ -36,11 +36,11 @@ public class Building : MonoBehaviour, IPoolable
         {
             case BuildingType.ConveyorBelt:
             ConveyorBelt conveyorBelt = gameObject.GetComponent<ConveyorBelt>();
-            ConveyorBeltManager.Instance.AddConveyorBelt(curPos, curRotation, conveyorBelt);
+            ConveyorBeltManager.Instance.Build(curPos, curRotation, conveyorBelt);
             break;
             case BuildingType.Inserter:
             Inserter inserter = gameObject.GetComponent<Inserter>();
-            InserterManager.Instance.AddInserter(curPos, curRotation, inserter);
+            InserterManager.Instance.Build(curPos, curRotation, inserter);
             break;
         }
 

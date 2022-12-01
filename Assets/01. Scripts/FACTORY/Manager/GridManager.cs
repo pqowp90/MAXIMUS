@@ -201,9 +201,9 @@ public class GridManager : MonoSingleton<GridManager>
             {
                 building.gameObject.SetActive(false);
                 if(building.buildingType == BuildingType.ConveyorBelt)
-                    ConveyorBeltManager.Instance.DestroyBelt(building.GetComponent<ConveyorBelt>());
+                    ConveyorBeltManager.Instance.Destroy(building.GetComponent<ConveyorBelt>());
                 if(building.buildingType == BuildingType.Inserter)
-                    InserterManager.Instance.RemoveInserter(building.GetComponent<Inserter>());
+                    InserterManager.Instance.Destroy(building.GetComponent<Inserter>());
 
                 for (int i = 0; i < vector2Ints.Count; i++)
                 {

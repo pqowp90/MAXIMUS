@@ -5,9 +5,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private float _hp;
-    private float _weapon;
     private bool _isOpenBag;
     public ItemDB inventory;
+    
+    public Weapon weapon => WeaponManager.Instance.weapon;
 
     [SerializeField]
     private LayerMask _itemLayer;
@@ -26,4 +27,6 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+    
 }

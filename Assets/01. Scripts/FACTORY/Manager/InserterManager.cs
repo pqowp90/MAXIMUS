@@ -10,10 +10,14 @@ public class InserterManager : MonoSingleton<InserterManager>
     Vector2Int[] dir_rotation = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
     public void AddInserter(Vector2Int _pos, int _rotation, Inserter _inserter)
     {
-        inserters.Add(_inserter);
-        inserterPoss.Add(_pos, _inserter);
-        _inserter.SetTransform(_rotation, _pos);
-        FindAround(_inserter);
+        if(!inserters.Find(x => x == _inserter))
+        {
+            inserters.Add(_inserter);
+            inserterPoss.Add(_pos, _inserter);
+            _inserter.SetTransform(_rotation, _pos);
+            FindAround(_inserter);
+        }
+        
         
     }
     public void FindAround(Inserter _inserter)
@@ -47,7 +51,7 @@ public class InserterManager : MonoSingleton<InserterManager>
         if(inserters.Find(x => x == _inserter))
         {
             inserters.Remove(_inserter);
-            inserterPoss.Add(_inserter.pos, _inserter);
+            inserterPoss.Remove(_inserter.pos);
         }
         
     }

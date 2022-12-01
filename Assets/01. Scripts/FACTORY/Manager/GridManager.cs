@@ -100,9 +100,11 @@ public class GridManager : MonoSingleton<GridManager>
     private Vector2Int jupingPos = Vector2Int.zero;
     [SerializeField]
     private VignettingEffect vignettingEffect;
+    private Test test;
 
     public override void Awake()
     {
+        
         base.Awake();
         ranges.Add(new List<Vector2Int>());
         for (int i = 1; i < (int)BuildingType.Count; i++)
@@ -114,6 +116,7 @@ public class GridManager : MonoSingleton<GridManager>
         //Build(new Vector2Int(10, 10), BuildingType.Foundation);
         //Build(new Vector2Int(10, 10), BuildingType.Hub);
         vignettingEffect = FindObjectOfType<VignettingEffect>();
+        test = GetComponent<Test>();
     }
     Vector3 point;
     private void ChangeMode(ref bool mode, bool onoff = true)
@@ -164,6 +167,20 @@ public class GridManager : MonoSingleton<GridManager>
             }
             vignettingEffect.StartEffect(disassemblyMode);
         }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            RaycastHit hit;
+            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
+            {
+                Debug.Log(hit.collider.gameObject.name);
+                ConveyorBelt building = hit.collider.GetComponentInParent<ConveyorBelt>();
+                if(building != null)
+                {
+                    test.TestFunc(building);
+                }
+            }
+        }
     }
     private void DisassemblyMouse()
     {
@@ -185,6 +202,8 @@ public class GridManager : MonoSingleton<GridManager>
                 building.gameObject.SetActive(false);
                 if(building.buildingType == BuildingType.ConveyorBelt)
                     ConveyorBeltManager.Instance.DestroyBelt(building.GetComponent<ConveyorBelt>());
+                if(building.buildingType == BuildingType.Inserter)
+                    InserterManager.Instance.RemoveInserter(building.GetComponent<Inserter>());
 
                 for (int i = 0; i < vector2Ints.Count; i++)
                 {

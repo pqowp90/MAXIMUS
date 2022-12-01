@@ -12,7 +12,7 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
 
 
     private void OnDisable() {
-
+        //InserterManager.Instance.RemoveInserter(this);
     }
     public void SetTransform(int _rotation, Vector2Int _pos)
     {

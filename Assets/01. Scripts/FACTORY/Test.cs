@@ -6,25 +6,9 @@ public class Test : MonoBehaviour
 {
     [SerializeField]
     private int id;
-    [SerializeField]
-    private ConveyorBelt conveyorBelt;
-    // Start is called before the first frame update
-    void Start()
-    {
-        //gameObject.AddComponent<ConveyorBelt>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     [ContextMenu("컨베이어벨트에 삽입")]
-    public void TestFunc()
+    public void TestFunc(ConveyorBelt conveyorBelt)
     {
-        if(!conveyorBelt)
-            conveyorBelt = GetComponent<ConveyorBelt>();
-        conveyorBelt.Item = ItemManager.Instance.DropItem(Vector3.zero, id);
-        
+        conveyorBelt.Item = ItemManager.Instance.DropItem(new Vector3(conveyorBelt.pos.x, 0, conveyorBelt.pos.y), id);
     }
 }

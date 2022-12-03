@@ -56,7 +56,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     public void DeathEnemy(Enemy enemy)
     {
         Enemies.Remove(enemy);
-        PoolManager.GetItem<Enemy>("Enemy");
+        enemy.gameObject.SetActive(false);
         ItemManager.Instance.DropItem(enemy.transform.position, enemy.Data.dropItemTable.GetDropItem().item_ID);
         EntityManager.Instance.UnregisterEntity(enemy);
     }

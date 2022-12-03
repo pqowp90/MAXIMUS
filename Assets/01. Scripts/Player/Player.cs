@@ -46,6 +46,7 @@ public class Player : MonoBehaviour
             if (weapon.bullet.ammo == 0) WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
             else
             {
+                weapon.bullet.ammo -= 1;
                 
             }
         }

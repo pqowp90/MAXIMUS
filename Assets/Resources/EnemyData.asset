@@ -17,3 +17,4 @@ MonoBehaviour:
   health: 10
   speed: 1
   damage: 1
+  dropItemTable: {fileID: 11400000, guid: a1d1b1307556d8f46b76f04463a5d59e, type: 2}

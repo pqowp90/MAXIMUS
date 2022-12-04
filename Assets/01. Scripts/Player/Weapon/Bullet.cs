@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,30 +7,25 @@ using UnityEngine;
 [Serializable]
 public class Bullet
 {
+    [Header("설정값")]
     public string bullet_name;
+    public float damage;
+    public int maxAmmo;
 
+    [Header("자동설정값")]
     public int haveAmmo;
-
-    private int _maxAmmo;
-
-    public int MaxAmmo
-    {
-        get => _maxAmmo;
-        set
-        {
-            _maxAmmo = value;
-            ammo = value;
-        }
-    }
     public int ammo;
+
+    [Header("총알 프리팹")]
+    public GameObject prefab;
 
     public bool CheckReloaing
     {
         get
         {
-            if(ammo != MaxAmmo)
+            if(ammo != maxAmmo)
             {
-                int addAmmo = MaxAmmo - ammo;
+                int addAmmo = maxAmmo - ammo;
                 return addAmmo <= haveAmmo;
             }
             return false;
@@ -39,7 +34,7 @@ public class Bullet
 
     public void Reloading()
     {
-        int addAmmo = MaxAmmo - ammo;
+        int addAmmo = maxAmmo - ammo;
         ammo += addAmmo;
         haveAmmo -= addAmmo;
     }

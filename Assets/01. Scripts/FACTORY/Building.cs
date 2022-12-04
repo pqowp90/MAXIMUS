@@ -35,7 +35,11 @@ public class Building : MonoBehaviour, IPoolable
     {
         
         var type = GetComponent(buildingType.ToString());
-        type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});
+        if(type != null)
+        {
+            type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});
+        }
+        
 
         InserterManager.Instance.FindAdjacency(curPos);
     }

@@ -17,10 +17,19 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Collider[] _item = Physics.OverlapSphere(transform.position, _itemFindRadius, _itemLayer);
-        if( _item.Length > 0)
+        SearchItem();
+        if(Input.GetMouseButton(0))
         {
-            foreach(var item in _item)
+            Attak();
+        }
+    }
+
+    private void SearchItem()
+    {
+        Collider[] _item = Physics.OverlapSphere(transform.position, _itemFindRadius, _itemLayer);
+        if (_item.Length > 0)
+        {
+            foreach (var item in _item)
             {
                 ItemManager.Instance.GetItem(item.GetComponentInParent<DropItem>().item);
                 item.transform.parent.gameObject.SetActive(false);
@@ -28,5 +37,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+    private void Attak()
+    {
+        if (weapon == null) return;
+
+        if(!WeaponManager.Instance.IsReloading && weapon.bullet.haveAmmo > 0)
+        {
+            if (weapon.bullet.ammo == 0) WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
+            else
+            {
+                weapon.bullet.ammo -= 1;
+                
+            }
+        }
+    }
 }

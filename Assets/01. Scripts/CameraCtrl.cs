@@ -51,10 +51,7 @@ public class CameraCtrl : MonoBehaviour
         if (_objTargetTransform == null) _objTargetTransform = objTarget.transform;
 
         ThirdCamera();
-        if(Input.GetMouseButton(1))
-        {
-            RotateCamera();
-        }
+        RotateCamera();
     }
 
     private float _nowDistance;

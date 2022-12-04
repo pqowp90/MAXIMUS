@@ -6,11 +6,8 @@ using Random = UnityEngine.Random;
 // TODO: 적 매니저 ( 나중에 만들던가 말던가 )
 public class EnemyManager : MonoSingleton<EnemyManager>
 {
-    public GameObject enemyPrefab;
     public Transform enemyParent;
     public List<Enemy> Enemies = new();
-
-    [SerializeField] private GameObject chestPrefab;
 
     public int EnemyCount => Enemies.Count;
 
@@ -59,7 +56,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     public void DeathEnemy(Enemy enemy)
     {
         Enemies.Remove(enemy);
-        PoolManager.GetItem<Enemy>("Enemy");
+        enemy.gameObject.SetActive(false);
         ItemManager.Instance.DropItem(enemy.transform.position, enemy.Data.dropItemTable.GetDropItem().item_ID);
         EntityManager.Instance.UnregisterEntity(enemy);
     }

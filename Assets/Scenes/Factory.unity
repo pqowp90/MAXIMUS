@@ -730,7 +730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 5f173423892c9f44fa7990a7214c2b64, type: 2}
   inventorySO: {fileID: 11400000, guid: 5b48c0a288aeff7438c645eaafd23dea, type: 2}
-  _poolObj: {fileID: 312158678}
+  poolObj: {fileID: 312158678}
   dropTime: 60
 --- !u!4 &312158680
 Transform:

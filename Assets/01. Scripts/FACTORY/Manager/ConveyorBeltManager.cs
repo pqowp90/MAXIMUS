@@ -19,19 +19,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>, BuildAbil
     private int idCount = 1;
 
 
-    public void MoveConveyorBelt()
-    {
-        
-    }
 
-    public void DestroyBelt(ConveyorBelt conveyorBelt)
-    {
-        
-    }
-    public void AddConveyorBelt(Vector2Int _pos, int _rotation, ConveyorBelt conveyorBelt)
-    {
-        
-    }
     public void RecursiveSearchID(ConveyorBelt conveyorBelt)
     {
         foreach (var item in conveyorBelt.beforeConveyorBelts)

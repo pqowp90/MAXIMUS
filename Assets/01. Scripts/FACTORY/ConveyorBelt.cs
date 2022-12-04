@@ -25,6 +25,11 @@ public class ConveyorBelt : ItemCarrierBase, BuildingTransfrom
         nextConveyorBelt = null;
         beforeConveyorBelts.Clear();
     }
+    public void AddToManager(Vector2Int curPos, int curRotation)
+    {
+        ConveyorBeltManager.Instance.Build(curPos, curRotation, this);
+    }
+
     public void SetTransform(int _rotation, Vector2Int _pos)
     {
         Rotation = _rotation;

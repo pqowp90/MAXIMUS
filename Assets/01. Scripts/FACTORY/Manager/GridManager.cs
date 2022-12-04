@@ -173,7 +173,6 @@ public class GridManager : MonoSingleton<GridManager>
             RaycastHit hit;
             if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
             {
-                Debug.Log(hit.collider.gameObject.name);
                 ConveyorBelt building = hit.collider.GetComponentInParent<ConveyorBelt>();
                 if(building != null)
                 {

@@ -11,6 +11,13 @@ public class WeaponManager : MonoSingleton<WeaponManager>
 
     private void Start()
     {
+        if (weaponList == null) return;
+
+        foreach(Weapon weapon in weaponList)
+        {
+            weapon.bullet.haveAmmo = ItemManager.Instance.inventorySO.itemList.Find(x => x.item_name == weapon.bullet.bullet_name).amount;
+        }
+
         if(weapon == null)
         {
             weapon = weaponList[0];

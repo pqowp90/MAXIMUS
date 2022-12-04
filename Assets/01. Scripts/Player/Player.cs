@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,6 +10,7 @@ public class Player : MonoBehaviour
     public ItemDB inventory;
     
     public Weapon weapon => WeaponManager.Instance.weapon;
+    public Transform weaponPos;
 
     [SerializeField]
     private LayerMask _itemLayer;
@@ -18,7 +20,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         SearchItem();
-        if(Input.GetMouseButton(0))
+        if (Input.GetButtonDown("Fire1"))
         {
             Attak();
         }
@@ -47,8 +49,15 @@ public class Player : MonoBehaviour
             else
             {
                 weapon.bullet.ammo -= 1;
-                
+
+                var rigidbody = Instantiate(weapon.bullet.prefab, weaponPos);
+                rigidbody.AddComponent<BulletObj>().damage = weapon.bullet.damage;
+                rigidbody.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
             }
+        }
+        else
+        {
+            Debug.LogWarning("not ammo");
         }
     }
 }

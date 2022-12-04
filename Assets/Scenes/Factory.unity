@@ -730,7 +730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 5f173423892c9f44fa7990a7214c2b64, type: 2}
   inventorySO: {fileID: 11400000, guid: 5b48c0a288aeff7438c645eaafd23dea, type: 2}
-  _poolObj: {fileID: 312158678}
+  poolObj: {fileID: 312158678}
   dropTime: 60
 --- !u!4 &312158680
 Transform:
@@ -1146,7 +1146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curBuildingName: {fileID: 2129371225}
-  buildMode: 1
+  buildMode: 0
   rightClickUI: {fileID: 334298839}
   nomalUI: {fileID: 296189292}
   disassemblyUI: {fileID: 299778398}

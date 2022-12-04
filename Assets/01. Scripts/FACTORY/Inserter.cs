@@ -14,6 +14,10 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
     private void OnDisable() {
         //InserterManager.Instance.RemoveInserter(this);
     }
+    public void AddToManager(Vector2Int curPos, int curRotation)
+    {
+        InserterManager.Instance.Build(curPos, curRotation, this);
+    }
     public void SetTransform(int _rotation, Vector2Int _pos)
     {
         Rotation = _rotation;

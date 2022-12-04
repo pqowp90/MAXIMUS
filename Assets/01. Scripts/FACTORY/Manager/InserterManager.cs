@@ -2,24 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InserterManager : MonoSingleton<InserterManager>
+public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inserter>
 {
     [SerializeField]
     private List<Inserter> inserters = new List<Inserter>();
     Dictionary<Vector2Int, Inserter> inserterPoss = new Dictionary<Vector2Int, Inserter>();
     Vector2Int[] dir_rotation = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
-    public void AddInserter(Vector2Int _pos, int _rotation, Inserter _inserter)
-    {
-        if(!inserters.Find(x => x == _inserter))
-        {
-            inserters.Add(_inserter);
-            inserterPoss.Add(_pos, _inserter);
-            _inserter.SetTransform(_rotation, _pos);
-            FindAround(_inserter);
-        }
-        
-        
-    }
     public void FindAround(Inserter _inserter)
     {
         ItemCarrierBase space = null;
@@ -45,18 +33,28 @@ public class InserterManager : MonoSingleton<InserterManager>
         }
     }
     
-    
-    public void RemoveInserter(Inserter _inserter)
+
+    public void Build(Vector2Int _pos, int _rotation, Inserter _inserter)
+    {
+        if(!inserters.Find(x => x == _inserter))
+        {
+            inserters.Add(_inserter);
+            inserterPoss.Add(_pos, _inserter);
+            _inserter.SetTransform(_rotation, _pos);
+            FindAround(_inserter);
+        }
+    }
+
+    public void Destroy(Inserter _inserter)
     {
         if(inserters.Find(x => x == _inserter))
         {
             inserters.Remove(_inserter);
             inserterPoss.Remove(_inserter.pos);
         }
-        
     }
     private List<DropItem> dropItems = new List<DropItem>();
-    public void MoveInserter()
+    public void Use()
     {
         dropItems.Clear();
         foreach (var item in inserters)
@@ -77,5 +75,4 @@ public class InserterManager : MonoSingleton<InserterManager>
             
         }
     }
-
 }

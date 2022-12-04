@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Reflection;
 [Serializable]
 public class RenderAndMaterial
 {
@@ -32,17 +33,9 @@ public class Building : MonoBehaviour, IPoolable
     }
     public void SetBuildingType(Vector2Int curPos, int curRotation)
     {
-        switch(buildingType)
-        {
-            case BuildingType.ConveyorBelt:
-            ConveyorBelt conveyorBelt = gameObject.GetComponent<ConveyorBelt>();
-            ConveyorBeltManager.Instance.AddConveyorBelt(curPos, curRotation, conveyorBelt);
-            break;
-            case BuildingType.Inserter:
-            Inserter inserter = gameObject.GetComponent<Inserter>();
-            InserterManager.Instance.AddInserter(curPos, curRotation, inserter);
-            break;
-        }
+        Type type = Type.GetType(buildingType.ToString());
+        type = GetComponent<Type>();
+        type.GetMethod("AddToManager").Invoke(null, null);
 
         InserterManager.Instance.FindAdjacency(curPos);
     }

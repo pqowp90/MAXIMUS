@@ -75,6 +75,6 @@ public class ItemManager : MonoSingleton<ItemManager>
             }
         }
 
-        return itemSO.itemList[0];
+        return null;
     }
 }

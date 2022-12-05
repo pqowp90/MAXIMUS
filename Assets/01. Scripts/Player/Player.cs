@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,6 +20,12 @@ public class Player : MonoBehaviour
 
     private bool _isDelay = false;
 
+    public TMP_Text ammoText;
+
+    [Header("Keybinds")]
+    public KeyCode reloadKey = KeyCode.R;
+    public KeyCode bagOpenKey = KeyCode.E;
+
     private void Update()
     {
         SearchItem();
@@ -26,6 +33,12 @@ public class Player : MonoBehaviour
         {
             Attak();
         }
+        if(Input.GetKeyDown(reloadKey))
+        {
+            WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
+        }
+
+        ammoText.text = weapon.ammoText;
     }
 
     private void SearchItem()

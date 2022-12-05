@@ -16,7 +16,10 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         WaveManager.Instance.OnEnemySpawn += OnEnemySpawn;
         WaveManager.Instance.OnWaveEnd += OnWaveEnd;
 
-        PoolManager.CreatePool<Enemy>("Enemy", ItemManager.Instance.poolObj, 50);
+        foreach(var enemy in EnemyDataContainer.Instance.enemyData)
+        {
+            PoolManager.CreatePool<Enemy>($"Enemy {enemy.type}", ItemManager.Instance.poolObj, 10);
+        }
     }
 
     // 적 한번에 모두 처치 ( 디버그용 )
@@ -44,7 +47,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 
     private void SpawnEnemy(IEnemy enemy, Vector3 position)
     {
-        var enemyObject = PoolManager.GetItem<Enemy>("Enemy");
+        var enemyObject = PoolManager.GetItem<Enemy>($"Enemy {enemy.EnemyType}");
         enemyObject.transform.position = position;
         enemyObject.transform.rotation = Quaternion.identity;
         enemyObject.transform.SetParent(enemyParent);

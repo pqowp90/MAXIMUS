@@ -19,7 +19,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     [field: SerializeField] public float Health { get; set; }
 
-    private MeshRenderer _meshRenderer;
     private Rigidbody _rigidbody;
 
     private Transform _transform;
@@ -29,7 +28,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     private void Awake()
     {
         Type = EntityType.Enemy;
-        _meshRenderer = GetComponent<MeshRenderer>();
         _rigidbody = GetComponent<Rigidbody>();
         _transform = transform;
     }
@@ -53,7 +51,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
         Data = EnemyDataContainer.Instance.Cache[enemy.EnemyType];
         EnemyType = Data.type;
         Health = Data.health;
-        _meshRenderer.material = Data.meterial;
     }
 
     private void FindTarget()

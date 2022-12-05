@@ -7,7 +7,7 @@ using System.Collections;
 public class EnemyData : ScriptableObject
 {
     public int type;
-    public Material meterial;
+    public GameObject prefab;
     public float health;
     public float speed;
     public float damage;

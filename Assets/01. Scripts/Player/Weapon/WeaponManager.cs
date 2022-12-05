@@ -15,7 +15,9 @@ public class WeaponManager : MonoSingleton<WeaponManager>
 
         foreach(Weapon weapon in weaponList)
         {
-            weapon.bullet.haveAmmo = ItemManager.Instance.inventorySO.itemList.Find(x => x.item_name == weapon.bullet.bullet_name).amount;
+            Item item = ItemManager.Instance.inventorySO.itemList.Find(x => x.item_name == weapon.bullet.bullet_name);
+            weapon.bullet.haveAmmo = item.amount;
+            weapon.bullet.bulletItem = item;
         }
 
         if(weapon == null)
@@ -37,15 +39,8 @@ public class WeaponManager : MonoSingleton<WeaponManager>
 
     public void AddBulletAmount(string bulletName, int amount = 1)
     {
-        foreach(Weapon weapon in weaponList)
-        {
-            if(weapon.bullet.bullet_name == bulletName)
-            {
-                weapon.bullet.ammo += amount;
-                return;
-            }
-        }
-
-        Debug.LogWarning($"{bulletName} Bullet is not found!");
+        Weapon weapon = weaponList.Find(x => x.bullet.bullet_name == bulletName);
+        weapon.bullet.haveAmmo += amount;
+        weapon.bullet.bulletItem.amount += amount;
     }
 }

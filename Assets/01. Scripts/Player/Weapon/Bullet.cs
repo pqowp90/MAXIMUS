@@ -9,6 +9,7 @@ public class Bullet
 {
     [Header("설정값")]
     public string bullet_name;
+    public float attackDelay;
     public float damage;
     public int maxAmmo;
 
@@ -18,6 +19,9 @@ public class Bullet
 
     [Header("총알 프리팹")]
     public GameObject prefab;
+
+    [HideInInspector]
+    public Item bulletItem;
 
     public bool CheckReloaing
     {
@@ -37,5 +41,6 @@ public class Bullet
         int addAmmo = maxAmmo - ammo;
         ammo += addAmmo;
         haveAmmo -= addAmmo;
+        bulletItem.amount -= addAmmo;
     }
 }

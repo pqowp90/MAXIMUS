@@ -5123,6 +5123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5266028673845585108}
   - component: {fileID: 5266028673845585111}
+  - component: {fileID: 2967078867881744546}
   m_Layer: 11
   m_Name: Dropper
   m_TagString: Untagged
@@ -5185,6 +5186,18 @@ MonoBehaviour:
   - {fileID: 8325566535904149546}
   - {fileID: 6578791178164762573}
   - {fileID: 8062480758415563507}
+--- !u!114 &2967078867881744546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5266028673845585109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 245588ce01eaf0349a7e29ce9b8aa56f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5266028674037621548
 GameObject:
   m_ObjectHideFlags: 0

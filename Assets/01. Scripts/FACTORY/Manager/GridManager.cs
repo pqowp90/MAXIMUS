@@ -48,6 +48,7 @@ public enum BuildingType
     Inserter,
     Foundry,
     SteelWorks,
+    Dropper,
     // ...
     Count,
 }

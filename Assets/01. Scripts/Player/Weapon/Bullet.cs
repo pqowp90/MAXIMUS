@@ -32,7 +32,7 @@ public class Bullet
         }
     }
 
-    public void Reloading()
+    public void AmmoReload()
     {
         int addAmmo = maxAmmo - ammo;
         ammo += addAmmo;

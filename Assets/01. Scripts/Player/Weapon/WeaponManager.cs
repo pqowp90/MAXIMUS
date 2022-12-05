@@ -30,7 +30,7 @@ public class WeaponManager : MonoSingleton<WeaponManager>
         {
             _isReloading = true;
             yield return new WaitForSeconds(weapon.reloadingTime);
-            weapon.bullet.Reloading();
+            weapon.bullet.AmmoReload();
             _isReloading = false;
         }
     }

@@ -66,7 +66,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         {
             item.SetActive(false);
         }
-        List<Item> items = ItemManager.Instance.GetItemsByTypeFromSO(ITEM_TYPE.Ore);
+        List<Item> items = ItemManager.Instance.GetItemsByType(ITEM_TYPE.Ore);
         foreach (var item in items)
         {
             ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");

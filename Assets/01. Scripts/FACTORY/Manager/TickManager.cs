@@ -23,6 +23,7 @@ public class TickManager : MonoSingleton<TickManager>
             timmer -= tickTime;
             InserterManager.Instance.Use();
             ConveyorBeltManager.Instance.Use();
+            DropperManager.Instance.Use();
         }
     }
 }

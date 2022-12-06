@@ -42,8 +42,11 @@ public class Building : MonoBehaviour, IPoolable
             type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});
         }
         
-
-        InserterManager.Instance.FindAdjacency(curPos);
+        foreach (var item in range)
+        {
+            InserterManager.Instance.FindAdjacency(curPos + item);
+        }
+        
     }
     public void OnPool()
     {

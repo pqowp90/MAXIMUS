@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Dropper>
 {
+    List<Dropper> droppers = new List<Dropper>();
     public void Build(Vector2Int _pos, int _rotation, Dropper building)
     {
         building.space.canIn = false;
@@ -11,6 +12,7 @@ public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Droppe
         {
             GridManager.Instance.canInsertPoss.TryAdd(item, building.space);
         }
+        droppers.Add(building);
     }
 
     public void Destroy(Dropper building)
@@ -20,11 +22,16 @@ public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Droppe
         {
             GridManager.Instance.canInsertPoss.Remove(item);
         }
+        droppers.Remove(building);
     }
 
     public void Use()
     {
-
+        foreach (var item in droppers)
+        {
+            item.space.GetNextDropItem();
+        }
+        
     }
 
     // Start is called before the first frame update

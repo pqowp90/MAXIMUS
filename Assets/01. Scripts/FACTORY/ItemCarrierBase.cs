@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
+
 public class ItemSpace
 {
     public DropItem _itemSpace;
@@ -11,7 +11,7 @@ public class ItemSpace
     public bool canOut = true;
     public void GetNextDropItem()
     {
-        if(connectSO != null)
+        if(connectSO != null && itemSpace == null)
         {
             if(connectSO.amount > 0){
                 connectSO.amount--;

@@ -86,7 +86,7 @@ public class GridManager : MonoSingleton<GridManager>
     [SerializeField]
     private List<Range> rangeGameobjects = new List<Range>();   // 범위표시 프리펩 위치
     public bool buildingMode = false;                          // 건물을 짓는중인가
-    public bool disassemblyMode = false;                       // 파괴모드
+    private bool disassemblyMode = false;                       // 파괴모드
     private BuildingType curBuilding = BuildingType.Empty;      // 현재 지으려고 하는 빌딩
     public Grid grid = new Grid(1000, 1000);                    // 건물의 정보가 그리드에 저장됨
     private List<GameObject> buildingGameObject = new List<GameObject>();               // 미리보기 건물임, 설치하면 고정됨

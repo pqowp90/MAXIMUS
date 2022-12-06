@@ -58,10 +58,6 @@ public class ItemManager : MonoSingleton<ItemManager>
     }
     public Item GetItem(int item_id)
     {
-        return itemSO.itemList.FirstOrDefault(i => i.item_ID == item_id);
-    }
-    public Item GetItemFromSO(int item_id)
-    {
         return inventorySO.itemList.FirstOrDefault(i => i.item_ID == item_id);
     }
 

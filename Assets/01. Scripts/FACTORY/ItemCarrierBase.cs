@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[System.Serializable]
 public class ItemSpace
 {
     public DropItem _itemSpace;
@@ -13,10 +12,8 @@ public class ItemSpace
     {
         if(connectSO != null)
         {
-            if(connectSO.amount > 0){
-                connectSO.amount--;
-                itemSpace = ItemManager.Instance.DropItem(Vector3.zero, connectSO.item_ID);
-            }
+            connectSO.amount--;
+            itemSpace = ItemManager.Instance.DropItem(Vector3.zero, connectSO.item_ID);
         }
     }
 }

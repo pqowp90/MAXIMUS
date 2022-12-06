@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyData
   m_EditorClassIdentifier: 
   type: 0
-  meterial: {fileID: 2100000, guid: 5bc272260999b6444bfbf8e57a57e4c2, type: 2}
+  prefab: {fileID: 6420269519428363563, guid: 8cff5710d5c660b4fa73976a240493da, type: 3}
   health: 10
   speed: 1
   damage: 1

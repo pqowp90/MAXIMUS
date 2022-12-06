@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         SearchItem();
+        SwapWeapon();
         if (Input.GetButton("Fire1"))
         {
             Attak();
@@ -44,6 +46,16 @@ public class Player : MonoBehaviour
         }
 
         ammoText.text = weapon.ammoText;
+    }
+
+    private void SwapWeapon()
+    {
+        if(!WeaponManager.Instance.IsReloading)
+        {
+            float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+            if (wheelInput == 0) return;
+            WeaponManager.Instance.SwapWeapon(wheelInput > 0);
+        }
     }
 
     private void SearchItem()

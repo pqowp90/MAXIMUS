@@ -14,8 +14,12 @@ public class ItemDB : ScriptableObject
             itemList[i].item_ID = i;
         }
     }
+    public List<Item> GetItemList(ITEM_TYPE iTEM_TYPE)
+    {
+        return itemList.FindAll(i => i.item_type == iTEM_TYPE);
+    }
 
-    [ContextMenu("ÀÎº¥ ÃÊ±âÈ­")]
+    [ContextMenu("ï¿½Îºï¿½ ï¿½Ê±ï¿½È­")]
     public void InventoryReset()
     {
         foreach(Item item in itemList)

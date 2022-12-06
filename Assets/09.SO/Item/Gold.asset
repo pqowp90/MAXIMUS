@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96de4657d0739384e9899fd9be3f3fcd, type: 3}
-  m_Name: Iron
+  m_Name: Gold
   m_EditorClassIdentifier: 
-  item_name: IronOres
-  item_ID: 1
+  item_name: GoldOres
+  item_ID: 2
   item_type: 4
   isStackable: 1
   amount: 0
-  icon: {fileID: 21300000, guid: ceee51983cab94d4fb67d5c96a37645c, type: 3}
+  icon: {fileID: 21300000, guid: c8d9eae897b9eb14689f9d85130b6871, type: 3}
   material: {fileID: 2100000, guid: 70865d647b040334e84539f57bc0cea9, type: 2}
   mesh: {fileID: -802373276872804759, guid: 0b2b694212bdeb4489412db9902cb4ae, type: 3}
   explain: It is an ore that is often mined in the Overworld.

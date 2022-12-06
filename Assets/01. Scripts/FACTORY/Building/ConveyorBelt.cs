@@ -6,8 +6,9 @@ using UnityEngine;
 public interface BuildingTransfrom
 {
     void SetTransform(int _rotation, Vector2Int _pos);
+    public void AddToManager(Vector2Int curPos, int curRotation);
 }
-public class ConveyorBelt : ItemCarrierBase, BuildingTransfrom
+public class ConveyorBelt : MonoBehaviour, BuildingTransfrom 
 {
     private int rotation;
     public int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
@@ -16,10 +17,12 @@ public class ConveyorBelt : ItemCarrierBase, BuildingTransfrom
     public ConveyorBelt nextConveyorBelt;
     public List<ConveyorBelt> beforeConveyorBelts = new List<ConveyorBelt>();
 
+    public ItemSpace space = new ItemSpace();
+
     private float itemMoveDamp = 10f;
     private void Update() {
-        if(item!=null)
-            item.transform.position = Vector3.Lerp(item.transform.position, transform.position + Vector3.up * 0.3f, itemMoveDamp * Time.deltaTime);
+        if(space.itemSpace!=null)
+            space.itemSpace.transform.position = Vector3.Lerp(space.itemSpace.transform.position, transform.position + Vector3.up * 0.3f, itemMoveDamp * Time.deltaTime);
     }
     private void OnDisable() {
         nextConveyorBelt = null;

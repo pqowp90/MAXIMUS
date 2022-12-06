@@ -23,6 +23,8 @@ public class Building : MonoBehaviour, IPoolable
     private List<RenderAndMaterial> renderAndMaterials = new List<RenderAndMaterial>();
     [SerializeField]
     private List<GameObject> onOffGameObjects = new List<GameObject>();
+    
+
 
     private void Awake() 
     {

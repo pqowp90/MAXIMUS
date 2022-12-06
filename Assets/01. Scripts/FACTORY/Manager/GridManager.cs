@@ -78,7 +78,7 @@ public class GridManager : MonoSingleton<GridManager>
     public List<List<Vector2Int>> ranges = new List<List<Vector2Int>>();
     // 앞으로 설치할 렌지들
 
-    public Dictionary<Vector2Int, ItemCarrierBase> canInsertPoss = new Dictionary<Vector2Int, ItemCarrierBase>();
+    public Dictionary<Vector2Int, ItemSpace> canInsertPoss = new Dictionary<Vector2Int, ItemSpace>();
     
 
     [SerializeField]

@@ -13,7 +13,7 @@ public class ItemSpace
         if(connectSO != null)
         {
             connectSO.amount--;
-            itemSpace = ItemManager.Instance.DropItem(Vector3.zero, connectSO.item_ID);
+            itemSpace = ItemManager.Instance.DropItem(Vector3.zero, connectSO);
         }
     }
 }

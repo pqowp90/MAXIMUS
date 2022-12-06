@@ -60,7 +60,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     {
         Enemies.Remove(enemy);
         enemy.gameObject.SetActive(false);
-        ItemManager.Instance.DropItem(enemy.transform.position, enemy.Data.dropItemTable.GetDropItem().item_ID);
+        ItemManager.Instance.DropItem(enemy.transform.position, enemy.Data.dropItemTable.GetDropItem());
         EntityManager.Instance.UnregisterEntity(enemy);
     }
 }

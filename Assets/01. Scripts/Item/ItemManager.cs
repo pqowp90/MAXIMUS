@@ -7,7 +7,6 @@ using UnityEngine;
 public class ItemManager : MonoSingleton<ItemManager>
 {
     [SerializeField]
-    private ItemDB itemSO;                          // Item SO
     public ItemDB inventorySO;                  // Inventory SO
 
     [Header("Item Drop")]
@@ -21,20 +20,10 @@ public class ItemManager : MonoSingleton<ItemManager>
         PoolManager.CreatePool<DropItem>("DropItem", poolObj, 50);
     }
 
-    public DropItem DropItem(Vector3 pos, int id = -1)
+    public DropItem DropItem(Vector3 pos, Item item)
     {
-        Item drop;
-        if(id != -1)
-        {
-            drop = itemSO.itemList.FirstOrDefault(i => i.item_ID == id);
-        }
-        else
-        {
-            drop = itemSO.itemList[Random.Range(0, itemSO.itemList.Count)];
-        }
-
         DropItem itemObj = PoolManager.GetItem<DropItem>("DropItem");
-        itemObj.item = drop;
+        itemObj.item = item;
         itemObj.meshRenderer.material = itemObj.item.material;
         itemObj.meshFilter.mesh = itemObj.item.mesh;
         itemObj.transform.position = pos + new Vector3(0, 0.5f, 0);

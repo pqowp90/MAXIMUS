@@ -6,13 +6,11 @@ public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Droppe
 {
     public void Build(Vector2Int _pos, int _rotation, Dropper building)
     {
-        building.canIn = false;
-        List<Vector2Int> buildingRanges = building.GetComponent<Building>().range;
-        foreach (var item in buildingRanges)
+        building.space.canIn = false;
+        foreach (var item in building.outPutRange)
         {
-            GridManager.Instance.canInsertPoss.TryAdd(item, building);
+            GridManager.Instance.canInsertPoss.TryAdd(item, building.space);
         }
-        
     }
 
     public void Destroy(Dropper building)

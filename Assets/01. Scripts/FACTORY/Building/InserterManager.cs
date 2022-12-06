@@ -9,7 +9,7 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
     Vector2Int[] dir_rotation = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
     public void FindAround(Inserter _inserter)
     {
-        ItemCarrierBase space = null;
+        ItemSpace space = null;
         if(GridManager.Instance.canInsertPoss.TryGetValue(_inserter.pos + dir_rotation[_inserter.Rotation], out space))
         {
             if(space.canIn)
@@ -66,15 +66,15 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
         {
             if(item.nextItemCarrierBase != null && item.beforeItemCarrierBase != null)
             {
-                if(item.nextItemCarrierBase.item == null && item.beforeItemCarrierBase.item != null)
+                if(item.nextItemCarrierBase.itemSpace == null && item.beforeItemCarrierBase.itemSpace != null)
                 {
-                    DropItem dropItem = dropItems.Find(x => x == item.beforeItemCarrierBase.item);
+                    DropItem dropItem = dropItems.Find(x => x == item.beforeItemCarrierBase.itemSpace);
                     if(dropItem == null)
                     {
-                        item.nextItemCarrierBase.item = item.beforeItemCarrierBase.item;
-                        item.beforeItemCarrierBase.item = null;
+                        item.nextItemCarrierBase.itemSpace = item.beforeItemCarrierBase.itemSpace;
+                        item.beforeItemCarrierBase.itemSpace = null;
                         item.beforeItemCarrierBase.GetNextDropItem();
-                        dropItems.Add(item.nextItemCarrierBase.item);
+                        dropItems.Add(item.nextItemCarrierBase.itemSpace);
                     }
                 }
             }

@@ -7,8 +7,8 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
     private int rotation;
     public int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
     public Vector2Int pos;
-    public ItemCarrierBase nextItemCarrierBase;
-    public ItemCarrierBase beforeItemCarrierBase;
+    public ItemSpace nextItemCarrierBase;
+    public ItemSpace beforeItemCarrierBase;
 
 
     private void OnDisable() {

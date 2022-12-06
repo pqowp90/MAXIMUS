@@ -8,7 +8,8 @@ public enum ITEM_TYPE : int
     Item,
     Potion,
     Gun,
-    Bullet
+    Bullet,
+    Ore,
 }
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Items/Item")]
@@ -20,6 +21,7 @@ public class Item : ScriptableObject
     public ITEM_TYPE item_type = ITEM_TYPE.Item;
     public bool isStackable = false;
     public int amount = 0;
+    public Sprite icon = null;
 
     [Header("텍스쳐")]
     public Material material;

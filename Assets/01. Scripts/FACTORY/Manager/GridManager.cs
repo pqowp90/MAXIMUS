@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 using TMPro;
+
 public class Grid
 {
     private int width, height;
@@ -83,7 +85,7 @@ public class GridManager : MonoSingleton<GridManager>
 
     [SerializeField]
     private List<Range> rangeGameobjects = new List<Range>();   // 범위표시 프리펩 위치
-    private bool buildingMode = false;                          // 건물을 짓는중인가
+    public bool buildingMode = false;                          // 건물을 짓는중인가
     private bool disassemblyMode = false;                       // 파괴모드
     private BuildingType curBuilding = BuildingType.Empty;      // 현재 지으려고 하는 빌딩
     public Grid grid = new Grid(1000, 1000);                    // 건물의 정보가 그리드에 저장됨
@@ -184,6 +186,10 @@ public class GridManager : MonoSingleton<GridManager>
     }
     private void DisassemblyMouse()
     {
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
         {
@@ -230,7 +236,10 @@ public class GridManager : MonoSingleton<GridManager>
     private void BuildingMouse()
     {
         
-
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         RaycastHit hit;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, groundLayerMask))
         {

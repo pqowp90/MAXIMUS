@@ -14,7 +14,7 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
 
     public void SetTransform(int _rotation, Vector2Int _pos)
     {
-        
+        throw new System.NotImplementedException();
     }
 
     // Start is called before the first frame update

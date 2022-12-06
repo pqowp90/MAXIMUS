@@ -20,6 +20,9 @@ public class ConveyorBelt : MonoBehaviour, BuildingTransfrom
     public ItemSpace space = new ItemSpace();
 
     private float itemMoveDamp = 10f;
+    private void Start() {
+        space.body = transform;
+    }
     private void Update() {
         if(space.itemSpace!=null)
             space.itemSpace.transform.position = Vector3.Lerp(space.itemSpace.transform.position, transform.position + Vector3.up * 0.3f, itemMoveDamp * Time.deltaTime);

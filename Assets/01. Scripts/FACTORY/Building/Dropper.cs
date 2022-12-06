@@ -20,7 +20,7 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
     // Start is called before the first frame update
     void Start()
     {
-        
+        space.body = transform;
     }
 
     // Update is called once per frame

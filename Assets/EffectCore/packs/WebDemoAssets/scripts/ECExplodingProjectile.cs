@@ -28,6 +28,8 @@ public class ECExplodingProjectile : MonoBehaviour
 
     private Vector3 previousPosition;
 
+    public float damage;
+
     // Use this for initialization
     void Start()
     {
@@ -100,7 +102,10 @@ public class ECExplodingProjectile : MonoBehaviour
                 thisRigidbody.velocity = Vector3.zero;
                 Destroy(gameObject, 5);
             }
-
+            if (hit.transform.tag == "Enemy")
+            {
+                hit.transform.GetComponent<Enemy>().TakeDamage(damage);
+            }
         }
     }
 

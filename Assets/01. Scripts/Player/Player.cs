@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -37,6 +38,10 @@ public class Player : MonoBehaviour
         {
             WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
         }
+        if(Input.GetKeyDown(bagOpenKey))
+        {
+            SceneManager.LoadScene("Factory");
+        }
 
         ammoText.text = weapon.ammoText;
     }
@@ -58,24 +63,18 @@ public class Player : MonoBehaviour
     {
         if (weapon == null) return;
 
-        if(!WeaponManager.Instance.IsReloading && weapon.bullet.haveAmmo > 0 && !_isDelay)
+        if (weapon.bullet.ammo == 0) WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
+        else if (!WeaponManager.Instance.IsReloading && !_isDelay)
         {
-            if (weapon.bullet.ammo == 0) WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
-            else
-            {
-                weapon.bullet.ammo -= 1;
+            weapon.bullet.ammo -= 1;
 
-                var rigidbody = Instantiate(weapon.bullet.prefab, weaponPos);
-                rigidbody.AddComponent<BulletObj>().damage = weapon.bullet.damage;
-                rigidbody.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
-                _isDelay = true;
-                Invoke("AttackDelay", weapon.bullet.attackDelay);
-            }
+            var rigidbody = Instantiate(weapon.bullet.prefab, weaponPos);
+            rigidbody.GetComponent<ECExplodingProjectile>().damage = weapon.bullet.damage;
+            rigidbody.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+            _isDelay = true;
+            Invoke("AttackDelay", weapon.bullet.attackDelay);
         }
-        else
-        {
-            Debug.LogWarning("not ammo");
-        }
+
     }
 
     private void AttackDelay()

@@ -27,8 +27,12 @@ public class Bullet
     {
         get
         {
-            if(ammo != maxAmmo)
+            if(ammo != maxAmmo && haveAmmo > 0)
             {
+                if(haveAmmo < maxAmmo)
+                {
+                    return true;
+                }
                 int addAmmo = maxAmmo - ammo;
                 return addAmmo <= haveAmmo;
             }
@@ -39,6 +43,10 @@ public class Bullet
     public void AmmoReload()
     {
         int addAmmo = maxAmmo - ammo;
+        if (haveAmmo < maxAmmo)
+        {
+            addAmmo = haveAmmo;
+        }
         ammo += addAmmo;
         haveAmmo -= addAmmo;
         bulletItem.amount -= addAmmo;

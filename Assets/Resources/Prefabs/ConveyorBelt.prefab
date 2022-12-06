@@ -248,8 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731247abe54ff984492ce10b2087b5c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  conveyorBelt: {fileID: 0}
+  item: {fileID: 11400000, guid: 13c1eee79854dad42bd2ce7076644eec, type: 2}
 --- !u!114 &7626904569931100319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,8 +261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa47825841ea324a8c9b659511937d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
   pos: {x: 0, y: 0}
   GroupID: 0
   nextConveyorBelt: {fileID: 0}
   beforeConveyorBelts: []
+  space:
+    _itemSpace: {fileID: 0}
+    body: {fileID: 0}
+    connectSO: {fileID: 0}
+    canIn: 1
+    canOut: 1

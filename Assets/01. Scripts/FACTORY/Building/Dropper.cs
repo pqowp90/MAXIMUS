@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Dropper : MonoBehaviour, BuildingTransfrom
 {
+    private int rotation;
+    public int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
+    public Vector2Int pos;
     public ItemSpace space = new ItemSpace();
     //public List<Vector2Int> inPutRange = new List<Vector2Int>();
     public List<Vector2Int> outPutRange = new List<Vector2Int>();
@@ -14,7 +17,8 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
 
     public void SetTransform(int _rotation, Vector2Int _pos)
     {
-        throw new System.NotImplementedException();
+        Rotation = _rotation;
+        pos = _pos;
     }
 
     // Start is called before the first frame update

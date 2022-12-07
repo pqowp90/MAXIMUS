@@ -13,7 +13,7 @@ public class ItemManager : MonoSingleton<ItemManager>
     [SerializeField]
     public GameObject poolObj;                // 풀링 부모;
 
-    public float dropTime = 60.0f;                // �������� ����Ǿ��ִ� �ð�
+    public float dropTime = 60.0f;                
 
     private void Start()
     {

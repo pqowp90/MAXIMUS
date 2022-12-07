@@ -48,10 +48,7 @@ public class ItemManager : MonoSingleton<ItemManager>
         item.amount = 1;
         inventorySO.itemList.Add(item);
     }
-    public List<Item> GetItemsByTypeFromSO(ITEM_TYPE iTEM_TYPE)
-    {
-        return itemSO.GetItemList(iTEM_TYPE);
-    }
+
     public List<Item> GetItemsByType(ITEM_TYPE iTEM_TYPE)
     {
         return inventorySO.GetItemList(iTEM_TYPE);
@@ -60,6 +57,7 @@ public class ItemManager : MonoSingleton<ItemManager>
     {
         return inventorySO.itemList.FirstOrDefault(i => i.item_ID == item_id);
     }
+
 
     public Item GetItemFromInventory(int item_id)
     {

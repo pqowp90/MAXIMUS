@@ -25,6 +25,8 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     [field: SerializeField] public EnemyData Data { get; set; }
 
+    private bool _isDelay = false;
+
     private void Awake()
     {
         Type = EntityType.Enemy;
@@ -78,6 +80,10 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
         if (Vector3.Distance(transform.position, targetPosition) >= maxDistance)
             transform.position =
                 Vector3.MoveTowards(transform.position, targetPosition, Data.speed * Time.deltaTime);
+        else
+        {
+            Attack();
+        }
     }
 
     public void AddTarget(EntityType type)
@@ -99,6 +105,7 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     {
         Health -= damage;
         OnDamageTaken?.Invoke(damage);
+        UIManager.Instance.Popup(transform, damage.ToString());
 
         if (Health <= 0)
         {
@@ -109,6 +116,21 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     private void Death()
     {
         EnemyManager.Instance.DeathEnemy(this);
+    }
+
+    public void Attack()
+    {
+        if(!_isDelay)
+        {
+            target.GetComponent<Player>().hp -= Data.damage;
+            _isDelay = true;
+            Invoke("AttackDelay", Data.attackDelay);
+        }
+    }
+
+    private void AttackDelay()
+    {
+        _isDelay = false;
     }
 
     public void OnPool()

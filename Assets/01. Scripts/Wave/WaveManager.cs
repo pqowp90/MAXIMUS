@@ -100,8 +100,7 @@ public class WaveManager : MonoSingleton<WaveManager>
 
         SpawnEnemy();
 
-        var remainTime = DayCycleManager.Instance.nightLength / 2 - timer;
-        nextSpawnTime += Random.Range(0, remainTime / CurrentWave.EnemyCount);
+        nextSpawnTime += Random.Range(0, 100f / CurrentWave.EnemyCount);
     }
 
     private void SpawnEnemy()

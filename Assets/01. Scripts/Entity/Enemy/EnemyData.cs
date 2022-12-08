@@ -10,7 +10,10 @@ public class EnemyData : ScriptableObject
     public GameObject prefab;
     public float health;
     public float speed;
+
+    [Header("Attack")]
     public float damage;
+    public float attackDelay;
 
     public DropItemTableSO dropItemTable;
 }

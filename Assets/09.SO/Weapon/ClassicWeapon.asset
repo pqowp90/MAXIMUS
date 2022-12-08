@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4d891d265464294aa82b3f47514aeb1, type: 3}
   m_Name: ClassicWeapon
   m_EditorClassIdentifier: 
-  weaponName: 
+  weaponName: Classic
   bullet:
     bullet_name: OriginalBullet
     attackDelay: 0.5
     damage: 5
     maxAmmo: 10
-    haveAmmo: 0
+    haveAmmo: 336
     ammo: 10
     prefab: {fileID: 1238843893459588, guid: df1a1922af2b37e4f9ade4203d8566bd, type: 3}
     bulletItem: {fileID: 11400000, guid: 23c4aed59f721c54aa2e1e453b2733a8, type: 2}

@@ -106,7 +106,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   distance: 0.5
-  maxDistance: 0
+  maxDistance: 3
   targetPosition: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
   targetEnemyTypes: 2

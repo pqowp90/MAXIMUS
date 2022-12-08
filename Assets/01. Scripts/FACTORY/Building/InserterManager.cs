@@ -58,23 +58,24 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
             inserterPoss.Remove(_inserter.pos);
         }
     }
-    private List<DropItem> dropItems = new List<DropItem>();
+    private List<DropItem> movedItem = new List<DropItem>();
     public void Use()
     {
-        dropItems.Clear();
+        movedItem.Clear();
         foreach (var item in inserters)
         {
             if(item.nextItemCarrierBase != null && item.beforeItemCarrierBase != null)
             {
                 if(item.nextItemCarrierBase.itemSpace == null && item.beforeItemCarrierBase.itemSpace != null)
                 {
-                    DropItem dropItem = dropItems.Find(x => x == item.beforeItemCarrierBase.itemSpace);
+                    DropItem dropItem = movedItem.Find(x => x == item.beforeItemCarrierBase.itemSpace);
                     if(dropItem == null)
                     {
+                        item.beforeItemCarrierBase.itemSpace.transform.position = item.transform.position;
                         item.nextItemCarrierBase.itemSpace = item.beforeItemCarrierBase.itemSpace;
                         item.beforeItemCarrierBase.itemSpace = null;
                         item.beforeItemCarrierBase.GetNextDropItem();
-                        dropItems.Add(item.nextItemCarrierBase.itemSpace);
+                        movedItem.Add(item.nextItemCarrierBase.itemSpace);
                     }
                 }
             }

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    private float _hp;
+    public float hp;
     private bool _isOpenBag;
     public ItemDB inventory;
     
@@ -80,7 +80,8 @@ public class Player : MonoBehaviour
         {
             weapon.bullet.ammo -= 1;
 
-            var rigidbody = Instantiate(weapon.bullet.prefab, weaponPos);
+            var rigidbody = Instantiate(weapon.bullet.prefab);
+            rigidbody.transform.position = weaponPos.transform.position;
             rigidbody.GetComponent<ECExplodingProjectile>().damage = weapon.bullet.damage;
             rigidbody.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
             _isDelay = true;

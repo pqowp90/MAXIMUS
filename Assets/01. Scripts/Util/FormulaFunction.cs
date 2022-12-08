@@ -6,7 +6,6 @@ public static class FormulaFunction
 
     public static int EnemyCount()
     {
-        // return WaveCount * 2;
         return 1;
     }
 

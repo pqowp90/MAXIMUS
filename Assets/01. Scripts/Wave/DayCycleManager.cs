@@ -9,39 +9,14 @@ public class DayCycleManager : MonoSingleton<DayCycleManager>
         Night
     }
 
-    public float dayLength = 60f;
-    public float nightLength = 60f;
-
     [SerializeField] private bool isCycling = true;
-    [SerializeField] private Cycle currentCycle = Cycle.Day;
-
-    [SerializeField] private float timer;
+    [SerializeField] public Cycle currentCycle = Cycle.Day;
 
     public Action<Cycle> OnCycled = cycle => { };
 
-    private void Update()
+    public void ChangeCycle(Cycle cycle)
     {
-        if (!isCycling) return;
-
-        timer += Time.deltaTime;
-
-        switch (currentCycle)
-        {
-            case Cycle.Day when timer >= dayLength:
-                ChangeCycle(Cycle.Night);
-                timer = 0f;
-                break;
-            case Cycle.Night when timer >= nightLength:
-                ChangeCycle(Cycle.Day);
-                timer = 0f;
-                break;
-            default:
-                return;
-        }
-    }
-
-    private void ChangeCycle(Cycle cycle)
-    {
+        Debug.Log(cycle);
         currentCycle = cycle;
 
         switch (currentCycle)

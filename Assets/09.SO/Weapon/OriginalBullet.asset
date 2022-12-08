@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: OriginalBullet
   m_EditorClassIdentifier: 
   item_name: OriginalBullet
-  item_ID: 0
+  item_ID: 50
   item_type: 3
   isStackable: 1
-  amount: 439
+  amount: 340
+  icon: {fileID: 0}
   material: {fileID: 0}
   mesh: {fileID: 0}
   explain: 

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96de4657d0739384e9899fd9be3f3fcd, type: 3}
   m_Name: GoldFireBullet
   m_EditorClassIdentifier: 
-  item_name: 
-  item_ID: -1
-  item_type: 0
-  isStackable: 0
+  item_name: GoldFireBullet
+  item_ID: 51
+  item_type: 3
+  isStackable: 1
   amount: 0
+  icon: {fileID: 0}
   material: {fileID: 0}
   mesh: {fileID: 0}
   explain: 

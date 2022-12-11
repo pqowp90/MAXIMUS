@@ -6,7 +6,6 @@ public class ItemSpace : MonoBehaviour
 {
     public DropItem _itemSpace;
     public DropItem itemSpace{set{_itemSpace = value; _itemSpace?.OffRb(true);}get{return _itemSpace;}}
-    public Transform body;
     public Item _connectSO;
     public Item connectSO{get{return _connectSO;}set{_connectSO = value;ChangeSO();}}
     public bool canIn = true;

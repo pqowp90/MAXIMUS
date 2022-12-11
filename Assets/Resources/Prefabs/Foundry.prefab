@@ -16282,6 +16282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1550847041775897640}
   - component: {fileID: 1550847041775897643}
+  - component: {fileID: 9012126348795403923}
   m_Layer: 11
   m_Name: Foundry
   m_TagString: Untagged
@@ -16347,6 +16348,22 @@ MonoBehaviour:
   - {fileID: 1550847040588081509}
   - {fileID: 1550847040931346597}
   - {fileID: 1550847040764564089}
+--- !u!114 &9012126348795403923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550847041775897641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626550625f24a9b4fabedb3ac4f8eeee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  factoryRecipesSO:
+  - {fileID: 11400000, guid: 0bd9aea5e0ab16547b28dd26755029fd, type: 2}
+  - {fileID: 11400000, guid: b285333587142484da4461660db8b3f8, type: 2}
+  inputCount: 1
 --- !u!1 &1550847041967260774
 GameObject:
   m_ObjectHideFlags: 0

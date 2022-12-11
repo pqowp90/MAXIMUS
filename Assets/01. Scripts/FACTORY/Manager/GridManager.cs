@@ -51,6 +51,7 @@ public enum BuildingType
     Foundry,
     SteelWorks,
     Dropper,
+    Combiner,
     // ...
     Count,
 }
@@ -339,7 +340,7 @@ public class GridManager : MonoSingleton<GridManager>
                     }
                 }
 
-                buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
+                buildModeUI.TurnOnOffGroup(true, "건축 모드 : " + buildMode.ToString());
             }
 
             if(Input.GetMouseButtonDown(0)){ // 짓는중에 건물의 위치를 확정
@@ -525,7 +526,7 @@ public class GridManager : MonoSingleton<GridManager>
         {
             buildMode = BuildMode.Single;
         } 
-        buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
+        buildModeUI.TurnOnOffGroup(true, "건축 모드: " + buildMode.ToString());
 
         buildingGameObject.Add(createdBuilding.gameObject);
     }

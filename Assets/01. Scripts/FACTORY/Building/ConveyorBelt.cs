@@ -1,4 +1,4 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +20,7 @@ public class ConveyorBelt : MonoBehaviour, BuildingTransfrom
 
     private float itemMoveDamp = 10f;
     private void Start() {
-        space.body = transform;
+        
     }
     private void Update() {
         if(space.itemSpace!=null)

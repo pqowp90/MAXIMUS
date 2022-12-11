@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/08. Scene/OverWorld.unity
     guid: d57973a1bebdd054cbe0a992d93ba9b1
   - enabled: 1
-    path: Assets/Scenes/Factory.unity
+    path: Assets/08. Scene/Factory.unity
     guid: ce7b575cde62a50448405107760477e9
   m_configObjects: {}

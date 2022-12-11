@@ -13,7 +13,7 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
         space = gameObject.AddComponent<ItemSpace>();
     }
     //public List<Vector2Int> inPutRange = new List<Vector2Int>();
-    public List<Vector2Int> outPutRange = new List<Vector2Int>();
+
     public void AddToManager(Vector2Int curPos, int curRotation)
     {
         DropperManager.Instance.Build(curPos, curRotation, this);

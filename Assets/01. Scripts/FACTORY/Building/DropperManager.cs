@@ -9,7 +9,7 @@ public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Droppe
     {
         building.SetTransform(_rotation, _pos);
         building.space.canIn = false;
-        foreach (var item in building.outPutRange)
+        foreach (var item in building.GetComponent<Building>().range)
         {
             GridManager.Instance.canInsertPoss.TryAdd(item + _pos, building.space);
         }

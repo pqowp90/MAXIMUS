@@ -51,6 +51,7 @@ public enum BuildingType
     Foundry,
     SteelWorks,
     Dropper,
+    Combiner,
     // ...
     Count,
 }
@@ -339,7 +340,7 @@ public class GridManager : MonoSingleton<GridManager>
                     }
                 }
 
-                buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
+                buildModeUI.TurnOnOffGroup(true, "건축 모드 : " + buildMode.ToString());
             }
 
             if(Input.GetMouseButtonDown(0)){ // 짓는중에 건물의 위치를 확정
@@ -371,7 +372,7 @@ public class GridManager : MonoSingleton<GridManager>
                             
                         foreach (var item in buildingGameObject)
                         {
-                            item.transform.rotation = Quaternion.Euler(new Vector3(0, realCurRotate * 90f, 0));
+                            item.transform.rotation = Quaternion.Euler(new Vector3(0, curRotate * 90f, 0));
                         }
 
                         foreach (var item in buildingGameObject)
@@ -520,11 +521,12 @@ public class GridManager : MonoSingleton<GridManager>
         curBuildingName.TurnOnOffGroup(true, curBuilding.ToString());
 
         Building createdBuilding = PoolManager.GetItem<Building>(curBuilding.ToString());
+        createdBuilding.transform.position = Vector3.one * -100;
         if(!createdBuilding.canJupe && buildMode == BuildMode.Jupe)
         {
             buildMode = BuildMode.Single;
         } 
-        buildModeUI.TurnOnOffGroup(true, "Build mode: " + buildMode.ToString());
+        buildModeUI.TurnOnOffGroup(true, "건축 모드: " + buildMode.ToString());
 
         buildingGameObject.Add(createdBuilding.gameObject);
     }
@@ -533,6 +535,7 @@ public class GridManager : MonoSingleton<GridManager>
         for (int i = 0; i < ranges[building].Count; i++)
         {
             Range range = PoolManager.GetItem<Range>("InstallationRange");
+            range.transform.position = Vector3.one * -100;
             range.ChangeMaterial(startRed);
             rangeGameobjects.Add(range);
         }

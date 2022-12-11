@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface BuildAbility<T>
-{
-    void Build(Vector2Int _pos, int _rotation, T building);
-    void Destroy(T building);
-    void Use();
-}
+
 public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>, BuildAbility<ConveyorBelt>
 {
     

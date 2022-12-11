@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96de4657d0739384e9899fd9be3f3fcd, type: 3}
   m_Name: Iron
   m_EditorClassIdentifier: 
-  item_name: IronOres
+  item_name: "\uCCA0 \uAD11\uC11D"
   item_ID: 1
   item_type: 4
   isStackable: 1
-  amount: 0
-  icon: {fileID: 21300000, guid: ceee51983cab94d4fb67d5c96a37645c, type: 3}
+  amount: 206
+  icon: {fileID: 21300000, guid: 5c57c4e3b94179a45a6e6b727d72a3f1, type: 3}
   material: {fileID: 2100000, guid: 70865d647b040334e84539f57bc0cea9, type: 2}
   mesh: {fileID: -802373276872804759, guid: 0b2b694212bdeb4489412db9902cb4ae, type: 3}
-  explain: It is an ore that is often mined in the Overworld.
+  explain: "\uC624\uBC84\uC6D4\uB4DC\uC5D0\uC11C \uCC44\uAD74\uB418\uB294 \uAD11\uBB3C\uC774\uB2E4.\n\uB0B4\uAD6C\uC131\uC774
+    \uB192\uC544\uC11C \uAC74\uBB3C\uC758 \uBCF4\uAC15\uC7AC\uB85C \uC0AC\uC6A9\uB41C\uB2E4."

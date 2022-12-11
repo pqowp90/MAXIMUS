@@ -1,14 +1,9 @@
-using System.Collections;
+    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 
-public interface BuildingTransfrom
-{
-    
-    void SetTransform(int _rotation, Vector2Int _pos);
-    public void AddToManager(Vector2Int curPos, int curRotation);
-}
+
 public class ConveyorBelt : MonoBehaviour, BuildingTransfrom 
 {
     private int rotation;
@@ -18,11 +13,14 @@ public class ConveyorBelt : MonoBehaviour, BuildingTransfrom
     public ConveyorBelt nextConveyorBelt;
     public List<ConveyorBelt> beforeConveyorBelts = new List<ConveyorBelt>();
 
-    public ItemSpace space = new ItemSpace();
+    public ItemSpace space;
+    private void Awake() {
+        space = gameObject.AddComponent<ItemSpace>();
+    }
 
     private float itemMoveDamp = 10f;
     private void Start() {
-        space.body = transform;
+        
     }
     private void Update() {
         if(space.itemSpace!=null)

@@ -11,15 +11,18 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     [SerializeField]
     private GameObject dropperUI;
     [SerializeField]
-    private Transform content;
+    private GameObject content;
     [SerializeField]
     private Dropper dropper;
     [SerializeField]
     private ItemPanel curItemPanel;
+    [SerializeField]
+    private GameObject canvas;
     // Start is called before the first frame update
     void Start()
     {
-        PoolManager.CreatePool<ItemPanel>("ItemPanel", content.gameObject);
+        PoolManager.CreatePool<ItemPanel>("ItemPanel", content);
+        PoolManager.CreatePool<Billboard>("Billboard", canvas);
     }
 
     // Update is called once per frame

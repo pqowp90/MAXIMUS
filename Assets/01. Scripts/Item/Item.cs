@@ -10,6 +10,7 @@ public enum ITEM_TYPE : int
     Gun,
     Bullet,
     Ore,
+    Ingredient,
 }
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Items/Item")]

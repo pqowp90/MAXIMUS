@@ -11,7 +11,7 @@ public class ScriptableSingleton<T> : ScriptableObject where T : ScriptableObjec
         {
             if (_instance != null) return _instance;
 
-            var assets = Resources.LoadAll<T>("");
+            var assets = Resources.LoadAll<T>("EnemyDataContainer");
 
             switch (assets.Length)
             {

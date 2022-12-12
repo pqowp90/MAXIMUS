@@ -14,11 +14,12 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     public bool factoryMode = false;
     
     public override void Awake() {
-        InputManager.Instance.factoryMode = factoryMode;
+        GameObject.DontDestroyOnLoad(this.gameObject);
         base.Awake();
         InputManager.Instance.KeyAction -= OnKeyAction;
         InputManager.Instance.KeyAction += OnKeyAction;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        InputManager.Instance.factoryMode = factoryMode;
         SceneManager.LoadScene("Factory", LoadSceneMode.Additive);
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -26,19 +27,29 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         if(scene.name == "Factory")
         {
             factory = scene.GetRootGameObjects()[0];
-            factory.SetActive(factoryMode);
+            factory?.SetActive(factoryMode);
         }
+        overworld.SetActive(true);
+        factory.SetActive(false);
+        factoryMode = false;
+        Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
+        Cursor.visible = factoryMode;
     }
     private void OnKeyAction()
     {
         if(Input.GetKeyDown(KeyCode.X))
         {
-            factoryMode = !factoryMode;
-            factory.SetActive(factoryMode);
-            overworld.SetActive(!factoryMode);
+            UpdateScene();
+        }
+    }
+    private void UpdateScene()
+    {
+        factoryMode = !factoryMode;
+            InputManager.Instance.factoryMode = factoryMode;
+            factory?.SetActive(factoryMode);
+            overworld?.SetActive(!factoryMode);
             
             Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
             Cursor.visible = factoryMode;
-        }
     }
 }

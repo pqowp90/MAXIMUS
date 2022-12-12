@@ -81,7 +81,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     public virtual void OnDestroy()
     {
-        _applicationIsQuitting = true;
+        //_applicationIsQuitting = true;
     }
 
     private void OnSceneUnloaded(Scene scene)

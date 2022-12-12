@@ -105,6 +105,7 @@ public class GridManager : MonoSingleton<GridManager>
     [SerializeField]
     private VignettingEffect vignettingEffect;
     private Test test;
+    public bool factorymode;
 
     public override void Awake()
     {
@@ -140,7 +141,8 @@ public class GridManager : MonoSingleton<GridManager>
         
     }
     private void Update() {
-
+        if(!factorymode)return;
+        
 
         nomalUI?.TurnOnOffGroup(!buildingMode && !disassemblyMode);
         rightClickUI?.TurnOnOffGroup(buildingMode);

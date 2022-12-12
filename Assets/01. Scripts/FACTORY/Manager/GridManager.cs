@@ -105,7 +105,15 @@ public class GridManager : MonoSingleton<GridManager>
     [SerializeField]
     private VignettingEffect vignettingEffect;
     private Test test;
-    public bool factorymode;
+    
+    
+
+
+    // 인풋 관련
+    private Vector3 mousePos = Vector3.zero;
+    private bool rightMouseDown = false;
+    private bool leftMouseDown = false;
+
 
     public override void Awake()
     {
@@ -122,6 +130,8 @@ public class GridManager : MonoSingleton<GridManager>
         //Build(new Vector2Int(10, 10), BuildingType.Hub);
         vignettingEffect = FindObjectOfType<VignettingEffect>();
         test = GetComponent<Test>();
+        InputManager.Instance.KeyAction -= InputKey;
+        InputManager.Instance.KeyAction += InputKey;
     }
     Vector3 point;
     private void ChangeMode(ref bool mode, bool onoff = true)
@@ -141,7 +151,7 @@ public class GridManager : MonoSingleton<GridManager>
         
     }
     private void Update() {
-        if(!factorymode)return;
+        if(!InputManager.Instance.factoryMode)return;
         
 
         nomalUI?.TurnOnOffGroup(!buildingMode && !disassemblyMode);
@@ -156,6 +166,17 @@ public class GridManager : MonoSingleton<GridManager>
             DisassemblyMouse();
         }
         
+        rightMouseDown = false;
+        leftMouseDown = false;
+    }
+
+    private void InputKey()
+    {
+        mousePos = Input.mousePosition;
+        rightMouseDown = Input.GetMouseButtonDown(1);
+        leftMouseDown = Input.GetMouseButtonDown(0);
+
+
         if(Input.GetKeyDown(KeyCode.F)){ // 파괴모드 ㄱㄱ
             if(disassemblyMode)
             {
@@ -177,7 +198,7 @@ public class GridManager : MonoSingleton<GridManager>
         if(Input.GetKeyDown(KeyCode.I))
         {
             RaycastHit hit;
-            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
+            if(Physics.Raycast(Camera.main.ScreenPointToRay(mousePos),out hit, Mathf.Infinity, buildingLayerMask))
             {
                 ConveyorBelt building = hit.collider.GetComponentInParent<ConveyorBelt>();
                 if(building != null)
@@ -186,7 +207,10 @@ public class GridManager : MonoSingleton<GridManager>
                 }
             }
         }
+
+        
     }
+    
     private void DisassemblyMouse()
     {
         if(EventSystem.current.IsPointerOverGameObject())
@@ -194,7 +218,7 @@ public class GridManager : MonoSingleton<GridManager>
             return;
         }
         RaycastHit hit;
-        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(mousePos),out hit, Mathf.Infinity, buildingLayerMask))
         {
             
             Building building = hit.collider.GetComponentInParent<Building>();
@@ -206,7 +230,7 @@ public class GridManager : MonoSingleton<GridManager>
             {
                 rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.z);
             }
-            if(Input.GetMouseButtonDown(0)) // 건물을 파괴
+            if(leftMouseDown) // 건물을 파괴
             {
                 building.gameObject.SetActive(false);
                 if(building.buildingType == BuildingType.ConveyorBelt)
@@ -228,7 +252,7 @@ public class GridManager : MonoSingleton<GridManager>
             RemoveRanges();
             curBuildingName.TurnOnOffGroup(false);
         }
-        if(Input.GetMouseButtonDown(1))
+        if(rightMouseDown)
         {
             ChangeMode(ref disassemblyMode, false);
             curBuildingName.TurnOnOffGroup(false);
@@ -345,7 +369,7 @@ public class GridManager : MonoSingleton<GridManager>
                 buildModeUI.TurnOnOffGroup(true, "건축 모드 : " + buildMode.ToString());
             }
 
-            if(Input.GetMouseButtonDown(0)){ // 짓는중에 건물의 위치를 확정
+            if(leftMouseDown){ // 짓는중에 건물의 위치를 확정
                 if(UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject() == true)
                     return;
                 
@@ -430,7 +454,7 @@ public class GridManager : MonoSingleton<GridManager>
             }
             
 
-            if(Input.GetMouseButtonDown(1)){ // 짓는중에 취소할때
+            if(rightMouseDown){ // 짓는중에 취소할때
                 curBuildingName.TurnOnOffGroup(false);
                 ChangeMode(ref buildingMode, false);
                 juping = false;

@@ -40,10 +40,10 @@ public class Player : MonoBehaviour
         {
             WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
         }
-        if(Input.GetKeyDown(bagOpenKey))
-        {
-            SceneManager.LoadScene("Factory");
-        }
+        // if(Input.GetKeyDown(bagOpenKey))
+        // {
+        //     SceneManager.LoadScene("Factory");
+        // }
 
         ammoText.text = weapon.ammoText;
     }

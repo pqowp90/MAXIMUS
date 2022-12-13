@@ -16,7 +16,6 @@ public class DayCycleManager : MonoSingleton<DayCycleManager>
 
     public void ChangeCycle(Cycle cycle)
     {
-        Debug.Log(cycle);
         currentCycle = cycle;
 
         switch (currentCycle)

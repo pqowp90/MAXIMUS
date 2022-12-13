@@ -11,22 +11,24 @@ public class Player : MonoBehaviour
     public float hp;
     private bool _isOpenBag;
     public ItemDB inventory;
-    
-    public Weapon weapon => WeaponManager.Instance.weapon;
-    public Transform weaponPos;
 
     [SerializeField]
     private LayerMask _itemLayer;
     [SerializeField]
     private float _itemFindRadius = 1f;
 
-    private bool _isDelay = false;
+    private PlayerAttack attack;
 
     public TMP_Text ammoText;
 
     [Header("Keybinds")]
     public KeyCode reloadKey = KeyCode.R;
     public KeyCode bagOpenKey = KeyCode.E;
+
+    private void Start()
+    {
+        attack = GetComponent<PlayerAttack>();
+    }
 
     private void Update()
     {
@@ -45,7 +47,7 @@ public class Player : MonoBehaviour
         //     SceneManager.LoadScene("Factory");
         // }
 
-        ammoText.text = weapon.ammoText;
+        ammoText.text = attack?.weapon.ammoText;
     }
 
     private void SwapWeapon()
@@ -73,25 +75,12 @@ public class Player : MonoBehaviour
 
     private void Attak()
     {
-        if (weapon == null) return;
+        if (attack.weapon == null) return;
 
-        if (weapon.bullet.ammo == 0) WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
-        else if (!WeaponManager.Instance.IsReloading && !_isDelay)
+        if (attack.weapon.bullet.ammo == 0) WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
+        else if (!WeaponManager.Instance.IsReloading && !attack.AttackPossible)
         {
-            weapon.bullet.ammo -= 1;
-
-            var rigidbody = Instantiate(weapon.bullet.prefab);
-            rigidbody.transform.position = weaponPos.transform.position;
-            rigidbody.GetComponent<ECExplodingProjectile>().damage = weapon.bullet.damage;
-            rigidbody.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
-            _isDelay = true;
-            Invoke("AttackDelay", weapon.bullet.attackDelay);
+            attack.Attack();
         }
-
-    }
-
-    private void AttackDelay()
-    {
-        _isDelay = false;
     }
 }

@@ -19,6 +19,7 @@ public class WeaponManager : MonoSingleton<WeaponManager>
             Item item = ItemManager.Instance.inventorySO.itemList.Find(x => x.item_name == weapon.bullet.bullet_name);
             weapon.bullet.haveAmmo = item.amount;
             weapon.bullet.bulletItem = item;
+            PoolManager.CreatePool<BulletObj>($"Bullet_{weapon.bullet.bullet_name}", ItemManager.Instance.poolObj, 50);
         }
 
         if(weapon == null)
@@ -30,7 +31,7 @@ public class WeaponManager : MonoSingleton<WeaponManager>
 
     public IEnumerator WeaponReloading()
     {
-        if (weapon.bullet.CheckReloaing)
+        if (weapon.bullet.CheckReloaing && !_isReloading)
         {
             _isReloading = true;
             yield return new WaitForSeconds(weapon.reloadingTime);
@@ -56,4 +57,5 @@ public class WeaponManager : MonoSingleton<WeaponManager>
 
         weapon = weaponList[_weaponIndex];
     }
+
 }

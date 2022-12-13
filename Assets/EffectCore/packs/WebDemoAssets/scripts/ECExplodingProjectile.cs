@@ -27,7 +27,6 @@ public class ECExplodingProjectile : MonoBehaviour
     float timer;
 
     private Vector3 previousPosition;
-
     public float damage;
 
     // Use this for initialization
@@ -87,20 +86,22 @@ public class ECExplodingProjectile : MonoBehaviour
         float dist = Vector3.Distance(transform.position, prevPos);
         if (Physics.Raycast(ray, out hit, dist))
         {
+            if (hit.transform.CompareTag("Player")) return;
             transform.position = hit.point;
             Quaternion rot = Quaternion.FromToRotation(Vector3.forward, hit.normal);
             Vector3 pos = hit.point;
             Instantiate(impactPrefab, pos, rot);
+
             if (!explodeOnTimer && Missile == false)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
             else if (Missile == true)
             {
                 thisCollider.enabled = false;
                 particleKillGroup.SetActive(false);
                 thisRigidbody.velocity = Vector3.zero;
-                Destroy(gameObject, 5);
+                gameObject.SetActive(false);
             }
             if (hit.transform.tag == "Enemy")
             {
@@ -123,7 +124,7 @@ public class ECExplodingProjectile : MonoBehaviour
             Instantiate(impactPrefab, pos, rot);
             if (!explodeOnTimer && Missile == false)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
             else if (Missile == true)
             {
@@ -132,7 +133,7 @@ public class ECExplodingProjectile : MonoBehaviour
                 particleKillGroup.SetActive(false);
                 thisRigidbody.velocity = Vector3.zero;
 
-                Destroy(gameObject, 5);
+                gameObject.SetActive(false);
 
             }
         }
@@ -141,7 +142,7 @@ public class ECExplodingProjectile : MonoBehaviour
     void Explode()
     {
         Instantiate(explosionPrefab, gameObject.transform.position, Quaternion.Euler(0, 0, 0));
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 }

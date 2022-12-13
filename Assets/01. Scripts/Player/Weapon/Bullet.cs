@@ -17,9 +17,6 @@ public class Bullet
     public int haveAmmo;
     public int ammo;
 
-    [Header("총알 프리팹")]
-    public GameObject prefab;
-
     [HideInInspector]
     public Item bulletItem;
 

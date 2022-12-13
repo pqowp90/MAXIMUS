@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
+[DontDestroyOnLoad]
 public class FactoryManager : MonoSingleton<FactoryManager>
 {
     [SerializeField]
@@ -15,7 +15,6 @@ public class FactoryManager : MonoSingleton<FactoryManager>
 
     
     public override void Awake() {
-        GameObject.DontDestroyOnLoad(this.gameObject);
         base.Awake();
         InputManager.Instance.KeyAction -= OnKeyAction;
         InputManager.Instance.KeyAction += OnKeyAction;

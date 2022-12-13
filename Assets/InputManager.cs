@@ -12,7 +12,6 @@ public class InputManager : MonoSingleton<InputManager>
     public GameObject mainCamera;
     public override void Awake() {
         base.Awake();
-        DontDestroyOnLoad(this.gameObject);
     }
     public void SetMode()
     {

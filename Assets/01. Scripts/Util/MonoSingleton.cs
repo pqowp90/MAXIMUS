@@ -60,7 +60,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         if (_instance == null)
         {
             _instance = this as T;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -81,7 +81,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 
     public virtual void OnDestroy()
     {
-        _applicationIsQuitting = true;
+        //_applicationIsQuitting = true;
     }
 
     private void OnSceneUnloaded(Scene scene)

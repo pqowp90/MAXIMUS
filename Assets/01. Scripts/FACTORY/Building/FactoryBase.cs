@@ -11,7 +11,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
     private Billboard billboard;
     [SerializeField]
     private int inputCount = 1;
-    protected List<ItemSpace> inputSpaces;
+    protected List<ItemSpace> inputSpaces = new List<ItemSpace>();
     protected ItemSpace outPutSpace;
     
 

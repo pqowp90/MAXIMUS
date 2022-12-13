@@ -28,9 +28,12 @@ public class WaveManager : MonoSingleton<WaveManager>
     private void Update()
     {
         if (!isWaveProgressing) return;
+        if(!InputManager.Instance.factoryMode){
+            timer += Time.deltaTime;
+        }
 
-        timer += Time.deltaTime;
-
+        
+        if(CurrentWave == null) return;
         if (CurrentWave.EnemyCount > 0 || EnemyManager.Instance.EnemyCount > 0)
             SpawnTimer();
         else

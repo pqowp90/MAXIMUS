@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3742770799661729837}
   - component: {fileID: 5423934280794505286}
   - component: {fileID: 1109952882463945253}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1325999597838153958}
   - component: {fileID: 2524441273844494655}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InstallationRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}

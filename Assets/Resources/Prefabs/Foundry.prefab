@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3862293054439394323}
   - component: {fileID: 7395008329168993362}
   - component: {fileID: 1835851075754772473}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_LavaPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4537643526831315146}
   - component: {fileID: 2427785813548773750}
   - component: {fileID: 19684478538138376}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_UpperBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5203600318680663413}
   - component: {fileID: 3761235390762351896}
   - component: {fileID: 4551917079766292449}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_Lava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 1550847040588081508}
   - component: {fileID: 1550847040588081510}
   - component: {fileID: 1550847040588081511}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5570,7 +5570,7 @@ GameObject:
   - component: {fileID: 1550847040764564088}
   - component: {fileID: 1550847040764564090}
   - component: {fileID: 1550847040764564091}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10491,7 +10491,7 @@ GameObject:
   - component: {fileID: 1550847040931346596}
   - component: {fileID: 1550847040931346598}
   - component: {fileID: 1550847040931346599}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15318,7 +15318,7 @@ GameObject:
   - component: {fileID: 1550847041379649729}
   - component: {fileID: 1550847041379649734}
   - component: {fileID: 1550847041379649735}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Plane (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15899,7 +15899,7 @@ GameObject:
   - component: {fileID: 1550847041633260328}
   - component: {fileID: 1550847041633260329}
   - component: {fileID: 1550847041633260334}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Plane (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16624,7 +16624,7 @@ GameObject:
   - component: {fileID: 6431242162221434578}
   - component: {fileID: 879142163752084984}
   - component: {fileID: 2160142548588637738}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16707,7 +16707,7 @@ GameObject:
   - component: {fileID: 5649343985191710356}
   - component: {fileID: 506572282519555626}
   - component: {fileID: 2149758301486488277}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16790,7 +16790,7 @@ GameObject:
   - component: {fileID: 7449118642711769711}
   - component: {fileID: 1129002392606790021}
   - component: {fileID: 4241537334495857566}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16873,7 +16873,7 @@ GameObject:
   - component: {fileID: 3731361405561644375}
   - component: {fileID: 5414117035399534655}
   - component: {fileID: 3375457573873330068}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16956,7 +16956,7 @@ GameObject:
   - component: {fileID: 4323535063121029695}
   - component: {fileID: 4597953953695485822}
   - component: {fileID: 3229365569137323197}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Smeltery_Foundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

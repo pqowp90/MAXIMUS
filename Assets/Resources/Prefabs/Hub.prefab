@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5004455104103242325}
   - component: {fileID: 5490172029300422365}
   - component: {fileID: 7450301742261745252}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EductaionCentre_Part
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 1367486068739990707}
   - component: {fileID: 5013698361843372098}
   - component: {fileID: 8955741946188188722}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EductaionCentre_TV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 8875914842189498201}
   - component: {fileID: 8824120201785499140}
   - component: {fileID: 8877391062824258738}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EductaionCentre_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 1615872935019100493}
   - component: {fileID: 8728147003083104762}
   - component: {fileID: 4631889416206089963}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EductaionCentre_Upper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1704,7 +1704,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5432346989619783001}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EducationCentre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2811,7 +2811,7 @@ GameObject:
   - component: {fileID: 5713082057254182552}
   - component: {fileID: 7913696635684289011}
   - component: {fileID: 4608390154063342165}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EductaionCentre_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2991,7 +2991,7 @@ GameObject:
   - component: {fileID: 4774382555225573822}
   - component: {fileID: 5242906711867678364}
   - component: {fileID: 8447772488023535220}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EductaionCentre_Tower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3074,7 +3074,7 @@ GameObject:
   - component: {fileID: 7722598571904462493}
   - component: {fileID: 7018502269094725574}
   - component: {fileID: 1704126138242458097}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EductaionCentre_Foundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}

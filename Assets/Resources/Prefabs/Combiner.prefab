@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 8283411943061347054}
   - component: {fileID: 2348570051729888172}
   - component: {fileID: 4521823211521997105}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: JewelryFactory_Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 3439203673307902391}
   - component: {fileID: 3086694144564769727}
   - component: {fileID: 3803990996187674615}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: JewelryFactory_Foundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 6550846437104599167}
   - component: {fileID: 6498450636560278649}
   - component: {fileID: 7363045379891674433}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5041,7 +5041,7 @@ GameObject:
   - component: {fileID: 5843919657083647138}
   - component: {fileID: 1830006327976163212}
   - component: {fileID: 5792751002770202884}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: JewelryFactory_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5198,21 +5198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245588ce01eaf0349a7e29ce9b8aa56f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  space:
-    _itemSpace: {fileID: 0}
-    connectSO: {fileID: 0}
-    canIn: 1
-    canOut: 1
-  outPutRange:
-  - {x: -1, y: -1}
-  - {x: -1, y: 0}
-  - {x: -1, y: 1}
-  - {x: 0, y: -1}
-  - {x: 0, y: 0}
-  - {x: 0, y: 1}
-  - {x: 1, y: -1}
-  - {x: 1, y: 0}
-  - {x: 1, y: 1}
+  pos: {x: 0, y: 0}
+  space: {fileID: 0}
 --- !u!1 &5266028674037621548
 GameObject:
   m_ObjectHideFlags: 0
@@ -6098,7 +6085,7 @@ GameObject:
   - component: {fileID: 5565110904155872752}
   - component: {fileID: 3446460826165472960}
   - component: {fileID: 5949684374101222431}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: JewelryFactory_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6181,7 +6168,7 @@ GameObject:
   - component: {fileID: 473034314392801964}
   - component: {fileID: 6699790701931639272}
   - component: {fileID: 8681332109087360351}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11005,7 +10992,7 @@ GameObject:
   - component: {fileID: 2701387156216222630}
   - component: {fileID: 2738022697657037037}
   - component: {fileID: 5149223556600366048}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15829,7 +15816,7 @@ GameObject:
   - component: {fileID: 2111161179810435054}
   - component: {fileID: 8884539308430284094}
   - component: {fileID: 4649922843268670129}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20653,7 +20640,7 @@ GameObject:
   - component: {fileID: 3050563272696458673}
   - component: {fileID: 3055785750075215070}
   - component: {fileID: 27446231011514956}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: JewelryFactory_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}

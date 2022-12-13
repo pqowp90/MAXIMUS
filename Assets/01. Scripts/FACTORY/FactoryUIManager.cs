@@ -40,6 +40,8 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             return;
         }
         RaycastHit hit;
+        if(Camera.main == null)
+            return;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
         {
             SetDropperUI();

@@ -10,14 +10,17 @@ public class LightingManager : MonoBehaviour
     [SerializeField, Range(0, 100)] private float TimeOfDay;
 
 
+
     private void Update()
     {
         if (Preset == null)
             return;
 
         //(Replace with a reference to the game time)
-        TimeOfDay += Time.deltaTime;
-        TimeOfDay %= 100f; //Modulus to ensure always between 0-24
+        if(!InputManager.Instance.factoryMode){
+            TimeOfDay += Time.deltaTime;
+            TimeOfDay %= 100f; //Modulus to ensure always between 0-24
+        }
         UpdateLighting(TimeOfDay / 100f);
     }
 

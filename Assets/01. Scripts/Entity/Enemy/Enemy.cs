@@ -26,11 +26,13 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     [field: SerializeField] public EnemyData Data { get; set; }
 
     private bool _isDelay = false;
+    private Animator _animator;
 
     private void Awake()
     {
         Type = EntityType.Enemy;
         _rigidbody = GetComponent<Rigidbody>();
+        _animator = GetComponentInChildren<Animator>();
         _transform = transform;
     }
 

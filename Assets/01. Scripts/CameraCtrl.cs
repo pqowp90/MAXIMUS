@@ -43,7 +43,7 @@ public class CameraCtrl : MonoBehaviour
         }
         camTransform = _camTransform.position;
 
-        InputManager.Instance.mainCamera = GetComponent<Camera>();
+        InputManager.Instance.mainCamera = gameObject;
     }
 
     private void LateUpdate()

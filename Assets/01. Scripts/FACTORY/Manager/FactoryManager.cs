@@ -35,8 +35,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         {
             factory = scene.GetRootGameObjects()[0];
             factory?.SetActive(factoryMode);
-            Camera camera = scene.GetRootGameObjects()[1].transform.GetChild(0).GetComponent<Camera>();
-            InputManager.Instance.factoryCamera = camera;
+            InputManager.Instance.factoryCamera = scene.GetRootGameObjects()[1];
             InputManager.Instance.SetMode();
         }
         overworld.SetActive(true);

@@ -11,6 +11,7 @@ public class InputManager : MonoSingleton<InputManager>
     public bool factoryMode{get{return _factoryMode;}set{_factoryMode = value;SetMode();}}
     public GameObject factoryCamera;
     public GameObject mainCamera;
+    public Quaternion cameraRotation;
     public override void Awake() {
         base.Awake();
     }
@@ -23,6 +24,9 @@ public class InputManager : MonoSingleton<InputManager>
     {
         if (Input.anyKey == false && Input.mousePresent == false)
             return;
+
+        if (KeyAction != null)
+            KeyAction.Invoke();
 
         if (FactoryKeyAction != null && factoryMode)
             FactoryKeyAction.Invoke();

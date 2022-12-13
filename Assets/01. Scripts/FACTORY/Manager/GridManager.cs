@@ -271,6 +271,10 @@ public class GridManager : MonoSingleton<GridManager>
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, groundLayerMask))
         {
             Vector2Int pos = new Vector2Int(Mathf.RoundToInt(hit.point.x), Mathf.RoundToInt(hit.point.z));
+            if(pos.x < 300 || pos.x > 700 || pos.y < 300 || pos.y > 700)
+            {
+                return;
+            }
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.blue, 0.1f);
             List<Vector2Int> vector2Ints = ranges[(int)curBuilding];
             

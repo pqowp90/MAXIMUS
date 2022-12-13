@@ -64,5 +64,23 @@ public class CameraMove : MonoBehaviour
         rotate.x = 0;
         rotate.z = 0;
         transform.localPosition += rotate * (cameraSpeed * realMove * Time.deltaTime);
+
+        if(transform.localPosition.x < 300)
+        {
+            transform.localPosition = new Vector3(300, transform.localPosition.y, transform.localPosition.z);
+        }
+        if(transform.localPosition.x > 700)
+        {
+            transform.localPosition = new Vector3(700, transform.localPosition.y, transform.localPosition.z);
+        }
+        if(transform.localPosition.z < 300)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 300);
+        }
+        if(transform.localPosition.z > 700)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 700);
+        }
+        
     }
 }

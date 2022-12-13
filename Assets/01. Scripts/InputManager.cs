@@ -20,6 +20,7 @@ public class InputManager : MonoSingleton<InputManager>
     }
     public void Update()
     {
+        if(!factoryMode)return;
         if (Input.anyKey == false && Input.mousePresent == false)
             return;
 

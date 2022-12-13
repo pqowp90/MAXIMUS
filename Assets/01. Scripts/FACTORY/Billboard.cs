@@ -20,9 +20,7 @@ public class Billboard : MonoBehaviour, IPoolable
     {
         
     }
-    private void OnDisable() {
-        target = null;
-    }
+    
 
     // Start is called before the first frame update
     private void Awake()

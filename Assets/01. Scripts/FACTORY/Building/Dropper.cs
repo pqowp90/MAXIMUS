@@ -21,6 +21,7 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
     private void OnDisable() {
         if(billboard != null)
             billboard.gameObject.SetActive(false);
+        billboard.gameObject.SetActive(false);
     }
 
     public void SetTransform(int _rotation, Vector2Int _pos)

@@ -26,7 +26,8 @@ public class CameraMove : MonoBehaviour
     }
     private void Start()
     {
-        
+        InputManager.Instance.FactoryKeyAction -= WASD_Move;
+        InputManager.Instance.FactoryKeyAction += WASD_Move;
     }
 
     // Update is called once per frame
@@ -36,7 +37,7 @@ public class CameraMove : MonoBehaviour
     }
     private void Move()
     {
-        WASD_Move();
+        
         MoveRotation();
         Input.GetAxisRaw("Mouse ScrollWheel");
     }

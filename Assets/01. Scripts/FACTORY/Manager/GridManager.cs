@@ -130,8 +130,8 @@ public class GridManager : MonoSingleton<GridManager>
         //Build(new Vector2Int(10, 10), BuildingType.Hub);
         vignettingEffect = FindObjectOfType<VignettingEffect>();
         test = GetComponent<Test>();
-        InputManager.Instance.KeyAction -= InputKey;
-        InputManager.Instance.KeyAction += InputKey;
+        InputManager.Instance.FactoryKeyAction -= InputKey;
+        InputManager.Instance.FactoryKeyAction += InputKey;
     }
     Vector3 point;
     private void ChangeMode(ref bool mode, bool onoff = true)

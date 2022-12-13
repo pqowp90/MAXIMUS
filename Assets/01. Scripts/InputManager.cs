@@ -6,6 +6,7 @@ using UnityEngine;
 public class InputManager : MonoSingleton<InputManager>
 {
     public Action KeyAction = null;
+    public Action FactoryKeyAction = null;
     private bool _factoryMode = true;
     public bool factoryMode{get{return _factoryMode;}set{_factoryMode = value;SetMode();}}
     public GameObject factoryCamera;
@@ -20,11 +21,10 @@ public class InputManager : MonoSingleton<InputManager>
     }
     public void Update()
     {
-        //if(!factoryMode)return;
         if (Input.anyKey == false && Input.mousePresent == false)
             return;
 
-        if (KeyAction != null)
-            KeyAction.Invoke();
+        if (FactoryKeyAction != null && factoryMode)
+            FactoryKeyAction.Invoke();
     }
 }

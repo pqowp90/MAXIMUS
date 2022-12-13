@@ -12,14 +12,21 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private GameObject overworld;
     
     public bool factoryMode = false;
+
     
     public override void Awake() {
         GameObject.DontDestroyOnLoad(this.gameObject);
         base.Awake();
         InputManager.Instance.KeyAction -= OnKeyAction;
         InputManager.Instance.KeyAction += OnKeyAction;
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        
         InputManager.Instance.factoryMode = factoryMode;
+        
+        
+        
+    }
+    private void Start() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("Factory", LoadSceneMode.Additive);
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -28,12 +35,16 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         {
             factory = scene.GetRootGameObjects()[0];
             factory?.SetActive(factoryMode);
+            Camera camera = scene.GetRootGameObjects()[1].transform.GetChild(0).GetComponent<Camera>();
+            InputManager.Instance.factoryCamera = camera;
+            InputManager.Instance.SetMode();
         }
         overworld.SetActive(true);
         factory.SetActive(false);
         factoryMode = false;
         Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
         Cursor.visible = factoryMode;
+
     }
     private void OnKeyAction()
     {
@@ -45,11 +56,12 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private void UpdateScene()
     {
         factoryMode = !factoryMode;
-            InputManager.Instance.factoryMode = factoryMode;
-            factory?.SetActive(factoryMode);
-            overworld?.SetActive(!factoryMode);
-            
-            Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
-            Cursor.visible = factoryMode;
+        InputManager.Instance.factoryMode = factoryMode;
+        factory?.SetActive(factoryMode);
+        overworld?.SetActive(!factoryMode);
+        
+        Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
+        Cursor.visible = factoryMode;
+
     }
 }

@@ -22,7 +22,7 @@ public class CameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        myCamera = GetComponent<Camera>();
+        
     }
     private void Start()
     {

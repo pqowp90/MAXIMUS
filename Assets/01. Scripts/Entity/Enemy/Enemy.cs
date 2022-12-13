@@ -75,8 +75,11 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     private void Move()
     {
-        if (target == null) FindTarget();
+        transform.LookAt(target.transform);
+        transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
 
+        if (target == null) FindTarget();
+        
         if (Vector3.Distance(transform.position, targetPosition) >= maxDistance)
             transform.position =
                 Vector3.MoveTowards(transform.position, targetPosition, Data.speed * Time.deltaTime);

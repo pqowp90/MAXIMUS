@@ -6,7 +6,7 @@ public static class FormulaFunction
 
     public static int EnemyCount()
     {
-        return 1;
+        return 10;
     }
 
     public static bool IsBloodMoon()

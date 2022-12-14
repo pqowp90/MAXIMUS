@@ -16,10 +16,8 @@ MonoBehaviour:
   bullet:
     bullet_name: OriginalBullet
     attackDelay: 0.2
-    damage: 5
+    damage: 2
     maxAmmo: 50
-    haveAmmo: 240
-    ammo: 6
-    prefab: {fileID: 1238843893459588, guid: df1a1922af2b37e4f9ade4203d8566bd, type: 3}
+    ammo: 99387
     bulletItem: {fileID: 11400000, guid: 23c4aed59f721c54aa2e1e453b2733a8, type: 2}
   reloadingTime: 2

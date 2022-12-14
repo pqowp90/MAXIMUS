@@ -31,6 +31,8 @@ public class PlayerAttack : MonoBehaviour
                     _target = target.transform;
                 }
             }
+
+            _target.position = new Vector3(_target.position.x, _target.position.y + 1f, _target.position.z);
             _turrats[0].LookAt(_target);
             _turrats[1].LookAt(_target);
         }
@@ -60,7 +62,9 @@ public class PlayerAttack : MonoBehaviour
 
             var bullet = PoolManager.GetItem<BulletObj>($"Bullet_{weapon.bullet.bullet_name}");
             bullet.transform.position = _turrat.position;
+            bullet.transform.rotation = _turrat.rotation;
             bullet.bullet = weapon.bullet;
+            bullet.rigidbody.velocity = Vector3.zero;
             bullet.rigidbody.AddForce(_turrat.forward * 1000);
         }
         

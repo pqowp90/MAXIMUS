@@ -42,12 +42,8 @@ public class Player : MonoBehaviour
         {
             WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
         }
-        // if(Input.GetKeyDown(bagOpenKey))
-        // {
-        //     SceneManager.LoadScene("Factory");
-        // }
 
-        ammoText.text = attack?.weapon.ammoText;
+        ammoText.text = WeaponManager.Instance.weapon.ammoText;
     }
 
     private void SwapWeapon()

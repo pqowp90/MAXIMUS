@@ -79,6 +79,7 @@ public class GridManager : MonoSingleton<GridManager>
     private CanvasGroupAlpha buildModeUI;
     // 우클릭을 눌러서 취소
     public List<List<Vector2Int>> ranges = new List<List<Vector2Int>>();
+    private List<Vector2Int> curRanges = new List<Vector2Int>();
     // 앞으로 설치할 렌지들
 
     public Dictionary<Vector2Int, ItemSpace> canInsertPoss = new Dictionary<Vector2Int, ItemSpace>();
@@ -223,9 +224,10 @@ public class GridManager : MonoSingleton<GridManager>
             
             Building building = hit.collider.GetComponentInParent<Building>();
             RemoveRanges();
+            CopyRanges((int)building.buildingType, building.rotate);
             GetRanges((int)building.buildingType, true);
             curBuildingName.TurnOnOffGroup(true, building.buildingType.ToString());
-            List<Vector2Int> vector2Ints = ranges[(int)building.buildingType];
+            List<Vector2Int> vector2Ints = curRanges;
             for (int i = 0; i < vector2Ints.Count; i++) 
             {
                 rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.z);
@@ -276,7 +278,7 @@ public class GridManager : MonoSingleton<GridManager>
                 return;
             }
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.blue, 0.1f);
-            List<Vector2Int> vector2Ints = ranges[(int)curBuilding];
+            List<Vector2Int> vector2Ints = curRanges;
             
             
 
@@ -471,24 +473,18 @@ public class GridManager : MonoSingleton<GridManager>
             if (Input.GetAxis("Mouse ScrollWheel") < 0f ) // 오른쪽으로 회전
             {
                 curRotate++;
-                for (int i = 0; i < ranges.Count; i++)
+                for (int j = 0; j < curRanges.Count; j++)
                 {
-                    for (int j = 0; j < ranges[i].Count; j++)
-                    {
-                        ranges[i][j] = new Vector2Int(ranges[i][j].y, -ranges[i][j].x);
-                    }
+                    curRanges[j] = new Vector2Int(curRanges[j].y, -curRanges[j].x);
                 }
                 
             }
             else if (Input.GetAxis("Mouse ScrollWheel") > 0f ) // backwards
             {
                 curRotate--;
-                for (int i = 0; i < ranges.Count; i++)
+                for (int j = 0; j < curRanges.Count; j++)
                 {
-                    for (int j = 0; j < ranges[i].Count; j++)
-                    {
-                        ranges[i][j] = new Vector2Int(-ranges[i][j].y, ranges[i][j].x);
-                    }
+                    curRanges[j] = new Vector2Int(-curRanges[j].y, curRanges[j].x);
                 }
             }
             
@@ -531,6 +527,20 @@ public class GridManager : MonoSingleton<GridManager>
             }
         }
     }
+    private void CopyRanges(int _curBuilding, int _curRotate)
+    {
+        foreach (var item in ranges[_curBuilding])
+        {
+            curRanges.Add(new Vector2Int(item.x, item.y));
+        }
+        for (int i = 0; i < ((_curRotate % 4) + 4) % 4; i++)
+        {
+            for (int j = 0; j < curRanges.Count; j++)
+            {
+                curRanges[j] = new Vector2Int(curRanges[j].y, -curRanges[j].x);
+            }
+        }
+    }
     public void SetBuilding(int building)
     {
         if(!Enum.IsDefined(typeof(BuildingType), building))
@@ -541,11 +551,16 @@ public class GridManager : MonoSingleton<GridManager>
         }
         RemoveBuildings();
         RemoveRanges();
+
+        curBuilding = (BuildingType)building;
+        CopyRanges((int)curBuilding, curRotate);
+
         GetRanges(building);
+        
+        
         ChangeMode(ref buildingMode);
         vignettingEffect.StartEffect(disassemblyMode);
         juping = false;
-        curBuilding = (BuildingType)building;
 
 
         curBuildingName.TurnOnOffGroup(true, curBuilding.ToString());
@@ -562,7 +577,7 @@ public class GridManager : MonoSingleton<GridManager>
     }
     private void GetRanges(int building, bool startRed = false)
     {
-        for (int i = 0; i < ranges[building].Count; i++)
+        for (int i = 0; i < curRanges.Count; i++)
         {
             Range range = PoolManager.GetItem<Range>("InstallationRange");
             range.transform.position = Vector3.one * -100;
@@ -581,6 +596,7 @@ public class GridManager : MonoSingleton<GridManager>
     {
         
         buildingGameObject.Clear();
+        curRanges.Clear();
 
         for (; 0 < rangeGameobjects.Count;)
         {

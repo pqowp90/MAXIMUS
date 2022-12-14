@@ -6,7 +6,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
 {
     private int rotation;
     private int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
-    private Vector2Int pos;
+    public Vector2Int pos;
     public List<FactoryRecipesSO> factoryRecipesSO = new List<FactoryRecipesSO>();
     private Billboard billboard;
     [SerializeField]
@@ -14,7 +14,10 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
     protected List<ItemSpace> inputSpaces = new List<ItemSpace>();
     protected ItemSpace outPutSpace;
     
-
+    public ItemSpace space;
+    private void Awake() {
+        space = gameObject.AddComponent<ItemSpace>();
+    }
     
     public void AddToManager(Vector2Int curPos, int curRotation)
     {

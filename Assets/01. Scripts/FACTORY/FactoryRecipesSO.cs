@@ -13,5 +13,6 @@ public class FactoryRecipesSO : ScriptableObject
 {
     public FactoryType factoryType;
     public List<Item> ingredients;
+    public int cost;
     public Item result;
 }

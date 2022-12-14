@@ -6,6 +6,7 @@ public class RotateByImage : MonoBehaviour
 {
     void FixedUpdate()
     {
-        transform.localRotation = InputManager.Instance.mainCamera.transform.rotation;
+        if(InputManager.Instance.mainCamera)
+            transform.localRotation = InputManager.Instance.mainCamera.transform.rotation;
     }
 }

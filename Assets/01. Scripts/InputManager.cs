@@ -11,7 +11,7 @@ public class InputManager : MonoSingleton<InputManager>
     public bool factoryMode{get{return _factoryMode;}set{_factoryMode = value;SetMode();}}
     public GameObject factoryCamera;
     public GameObject mainCamera;
-    public Quaternion cameraRotation;
+    public Quaternion cameraRotation = Quaternion.identity;
     public override void Awake() {
         base.Awake();
     }

@@ -8,20 +8,41 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
     private int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
     public Vector2Int pos;
     public List<FactoryRecipesSO> factoryRecipesSO = new List<FactoryRecipesSO>();
+    public FactoryRecipesSO curRecipe;
     private Billboard billboard;
-    [SerializeField]
-    private int inputCount = 1;
-    protected List<ItemSpace> inputSpaces = new List<ItemSpace>();
-    protected ItemSpace outPutSpace;
+
+    public List<ItemSpace> inputSpaces = new List<ItemSpace>();
+    public ItemSpace outPutSpace;
     
-    public ItemSpace space;
     private void Awake() {
-        space = gameObject.AddComponent<ItemSpace>();
+        outPutSpace = gameObject.AddComponent<ItemSpace>();
+        outPutSpace.Reset();
+        outPutSpace.canIn = false;
+        outPutSpace.canOut = true;
+        outPutSpace.spaceType = SpaceType.Multy;
+        for (int i = 0; i < factoryRecipesSO[0].ingredients.Count; i++)
+        {
+            inputSpaces.Add(gameObject.AddComponent<ItemSpace>());
+            inputSpaces[i].Reset();
+            inputSpaces[i].canOut = false;
+            inputSpaces[i].canIn = true;
+            inputSpaces[i].spaceType = SpaceType.Multy;
+        }
+    }
+
+    public void SetRecipe(FactoryRecipesSO _recipe)
+    {
+        curRecipe = _recipe;
+        outPutSpace.dropItem.item = _recipe.result.item;
+        for (int i = 0; i < _recipe.ingredients.Count; i++)
+        {
+            inputSpaces[i].dropItem.item = _recipe.ingredients[i].item;
+        }
     }
     
     public void AddToManager(Vector2Int curPos, int curRotation)
     {
-        //DropperManager.Instance.Build(curPos, curRotation, this);
+        FactoryBaseManager.Instance.Build(curPos, curRotation, this);
     }
 
     public void SetTransform(int _rotation, Vector2Int _pos)
@@ -38,18 +59,15 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
             billboard.gameObject.SetActive(false);
     }
 
-    void Start()
-    {
-        outPutSpace = gameObject.AddComponent<ItemSpace>();
-        for (int i = 0; i < inputCount; i++)
-        {
-            inputSpaces.Add(gameObject.AddComponent<ItemSpace>());
-        }
-    }
+    
 
     void Update()
     {
-        
-        
+        if(billboard == null) return;
+        if(curRecipe != null)
+            billboard.UpdateText("", curRecipe.result.item.icon);
+        else{
+            billboard.UpdateText("None", null);
+        }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FactoryBaseManager : MonoSingleton<ConveyorBeltManager>, BuildAbility<FactoryBase>
+public class FactoryBaseManager : MonoSingleton<FactoryBaseManager>, BuildAbility<FactoryBase>
 {
     List<FactoryBase> factoryBases = new List<FactoryBase>();
     public void Build(Vector2Int _pos, int _rotation, FactoryBase building)
@@ -10,7 +10,9 @@ public class FactoryBaseManager : MonoSingleton<ConveyorBeltManager>, BuildAbili
         building.SetTransform(_rotation, _pos);
         foreach (var item in building.GetComponent<Building>().range)
         {
-            GridManager.Instance.canInsertPoss.TryAdd(item + _pos, building.space);
+            //GridManager.Instance.canInsertPoss.TryAdd(item + _pos, building.outPutSpace);
+            GridManager.Instance.canInsertPoss.TryAdd(item + _pos, new List<ItemSpace>());
+            GridManager.Instance.canInsertPoss[item + _pos].Add(building.outPutSpace);
         }
         factoryBases.Add(building);
     }
@@ -27,10 +29,22 @@ public class FactoryBaseManager : MonoSingleton<ConveyorBeltManager>, BuildAbili
 
     public void Use()
     {
-        foreach (var item in factoryBases)
+        foreach (var factory in factoryBases)
         {
-            item.space.GetNextDropItem();
+            if(factory.curRecipe == null)
+                continue;
+            foreach (var recipe in factory.curRecipe.ingredients)
+            {
+                ItemSpace itemSpace = factory.inputSpaces.Find(x => x.dropItem.item == recipe.item);
+                if(recipe.count <= itemSpace.amount)
+                {
+                    //factory.outPutSpace.dropItem = 
+                }
+                else
+                {
+                    return;
+                }
+            }
         }
-        
     }
 }

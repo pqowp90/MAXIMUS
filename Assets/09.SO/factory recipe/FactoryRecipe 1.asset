@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67758bf9b7f18e646a92e71c906e3935, type: 3}
   m_Name: FactoryRecipe 1
   m_EditorClassIdentifier: 
+  recipeName: "\uCCA0 \uC8FC\uC870"
   factoryType: 1
   ingredients:
-  - {fileID: 11400000, guid: 9cc307ccc83bb3b41b9c656b5da8b093, type: 2}
-  result: {fileID: 11400000, guid: e0bfccc176de5b14f9f00f60593e6bec, type: 2}
+  - item: {fileID: 11400000, guid: 13c1eee79854dad42bd2ce7076644eec, type: 2}
+    count: 1
+  cost: 2
+  result:
+    item: {fileID: 11400000, guid: a5e73862597a5024e9d606b019ebcd7b, type: 2}
+    count: 1

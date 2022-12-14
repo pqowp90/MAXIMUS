@@ -11,7 +11,9 @@ public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Droppe
         building.space.canIn = false;
         foreach (var item in building.GetComponent<Building>().range)
         {
-            GridManager.Instance.canInsertPoss.TryAdd(item + _pos, building.space);
+            GridManager.Instance.canInsertPoss.TryAdd(item + _pos, new List<ItemSpace>());
+            GridManager.Instance.canInsertPoss[item + _pos].Add(building.space);
+            //GridManager.Instance.canInsertPoss.TryAdd(item + _pos, building.space);
         }
         droppers.Add(building);
     }

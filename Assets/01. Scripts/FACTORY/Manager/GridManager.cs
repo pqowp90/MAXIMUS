@@ -51,7 +51,7 @@ public enum BuildingType
     Foundry,
     SteelWorks,
     Dropper,
-    Combiner,
+    //Combiner,
     // ...
     Count,
 }
@@ -82,7 +82,7 @@ public class GridManager : MonoSingleton<GridManager>
     private List<Vector2Int> curRanges = new List<Vector2Int>();
     // 앞으로 설치할 렌지들
 
-    public Dictionary<Vector2Int, ItemSpace> canInsertPoss = new Dictionary<Vector2Int, ItemSpace>();
+    public Dictionary<Vector2Int, List<ItemSpace>> canInsertPoss = new Dictionary<Vector2Int, List<ItemSpace>>();
     
 
     [SerializeField]

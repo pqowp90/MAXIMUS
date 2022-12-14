@@ -7,12 +7,19 @@ public enum FactoryType
     Foundry,
     SteelWorks,
 }
+[System.Serializable]
+public class Recipe
+{
+    public Item item;
+    public int count;
+}
 
 [CreateAssetMenu( fileName = "FactoryRecipe", menuName = "Factorys/FactoryRecipes" )]
 public class FactoryRecipesSO : ScriptableObject
 {
+    public string recipeName;
     public FactoryType factoryType;
-    public List<Item> ingredients;
+    public List<Recipe> ingredients;
     public int cost;
-    public Item result;
+    public Recipe result;
 }

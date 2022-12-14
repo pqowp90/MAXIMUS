@@ -15495,7 +15495,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3631
+  m_VersionIndex: 3634
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -16076,7 +16076,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3628
+  m_VersionIndex: 3631
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -16348,6 +16348,7 @@ MonoBehaviour:
   - {fileID: 1550847040588081509}
   - {fileID: 1550847040931346597}
   - {fileID: 1550847040764564089}
+  rotate: 0
 --- !u!114 &9012126348795403923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16360,10 +16361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626550625f24a9b4fabedb3ac4f8eeee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0}
   factoryRecipesSO:
   - {fileID: 11400000, guid: 0bd9aea5e0ab16547b28dd26755029fd, type: 2}
   - {fileID: 11400000, guid: b285333587142484da4461660db8b3f8, type: 2}
-  inputCount: 1
+  curRecipe: {fileID: 0}
+  inputSpaces: []
+  outPutSpace: {fileID: 0}
 --- !u!1 &1550847041967260774
 GameObject:
   m_ObjectHideFlags: 0

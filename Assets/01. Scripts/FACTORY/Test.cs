@@ -9,7 +9,7 @@ public class Test : MonoBehaviour
     [ContextMenu("컨베이어벨트에 삽입")]
     public void TestFunc(ConveyorBelt conveyorBelt)
     {
-        if(conveyorBelt.space.itemSpace == null)
-            conveyorBelt.space.itemSpace = ItemManager.Instance.DropItem(new Vector3(conveyorBelt.pos.x, 0, conveyorBelt.pos.y), item);
+        if(conveyorBelt.space.dropItem == null)
+            conveyorBelt.space.dropItem = ItemManager.Instance.DropItem(new Vector3(conveyorBelt.pos.x, 0, conveyorBelt.pos.y), item);
     }
 }

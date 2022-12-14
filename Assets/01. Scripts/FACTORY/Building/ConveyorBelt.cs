@@ -16,6 +16,7 @@ public class ConveyorBelt : MonoBehaviour, BuildingTransfrom
     public ItemSpace space;
     private void Awake() {
         space = gameObject.AddComponent<ItemSpace>();
+        space.spaceType = SpaceType.Solo;
     }
 
     private float itemMoveDamp = 10f;
@@ -23,8 +24,8 @@ public class ConveyorBelt : MonoBehaviour, BuildingTransfrom
         
     }
     private void Update() {
-        if(space.itemSpace!=null)
-            space.itemSpace.transform.position = Vector3.Lerp(space.itemSpace.transform.position, transform.position + Vector3.up * 0.3f, itemMoveDamp * Time.deltaTime);
+        if(space.dropItem!=null)
+            space.dropItem.transform.position = Vector3.Lerp(space.dropItem.transform.position, transform.position + Vector3.up * 0.3f, itemMoveDamp * Time.deltaTime);
     }
     private void OnDisable() {
         nextConveyorBelt = null;

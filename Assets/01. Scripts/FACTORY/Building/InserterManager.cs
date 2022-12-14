@@ -9,20 +9,26 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
     Vector2Int[] dir_rotation = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
     public void FindAround(Inserter _inserter)
     {
-        ItemSpace space = null;
+        List<ItemSpace> space = null;
         if(GridManager.Instance.canInsertPoss.TryGetValue(_inserter.pos + dir_rotation[_inserter.Rotation], out space))
         {
-            if(space.canIn)
+            foreach (var item in space)
             {
-                _inserter.nextItemCarrierBase = space;
+                if(item.canIn)
+                {
+                    _inserter.nextItemCarrierBase = item;
+                }
             }
         }
         space = null;
         if(GridManager.Instance.canInsertPoss.TryGetValue(_inserter.pos - dir_rotation[_inserter.Rotation], out space))
         {
-            if(space.canOut)
+            foreach (var item in space)
             {
-                _inserter.beforeItemCarrierBase = space;
+                if(item.canOut)
+                {
+                    _inserter.beforeItemCarrierBase = item;
+                }
             }
         }
     }
@@ -66,16 +72,14 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
         {
             if(item.nextItemCarrierBase != null && item.beforeItemCarrierBase != null)
             {
-                if(item.nextItemCarrierBase.itemSpace == null && item.beforeItemCarrierBase.itemSpace != null)
+                if(item.nextItemCarrierBase.dropItem == null && item.beforeItemCarrierBase.dropItem != null)
                 {
-                    DropItem dropItem = movedItem.Find(x => x == item.beforeItemCarrierBase.itemSpace);
+                    DropItem dropItem = movedItem.Find(x => x == item.beforeItemCarrierBase.dropItem);
                     if(dropItem == null)
                     {
-                        item.beforeItemCarrierBase.itemSpace.transform.position = item.transform.position;
-                        item.nextItemCarrierBase.itemSpace = item.beforeItemCarrierBase.itemSpace;
-                        item.beforeItemCarrierBase.itemSpace = null;
-                        item.beforeItemCarrierBase.GetNextDropItem();
-                        movedItem.Add(item.nextItemCarrierBase.itemSpace);
+                        item.beforeItemCarrierBase.dropItem.transform.position = item.transform.position;
+                        item.nextItemCarrierBase.dropItem = item.beforeItemCarrierBase.TakeItem();
+                        movedItem.Add(item.nextItemCarrierBase.dropItem);
                     }
                 }
             }

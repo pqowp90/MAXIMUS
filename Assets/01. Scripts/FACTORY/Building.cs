@@ -37,7 +37,15 @@ public class Building : MonoBehaviour, IPoolable
     public void SetBuildingType(Vector2Int curPos, int curRotation)
     {
         rotate = curRotation;
-        var type = GetComponent(buildingType.ToString());
+        string typeName = buildingType.ToString();
+        switch (buildingType)
+        {
+            case BuildingType.Foundry:
+            case BuildingType.SteelWorks:
+            typeName = "FactoryBase";
+            break;
+        }
+        var type = GetComponent(typeName);
         if(type != null)
         {
             type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});

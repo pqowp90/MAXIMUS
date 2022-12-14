@@ -33,15 +33,13 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>, BuildAbil
     {
         foreach (var item in conveyorBelt.beforeConveyorBelts)
         {
-            DropItem dropItem = dropItems.Find(x => x == item.space.itemSpace);
+            DropItem dropItem = dropItems.Find(x => x == item.space.dropItem);
             if(dropItem == null)
             {
-                if(conveyorBelt.space.itemSpace == null)
+                if(conveyorBelt.space.dropItem == null)
                 {
-                    dropItems.Add(item.space.itemSpace);
-                    var temp = item.space.itemSpace;
-                    item.space.itemSpace = null;
-                    conveyorBelt.space.itemSpace = temp;
+                    dropItems.Add(item.space.dropItem);
+                    conveyorBelt.space.dropItem = item.space.TakeItem();
                 }
             }
             if(firstConveyorBelt != item)
@@ -67,7 +65,9 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>, BuildAbil
         conveyorBelt.pos = _pos;
         conveyorBelt.Rotation = _rotation;
         if(conveyorPoss.TryAdd(conveyorBelt.pos, conveyorBelt)){
-            GridManager.Instance.canInsertPoss.TryAdd(_pos, conveyorBelt.space);
+            GridManager.Instance.canInsertPoss.TryAdd(_pos, new List<ItemSpace>());
+            GridManager.Instance.canInsertPoss[_pos].Add(conveyorBelt.space);
+            //GridManager.Instance.canInsertPoss.TryAdd(_pos, conveyorBelt.space);
             conveyorBelt.SetTransform(_rotation, _pos); 
             ConveyorBelt getConveyorBelt = null;
             // 먼저 자기가 보는 방향의 컨베이어 벨트를 찾고 없으면 자기자신을 마지막 컨베이어 벨트 리스트에 넣는다

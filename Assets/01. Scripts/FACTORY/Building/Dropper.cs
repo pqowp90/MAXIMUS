@@ -7,15 +7,21 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
     private int rotation;
     public int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
     public Vector2Int pos;
-    public ItemSpace space;
     private Billboard billboard;
+    public ItemSpace space;
     private void Awake() {
         space = gameObject.AddComponent<ItemSpace>();
+        space.Reset();
+        space.canIn = false;
+        space.spaceType = SpaceType.Connected;
     }
     //public List<Vector2Int> inPutRange = new List<Vector2Int>();
 
     public void AddToManager(Vector2Int curPos, int curRotation)
     {
+        space.Reset();
+        
+        space.spaceType = SpaceType.Connected;
         DropperManager.Instance.Build(curPos, curRotation, this);
     }
     private void OnDisable() {
@@ -44,14 +50,14 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
     void Update()
     {
         if(!billboard) return;
-        if(space.itemSpace == null)
+        if(space.dropItem == null)
         {
             billboard.UpdateText("None", null);
 
         }
         else
         {
-            billboard.UpdateText(space.itemSpace.item.amount.ToString(), space.itemSpace.item.icon);
+            billboard.UpdateText(space.dropItem.item.amount.ToString(), space.dropItem.item.icon);
         }
         
     }

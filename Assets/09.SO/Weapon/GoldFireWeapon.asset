@@ -15,11 +15,10 @@ MonoBehaviour:
   weaponName: GoldFire
   bullet:
     bullet_name: GoldFireBullet
-    attackDelay: 0.2
-    damage: 2
-    maxAmmo: 50
-    haveAmmo: 0
+    attackDelay: 0.5
+    minDamage: 2
+    maxDamage: 5
+    maxAmmo: 20
     ammo: 0
-    prefab: {fileID: 1238843893459588, guid: edc555170136714468e06ae43a7e0c86, type: 3}
     bulletItem: {fileID: 0}
-  reloadingTime: 1
+  reloadingTime: 2.5

@@ -34,8 +34,8 @@ public class PlayerAttack : MonoBehaviour
                 }
             }
 
-            _turrats[0].LookAt(new Vector3(_target.position.x, _target.position.y + 0.5f, _target.position.z));
-            _turrats[1].LookAt(new Vector3(_target.position.x, _target.position.y + 0.5f, _target.position.z));
+            _turrats[0].LookAt(new Vector3(_target.position.x, _target.position.y + Random.Range(1.0f, 3.0f), _target.position.z));
+            _turrats[1].LookAt(new Vector3(_target.position.x, _target.position.y + Random.Range(1.0f, 3.0f), _target.position.z));
         }
         else
         {
@@ -43,16 +43,7 @@ public class PlayerAttack : MonoBehaviour
             _turrats[1].forward = transform.forward;
         }
 
-        weapon.bullet.ammo -= 2;
-        int amount = 2;
-
-        if (weapon.bullet.ammo < 0)
-        {
-            amount--;
-            weapon.bullet.ammo = 0;
-        }
-
-        TurratShoot(amount);
+        TurratShoot(weapon.bullet.ammo == 1 ? 1 : 2);
     }
 
     private void TurratShoot(int amount)
@@ -60,13 +51,15 @@ public class PlayerAttack : MonoBehaviour
         for(int i = 0; i < amount; i++)
         {
             Transform _turrat = _turrats[i];
+            weapon.bullet.ammo--;
 
             var bullet = PoolManager.GetItem<BulletObj>($"Bullet_{weapon.bullet.bullet_name}");
             bullet.transform.position = _turrat.Find("ShootPos").transform.position;
             bullet.transform.rotation = _turrat.rotation;
-            bullet.projectile.damage = weapon.bullet.damage;
+            bullet.projectile.damage = weapon.bullet.Damage;
             bullet.rigidbody.velocity = Vector3.zero;
             bullet.rigidbody.AddForce(_turrat.forward * 1000);
+            Debug.Log(bullet);
         }
         
         _isAttackDelay = true;

@@ -70,7 +70,8 @@ public class ECExplodingProjectile : MonoBehaviour
 
         if (LookRotation && timer >= 0.05f)
         {
-            transform.rotation = Quaternion.LookRotation(thisRigidbody.velocity);
+            if(thisRigidbody.velocity != Vector3.zero)
+                transform.rotation = Quaternion.LookRotation(thisRigidbody.velocity);
         }
 
         CheckCollision(previousPosition);

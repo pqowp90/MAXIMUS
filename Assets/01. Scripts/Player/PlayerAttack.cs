@@ -62,7 +62,7 @@ public class PlayerAttack : MonoBehaviour
             Transform _turrat = _turrats[i];
 
             var bullet = PoolManager.GetItem<BulletObj>($"Bullet_{weapon.bullet.bullet_name}");
-            bullet.transform.position = _turrat.position;
+            bullet.transform.position = _turrat.Find("ShootPos").transform.position;
             bullet.transform.rotation = _turrat.rotation;
             bullet.projectile.damage = weapon.bullet.damage;
             bullet.rigidbody.velocity = Vector3.zero;

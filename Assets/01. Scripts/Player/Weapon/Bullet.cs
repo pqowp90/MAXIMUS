@@ -14,8 +14,20 @@ public class Bullet
     public int maxAmmo;
 
     [Header("자동설정값")]
-    public int haveAmmo;
     public int ammo;
+    
+    public int haveAmmo
+    {
+        get
+        {
+            if (bulletItem == null) return 0;
+            return bulletItem.amount;
+        }
+        set
+        {
+            bulletItem.amount = value;
+        }
+    }
 
     [HideInInspector]
     public Item bulletItem;
@@ -46,6 +58,5 @@ public class Bullet
         }
         ammo += addAmmo;
         haveAmmo -= addAmmo;
-        bulletItem.amount -= addAmmo;
     }
 }

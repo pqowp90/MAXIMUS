@@ -14,18 +14,14 @@ public class WeaponManager : MonoSingleton<WeaponManager>
     {
         if (weaponList == null) return;
 
-        foreach(Weapon weapon in weaponList)
+        weapon = weaponList[0];
+        _weaponIndex = 0;
+
+        foreach (Weapon weapon in weaponList)
         {
             Item item = ItemManager.Instance.inventorySO.itemList.Find(x => x.item_name == weapon.bullet.bullet_name);
-            weapon.bullet.haveAmmo = item.amount;
             weapon.bullet.bulletItem = item;
             PoolManager.CreatePool<BulletObj>($"Bullet_{weapon.bullet.bullet_name}", ItemManager.Instance.poolObj, 50);
-        }
-
-        if(weapon == null)
-        {
-            weapon = weaponList[0];
-            _weaponIndex = 0;
         }
     }
 
@@ -44,7 +40,6 @@ public class WeaponManager : MonoSingleton<WeaponManager>
     {
         Weapon weapon = weaponList.Find(x => x.bullet.bullet_name == bulletName);
         weapon.bullet.haveAmmo += amount;
-        weapon.bullet.bulletItem.amount += amount;
     }
 
     public void SwapWeapon(bool up)

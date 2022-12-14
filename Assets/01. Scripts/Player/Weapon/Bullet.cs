@@ -10,8 +10,11 @@ public class Bullet
     [Header("설정값")]
     public string bullet_name;
     public float attackDelay;
-    public float damage;
+    public float minDamage;
+    public float maxDamage;
     public int maxAmmo;
+
+    public float Damage => UnityEngine.Random.Range(minDamage, maxDamage);
 
     [Header("자동설정값")]
     public int ammo;

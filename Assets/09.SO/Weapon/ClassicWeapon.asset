@@ -16,7 +16,8 @@ MonoBehaviour:
   bullet:
     bullet_name: OriginalBullet
     attackDelay: 0.2
-    damage: 2
+    minDamage: 1
+    maxDamage: 3
     maxAmmo: 50
     ammo: 99387
     bulletItem: {fileID: 11400000, guid: 23c4aed59f721c54aa2e1e453b2733a8, type: 2}

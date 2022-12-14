@@ -8,6 +8,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
 {
     [SerializeField]
     private LayerMask buildingLayerMask;
+    //-------------------------------------------
     [SerializeField]
     private GameObject dropperUI;
     [SerializeField]
@@ -18,6 +19,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     private ItemPanel curItemPanel;
     [SerializeField]
     private GameObject canvas;
+    //-------------------------------------------
     // Start is called before the first frame update
     void Start()
     {
@@ -44,25 +46,34 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             return;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
         {
-            SetDropperUI();
+            
             
             Building building = hit.collider.GetComponentInParent<Building>();
             if(building != null)
             {
-                if(building.buildingType == BuildingType.Dropper)
+                
+                switch (building.buildingType)
                 {
-                    if(GridManager.Instance.disassemblyMode || GridManager.Instance.buildingMode)
-                        return;
-                    dropperUI.SetActive(true);
-                    dropper = building.GetComponent<Dropper>();
+                    case BuildingType.Dropper:
+                    {
+                        SetDropperUI();
+                        if(GridManager.Instance.disassemblyMode || GridManager.Instance.buildingMode)
+                            return;
+                        dropperUI.SetActive(true);
+                        dropper = building.GetComponent<Dropper>();
+                        if(curItemPanel != null && dropper != null)
+                            SetCurItemPanel(dropper.space.connectSO, curItemPanel);
+                    }
+                    break;
+                    case BuildingType.Foundry:
+                    break;
                 }
             }
         }else{
             dropperUI.SetActive(false);
             dropper = null;
         }
-        if(curItemPanel != null && dropper != null)
-            SetCurItemPanel(dropper.space.connectSO, curItemPanel);
+        
     }
     private List<GameObject> itemPanels = new List<GameObject>();
     private void SetDropperUI()

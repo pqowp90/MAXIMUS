@@ -68,8 +68,10 @@ public class ItemSpace : MonoBehaviour
     public DropItem TakeItem()
     {
         DropItem temp = dropItem;
-        if(spaceType == SpaceType.Connected)
+        if(spaceType == SpaceType.Connected){
             GetNextDropItem();
+            dropItem = null;
+        }
         else if(spaceType == SpaceType.Multy)
         {
             if(dropItem != null)
@@ -95,7 +97,7 @@ public class ItemSpace : MonoBehaviour
             }
         }
         
-        return dropItem;
+        return temp;
     }
     
 }

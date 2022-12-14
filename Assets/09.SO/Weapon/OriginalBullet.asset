@@ -16,7 +16,7 @@ MonoBehaviour:
   item_ID: 0
   item_type: 3
   isStackable: 1
-  amount: 5000
+  amount: 3015
   icon: {fileID: 0}
   material: {fileID: 0}
   mesh: {fileID: 0}

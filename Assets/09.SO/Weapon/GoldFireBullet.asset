@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GoldFireBullet
   m_EditorClassIdentifier: 
   item_name: GoldFireBullet
-  item_ID: 51
+  item_ID: 3
   item_type: 3
   isStackable: 1
-  amount: 0
+  amount: 155
   icon: {fileID: 0}
   material: {fileID: 0}
   mesh: {fileID: 0}

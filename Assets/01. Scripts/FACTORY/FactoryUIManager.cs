@@ -8,6 +8,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
 {
     [SerializeField]
     private LayerMask buildingLayerMask;
+    [Header("DropperUI")]
     //-------------------------------------------
     [SerializeField]
     private GameObject dropperUI;
@@ -20,6 +21,13 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     [SerializeField]
     private GameObject canvas;
     //-------------------------------------------
+    [Header("FactoryUI")]
+    //-------------------------------------------
+    [SerializeField]
+    private GameObject FactoryUI;
+
+    //-------------------------------------------
+
     // Start is called before the first frame update
     void Start()
     {

@@ -17,6 +17,10 @@ public class TickManager : MonoSingleton<TickManager>
     // Update is called once per frame
     void Update()
     {
+        TickTimeSpand();
+    }
+    private void TickTimeSpand()
+    {
         timmer += Time.deltaTime;
         if(timmer >= tickTime)
         {

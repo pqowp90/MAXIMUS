@@ -10,14 +10,14 @@ public class EnemyManager : MonoSingleton<EnemyManager>
 
     public int EnemyCount => Enemies.Count;
 
-    public void SpawnEnemy(IEnemy enemy, Vector3 position)
+    public void SpawnEnemy(Enemy enemy, Vector3 position)
     {
         var enemyObject = PoolManager.GetItem<Enemy>($"Enemy {enemy.EnemyType}");
         enemyObject.transform.position = position;
         enemyObject.transform.rotation = Quaternion.identity;
         enemyObject.transform.SetParent(enemyParent);
-        var enemyComponent = enemyObject.GetComponent<Enemy>();
-        Enemies.Add(enemyComponent);
+        enemyObject.Init(enemy.Data, true);
+        Enemies.Add(enemyObject);
     }
 
     public void DeathEnemy(Enemy enemy)

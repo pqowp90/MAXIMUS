@@ -47,11 +47,13 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     public int EnemyType { get; private set; }
 
-    public void Init(EnemyData data)
+    public void Init(EnemyData data, bool health = false)
     {
         Data = data;
         EnemyType = Data.type;
         Health = Data.health;
+        if(health)
+            _hpBar.Value = Health;
     }
 
     private void FindTarget()

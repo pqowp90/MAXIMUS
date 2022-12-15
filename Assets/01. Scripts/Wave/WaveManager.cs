@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 public class WaveManager : MonoSingleton<WaveManager>
@@ -9,35 +10,44 @@ public class WaveManager : MonoSingleton<WaveManager>
 
     [SerializeField] private float timer;
     [SerializeField] private float nextSpawnTime;
-    [SerializeField] private bool isBloodMoon;
-    [SerializeField] private bool isWaveProgressing;
+    [SerializeField] private bool isNight = false;
 
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask _groundLayer;
 
     private readonly WaveRange[] _waveRanges = { new(), new(), new(), new() };
-    public Action<EnemySpawnArgs> OnEnemySpawn = args => { };
-    public Action<WaveEndArgs> OnWaveEnd = args => { };
-    public Action<WaveStartArgs> OnWaveStart = args => { };
 
     public WaveRange[] WaveRanges => UpdateWaveRange();
 
     public int WaveCount { get; private set; }
     public Wave CurrentWave { get; private set; }
 
+    [Header("Wave Info")]
+    public List<WaveSO> waveList = new List<WaveSO>();
+    
+    private void Start() 
+    {
+        timer = 0f;
+        nextSpawnTime = 0;
+        WaveCount = 0;
+        CurrentWave = new Wave(waveList[WaveCount]);
+
+        foreach(var list in waveList)
+        {
+            foreach(var enemy in list.enemySpawnList)
+            {
+                PoolManager.CreatePool<Enemy>($"Enemy {enemy.eData.type}", ItemManager.Instance.poolObj, 10);
+            }
+        }
+    }
+
     private void Update()
     {
-        if (!isWaveProgressing) return;
         if(!InputManager.Instance.factoryMode){
             timer += Time.deltaTime;
         }
-
         
-        if(CurrentWave == null) return;
-        if (CurrentWave.EnemyCount > 0 || EnemyManager.Instance.EnemyCount > 0)
-            SpawnTimer();
-        else
-            EndWave(CombatManager.Instance.KillCount, CombatManager.Instance.DamageCount);
+        if(CurrentWave != null) SpawnTimer();
     }
 
     private void OnDrawGizmos()
@@ -74,26 +84,18 @@ public class WaveManager : MonoSingleton<WaveManager>
         return _waveRanges;
     }
 
-    public void StartWave()
+    public void StartWave(bool night)
     {
-        if (isWaveProgressing) return;
-        isWaveProgressing = true;
+        if(isNight == night) return;
+        
         timer = 0f;
         nextSpawnTime = 0;
-
-        WaveCount++;
-
-        isBloodMoon = FormulaFunction.IsBloodMoon();
-        CurrentWave = new Wave();
-
-        OnWaveStart?.Invoke(new WaveStartArgs(WaveCount, isBloodMoon));
-    }
-
-    public void EndWave(int totalKill, int totalDamage)
-    {
-        if (!isWaveProgressing) return;
-        isWaveProgressing = false;
-        OnWaveEnd?.Invoke(new WaveEndArgs(WaveCount, isBloodMoon, totalKill, totalDamage, timer));
+        isNight = night;
+        if(!isNight)
+        {
+            WaveCount++;
+            CurrentWave = new Wave(waveList[WaveCount]);
+        }
     }
 
     private void SpawnTimer()
@@ -101,9 +103,10 @@ public class WaveManager : MonoSingleton<WaveManager>
         if (nextSpawnTime > timer) return;
         if (CurrentWave.EnemyCount <= 0) return;
 
-        SpawnEnemy();
+        Debug.Log("Enemy Spawn");
+        if(isNight) SpawnEnemy();
 
-        nextSpawnTime += Random.Range(0, 100f / CurrentWave.EnemyCount);
+        nextSpawnTime += Random.Range(2f, 10f);
     }
 
     private void SpawnEnemy()
@@ -121,21 +124,6 @@ public class WaveManager : MonoSingleton<WaveManager>
         Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity, _groundLayer);
         position = new Vector3(position.x, hit.point.y + 0.5f, position.z);
 
-        OnEnemySpawn?.Invoke(new EnemySpawnArgs(CurrentWave.GetEnemy(), position));
-    }
-}
-
-// TODO: 전투 매니저 ( 나중에 만들던가 말던가 )
-public class CombatManager
-{
-    public static CombatManager Instance { get; } = new();
-
-    public int KillCount { get; private set; } = 10;
-    public int DamageCount { get; private set; } = 10;
-
-    public void ResetCount()
-    {
-        KillCount = 0;
-        DamageCount = 0;
+        EnemyManager.Instance.SpawnEnemy(CurrentWave.GetEnemy(), position);
     }
 }

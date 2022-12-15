@@ -24,6 +24,7 @@ public class WaveManager : MonoSingleton<WaveManager>
 
     [Header("Wave Info")]
     public List<WaveSO> waveList = new List<WaveSO>();
+    [SerializeField] private int _maxOreSpawnCount = 20;
     
     private void Start() 
     {
@@ -47,6 +48,7 @@ public class WaveManager : MonoSingleton<WaveManager>
             timer += Time.deltaTime;
         }
         
+        UpdateWaveRange();
         if(CurrentWave != null) SpawnTimer();
     }
 
@@ -103,10 +105,18 @@ public class WaveManager : MonoSingleton<WaveManager>
         if (nextSpawnTime > timer) return;
         if (CurrentWave.EnemyCount <= 0) return;
 
-        Debug.Log("Enemy Spawn");
-        if(isNight) SpawnEnemy();
+        if(isNight)
+        {
+            SpawnEnemy();
+            nextSpawnTime += Random.Range(2f, 10f);
+        }
+        else 
+        {
+            SpawnOre();
+            nextSpawnTime += Random.Range(10f, 50f);
+        }
 
-        nextSpawnTime += Random.Range(2f, 10f);
+        
     }
 
     private void SpawnEnemy()
@@ -125,5 +135,30 @@ public class WaveManager : MonoSingleton<WaveManager>
         position = new Vector3(position.x, hit.point.y + 0.5f, position.z);
 
         EnemyManager.Instance.SpawnEnemy(CurrentWave.GetEnemy(), position);
+    }
+
+    private void SpawnOre()
+    {
+        if(OreManager.Instance.oreList.Count >= _maxOreSpawnCount)
+        {
+            Debug.LogWarning("Ore Spawn Count is MAX");
+
+            return;
+        }
+
+        var waveRange = CurrentWave.SpawnRanges[Random.Range(0, CurrentWave.SpawnRanges.Length)];
+        var position = new Vector3(
+            Random.Range(waveRange.position.x - waveRange.size.x / 2f,
+                waveRange.position.x + waveRange.size.x / 2f),
+            100f,
+            Random.Range(waveRange.position.z - waveRange.size.z / 2f,
+                waveRange.position.z + waveRange.size.z / 2f)
+        );
+
+        RaycastHit hit;
+        Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity, _groundLayer);
+        position = new Vector3(position.x, hit.point.y + 0.5f, position.z);
+
+        OreManager.Instance.SpawnOre(CurrentWave.GetOre(), position);
     }
 }

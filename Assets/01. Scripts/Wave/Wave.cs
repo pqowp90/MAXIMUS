@@ -8,16 +8,56 @@ public class Wave
     public WaveRange[] SpawnRanges;
     private WaveSO waveInfo;
 
+    public int EnemyCount => _enemies.Count();
+
+    private List<Ore> _ores = new List<Ore>();
+
+    public int OreCount => _ores.Count();
+
     public Wave(WaveSO sO)
     {
         waveInfo = sO;
 
+        InitializeOres();
         InitializeEnemies();
         InitializeSpawnRanges();
     }
 
-    public int EnemyCount => _enemies.Count();
-    private int _spawnEnemyCount = 0;
+    private void InitializeOres()
+    {
+        foreach(var o in waveInfo.oreSpawnList)
+        {
+            Ore ore = new Ore();
+            ore.Init(o.oData, o.rate);
+            _ores.Add(ore);
+        }
+    }
+
+    public Ore GetOre()
+    {
+        float sum = 0f;
+        for (int i = 0; i < _ores.Count; i++)
+        {
+            sum += _ores[i].rate;
+        }
+
+        float randomValue = UnityEngine.Random.Range(0, sum);
+        float tempSum = 0;
+
+        for (int i = 0; i < _ores.Count; i++)
+        {
+            if (randomValue >= tempSum && randomValue < tempSum + _ores[i].rate)
+            {
+                return _ores[i];
+            }
+            else
+            {
+                tempSum += _ores[i].rate;
+            }
+        }
+
+        return _ores[0];
+    }
 
     private void InitializeEnemies()
     {
@@ -56,7 +96,7 @@ public class Wave
 
     public Enemy GetEnemy()
     {
-        Enemy enemy = _enemies[_spawnEnemyCount];
+        Enemy enemy = _enemies[0];
         _enemies.Remove(enemy);
         return enemy;
     }

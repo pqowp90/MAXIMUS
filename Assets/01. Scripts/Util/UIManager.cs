@@ -11,6 +11,7 @@ public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField]
     private GameObject damagePopup;
+    [SerializeField] private TMP_Text messageText;
 
     #region Item Enter UI Popup
 
@@ -60,5 +61,18 @@ public class UIManager : MonoSingleton<UIManager>
         {
             items[i].transform.DOMoveY(110 * cnt--, 0.7f);
         }
+    }
+
+    public void Message(string text)
+    {
+        if(messageText.color.a == 1) messageText.DOFade(0, 0);
+        messageText.text = text;
+        messageText.DOFade(1, 0.3f);
+    }
+
+    public void MessageDown()
+    {
+        if(messageText.color.a == 1)
+            messageText.DOFade(0, 0.3f);
     }
 }

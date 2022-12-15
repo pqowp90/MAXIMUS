@@ -52,8 +52,7 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
         Data = data;
         EnemyType = Data.type;
         Health = Data.health;
-        if(health)
-            _hpBar.Value = Health;
+        if(health) _hpBar.Init(Health);
     }
 
     private void FindTarget()

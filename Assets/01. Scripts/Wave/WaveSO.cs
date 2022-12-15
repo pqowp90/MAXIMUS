@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-[CreateAssetMenu(fileName = "New Wave", menuName = "Wave")]
+[CreateAssetMenu(fileName = "New Wave", menuName = "Wave/Wave")]
 public class WaveSO : ScriptableObject
 {  
     [Header("Day: 소환할 광물 리스트")]
@@ -18,8 +18,8 @@ public class WaveSO : ScriptableObject
 [System.Serializable]
 public class OreSpawnInfo
 {
-    public EnemyData eData;
-    public int rate;
+    public OreSO oData;
+    public float rate;
 }
 
 [System.Serializable]

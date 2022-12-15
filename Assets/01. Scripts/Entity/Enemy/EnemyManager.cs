@@ -8,8 +8,6 @@ public class EnemyManager : MonoSingleton<EnemyManager>
     public Transform enemyParent;
     public List<Enemy> Enemies = new();
 
-    public int EnemyCount => Enemies.Count;
-
     public void SpawnEnemy(Enemy enemy, Vector3 position)
     {
         var enemyObject = PoolManager.GetItem<Enemy>($"Enemy {enemy.EnemyType}");

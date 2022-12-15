@@ -67,8 +67,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             foreach (var item in _item)
             {
-                ItemManager.Instance.GetItem(item.GetComponentInParent<DropItem>().item);
-                item.transform.parent.gameObject.SetActive(false);
+                ItemManager.Instance.GetItem(item.transform.parent.gameObject);
             }
         }
     }

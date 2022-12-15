@@ -4,17 +4,31 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using DG.Tweening;
+using UnityEngine.UI;
+using JetBrains.Annotations;
 
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField]
     private GameObject damagePopup;
 
+    #region Item Enter UI Popup
+
+    public List<GameObject> items = new List<GameObject>();
+    [SerializeField] private Canvas _itemCanvas;
+
+    #endregion
+
     public GameObject player;
 
     void Awake()
     {
         player = FindObjectOfType<Player>().gameObject;
+    }
+
+    private void Start()
+    {
+        PoolManager.CreatePool<ItemEnterUI>("ItemEnterUIPrefab", _itemCanvas.gameObject, 10);
     }
 
     public void Popup(Transform pos, string text, bool isPlayer = false)
@@ -31,6 +45,20 @@ public class UIManager : MonoSingleton<UIManager>
             popText.color = Color.white;
             popText.fontSize = 3f;
         }
+    }
 
+    public void ItemEnter(Item item, int amount)
+    {
+        var ui = PoolManager.GetItem<ItemEnterUI>("ItemEnterUIPrefab");
+        ui.itemIcon.sprite = item.icon;
+        ui.amountText.text = $"+{amount}";
+        items.Add(ui.gameObject);
+        ui.transform.position = new Vector3(160, 50);
+
+        int cnt = items.Count;
+        for(int i = 0; i < items.Count; i++)
+        {
+            items[i].transform.DOMoveY(110 * cnt--, 0.7f);
+        }
     }
 }

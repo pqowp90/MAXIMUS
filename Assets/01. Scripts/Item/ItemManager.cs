@@ -1,8 +1,9 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class ItemManager : MonoSingleton<ItemManager>
 {
@@ -12,6 +13,7 @@ public class ItemManager : MonoSingleton<ItemManager>
     [Header("Item Drop")]
     [SerializeField]
     public GameObject poolObj;                // 풀링 부모;
+    [SerializeField] private Transform _itemGiveTrm;
 
     public float dropTime = 60.0f;                
 
@@ -27,12 +29,32 @@ public class ItemManager : MonoSingleton<ItemManager>
         itemObj.meshRenderer.material = itemObj.item.material;
         itemObj.meshFilter.mesh = itemObj.item.mesh;
         itemObj.transform.position = pos + new Vector3(0, 0.5f, 0);
+        UIManager.Instance.ItemEnter(item, 1);
 
         return itemObj;
     }
 
-    public void GetItem(Item item)
+    public void DropItem(Vector3 pos, Item item, int amount)
     {
+        for(int i = 1; i <= amount; i++)
+        {
+            DropItem itemObj = PoolManager.GetItem<DropItem>("DropItem");
+            itemObj.item = item;
+            itemObj.meshRenderer.material = itemObj.item.material;
+            itemObj.meshFilter.mesh = itemObj.item.mesh;
+            itemObj.transform.position = pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 2f) + 0.5f, Random.Range(-0.5f, 0.5f));
+        }
+        UIManager.Instance.ItemEnter(item, amount);
+    }
+
+    private List<GameObject> flyingObts = new List<GameObject>();
+    public void GetItem(GameObject itemObj)
+    {
+        if (flyingObts.Contains(itemObj) == true) return;
+
+        Item item = itemObj.GetComponent<DropItem>().item;
+        flyingObts.Add(itemObj);
+        
         foreach(var _item in inventorySO.itemList)
         {
             if(_item.item_ID == item.item_ID)
@@ -40,6 +62,7 @@ public class ItemManager : MonoSingleton<ItemManager>
                 if(_item.isStackable == true)
                 {
                     _item.amount += 1;
+                    ItemEnterAnimation(itemObj);
                     return;
                 }
             }
@@ -47,6 +70,16 @@ public class ItemManager : MonoSingleton<ItemManager>
 
         item.amount = 1;
         inventorySO.itemList.Add(item);
+        ItemEnterAnimation(itemObj);
+    }
+
+    private void ItemEnterAnimation(GameObject obj)
+    {
+        obj.GetComponent<DropItem>().OffRb(true);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(obj.transform.DOMove(_itemGiveTrm.position, 0.5f).SetEase(Ease.InCubic));
+        seq.AppendCallback(() => obj.SetActive(false));
     }
 
     public List<Item> GetItemsByType(ITEM_TYPE iTEM_TYPE)

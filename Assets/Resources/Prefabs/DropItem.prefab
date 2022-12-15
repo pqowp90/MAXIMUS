@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6169685068860813377}
   - component: {fileID: 1163553301622816622}
   - component: {fileID: 700463772051873176}
-  - component: {fileID: 5340623467501261024}
   m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
@@ -99,22 +98,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1598058932206406000, guid: 8953281e178475e4db1a84970c50dc74, type: 3}
---- !u!54 &5340623467501261024
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5131209830730437887}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &8753267742814582361
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8228650525359959267}
   - component: {fileID: 767242083780072444}
+  - component: {fileID: 6490949182616703824}
   m_Layer: 0
   m_Name: DropItem
   m_TagString: Untagged
@@ -141,8 +125,8 @@ Transform:
   m_GameObject: {fileID: 8753267742814582361}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1573871911769828518}
   m_Father: {fileID: 0}
@@ -165,3 +149,19 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   meshCollider: {fileID: 0}
   rb: {fileID: 0}
+--- !u!54 &6490949182616703824
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8753267742814582361}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

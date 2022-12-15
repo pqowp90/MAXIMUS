@@ -26,7 +26,9 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     [field: SerializeField] public EnemyData Data { get; set; }
 
     private bool _isDelay = false;
+
     private Animator _animator;
+    
 
     private void Awake()
     {
@@ -81,14 +83,20 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
         transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
 
         if (target == null) FindTarget();
-        
-        if (Vector3.Distance(transform.position, targetPosition) >= maxDistance)
-            transform.position =
-                Vector3.MoveTowards(transform.position, targetPosition, Data.speed * Time.deltaTime);
-        else
+
+        float length = Vector3.Distance(transform.position, targetPosition);
+
+        if(length <= Data.attackRange)
         {
+            _animator.SetBool("Attack", true);
             Attack();
         }
+        else if (length >= maxDistance)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Data.speed * Time.deltaTime);
+            _animator.SetBool("Attack", false);
+        }
+            
     }
 
     public void AddTarget(EntityType type)
@@ -127,7 +135,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     {
         if(!_isDelay)
         {
-            target.GetComponent<Player>().hp -= Data.damage;
             _isDelay = true;
             Invoke("AttackDelay", Data.attackDelay);
         }
@@ -136,6 +143,8 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     private void AttackDelay()
     {
         _isDelay = false;
+        if(_animator.GetBool("Attack") == true)
+            target.GetComponent<Player>().TakeDamage(Data.damage);
     }
 
     public void OnPool()

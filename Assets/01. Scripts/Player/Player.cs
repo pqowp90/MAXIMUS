@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
-    public float hp;
+    private float _hp = 100;
     private bool _isOpenBag;
     public ItemDB inventory;
 
@@ -24,6 +25,9 @@ public class Player : MonoBehaviour
     [Header("Keybinds")]
     public KeyCode reloadKey = KeyCode.R;
     public KeyCode bagOpenKey = KeyCode.E;
+
+    public UnityEvent<float> OnDamageTaken { get; set; }
+    public float Health { get => _hp; set => _hp = value; }
 
     private void Start()
     {
@@ -77,6 +81,17 @@ public class Player : MonoBehaviour
         else if (!WeaponManager.Instance.IsReloading && !attack.AttackPossible)
         {
             attack.Attack();
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _hp -= damage;
+        UIManager.Instance.Popup(transform, damage.ToString(), true);
+
+        if(_hp <= 0)
+        {
+            Debug.LogError("PLAYER DEATH");
         }
     }
 }

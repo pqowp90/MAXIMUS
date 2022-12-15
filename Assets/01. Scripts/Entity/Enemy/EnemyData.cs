@@ -14,6 +14,7 @@ public class EnemyData : ScriptableObject
     [Header("Attack")]
     public float damage;
     public float attackDelay;
+    public float attackRange;
 
     public DropItemTableSO dropItemTable;
 }

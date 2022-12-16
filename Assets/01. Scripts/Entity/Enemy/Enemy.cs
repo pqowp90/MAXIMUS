@@ -6,35 +6,30 @@ using UnityEngine.Playables;
 
 public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 {
-    [field: SerializeField] public UnityEvent<float> OnDamageTaken { get; set; }
 
-    public LayerMask enemyLayerMask;
-    [SerializeField] private float distance;
-    [SerializeField] private float maxDistance;
+    [Header("Target")]
+    [SerializeField] private Vector3 targetPosition = Vector3.zero;     // 타켓의 좌표
+    [SerializeField] private Entity target;                             // 타켓
 
-    [SerializeField] private Vector3 targetPosition = Vector3.zero;
-    [SerializeField] private Entity target;
-
-    [SerializeField] private EntityType targetEnemyTypes;
-
+    #region 공격 관련 정보
     [field: SerializeField] public float Health { get; set; }
-
-    private Rigidbody _rigidbody;
-
-    private Transform _transform;
-
     [field: SerializeField] public EnemyData Data { get; set; }
-
-    private bool _isDelay = false;
+    [field: SerializeField] public UnityEvent<float> OnDamageTaken { get; set; }
+    #endregion
 
     private Animator _animator;
-    
+    private Rigidbody _rigidbody;
+    private Transform _transform;
+    private HPBar _hpBar;
+
+    private bool _isDelay = false; // 공격중인가??
 
     private void Awake()
     {
         Type = EntityType.Enemy;
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
+        _hpBar = GetComponentInChildren<HPBar>();
         _transform = transform;
     }
 
@@ -52,11 +47,12 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     public int EnemyType { get; private set; }
 
-    public void Init(IEnemy enemy)
+    public void Init(EnemyData data, bool health = false)
     {
-        Data = EnemyDataContainer.Instance.Cache[enemy.EnemyType];
+        Data = data;
         EnemyType = Data.type;
         Health = Data.health;
+        if(health) _hpBar.Init(Health);
     }
 
     private void FindTarget()
@@ -91,7 +87,7 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
             _animator.SetBool("Attack", true);
             Attack();
         }
-        else if (length >= maxDistance)
+        else
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, Data.speed * Time.deltaTime);
             _animator.SetBool("Attack", false);
@@ -99,26 +95,12 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
             
     }
 
-    public void AddTarget(EntityType type)
-    {
-        targetEnemyTypes |= type;
-    }
-
-    public void RemoveTarget(EntityType type)
-    {
-        targetEnemyTypes &= ~type;
-    }
-
-    public void SetTarget(EntityType type)
-    {
-        targetEnemyTypes = type;
-    }
-
     public void TakeDamage(float damage)
     {
         Health -= damage;
         OnDamageTaken?.Invoke(damage);
         UIManager.Instance.Popup(transform, damage.ToString());
+        _hpBar.Value -= damage;
 
         if (Health <= 0)
         {
@@ -150,6 +132,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     public void OnPool()
     {
         targetPosition = WaveManager.Instance.transform.position;
-        maxDistance = distance;
+        _hpBar.Init(Health);
     }
 }

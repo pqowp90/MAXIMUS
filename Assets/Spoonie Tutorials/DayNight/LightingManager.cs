@@ -37,20 +37,16 @@ public class LightingManager : MonoBehaviour
             DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent);
 
             DirectionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
-            if(Application.isPlaying)
+            if (TimeOfDay <= 20.0f || TimeOfDay >= 80.0f)
             {
-                if (DirectionalLight.transform.rotation.x < 0)
-                {
-                    if (DayCycleManager.Instance.currentCycle == DayCycleManager.Cycle.Day)
-                        DayCycleManager.Instance.ChangeCycle(DayCycleManager.Cycle.Night);
-                }
-                else
-                {
-                    if (DayCycleManager.Instance.currentCycle == DayCycleManager.Cycle.Night)
-                        DayCycleManager.Instance.ChangeCycle(DayCycleManager.Cycle.Day);
-                }
+                if (DayCycleManager.Instance.currentCycle == DayCycleManager.Cycle.Day)
+                    DayCycleManager.Instance.ChangeCycle(DayCycleManager.Cycle.Night);
             }
-           
+            else
+            {
+                if (DayCycleManager.Instance.currentCycle == DayCycleManager.Cycle.Night)
+                    DayCycleManager.Instance.ChangeCycle(DayCycleManager.Cycle.Day);
+            }
         }
 
     }

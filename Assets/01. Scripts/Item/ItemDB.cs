@@ -18,14 +18,4 @@ public class ItemDB : ScriptableObject
     {
         return itemList.FindAll(i => i.item_type == iTEM_TYPE);
     }
-
-    [ContextMenu("�κ� �ʱ�ȭ")]
-    public void InventoryReset()
-    {
-        foreach(Item item in itemList)
-        {
-            item.amount = 0;
-        }
-        itemList.Clear();
-    }
 }

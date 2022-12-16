@@ -17,7 +17,7 @@ public class DropItem : MonoBehaviour, IPoolable
         meshRenderer = GetComponentInChildren<MeshRenderer>();
         meshFilter = GetComponentInChildren<MeshFilter>();
         meshCollider = GetComponentInChildren<MeshCollider>();
-        rb = GetComponentInChildren<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnDisable() {

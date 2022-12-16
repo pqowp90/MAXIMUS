@@ -21,11 +21,10 @@ public class DayCycleManager : MonoSingleton<DayCycleManager>
         switch (currentCycle)
         {
             case Cycle.Day:
-                WaveManager.Instance.EndWave(CombatManager.Instance.KillCount, CombatManager.Instance.KillCount);
-                CombatManager.Instance.ResetCount();
+                WaveManager.Instance.StartWave(false);
                 break;
             case Cycle.Night:
-                WaveManager.Instance.StartWave();
+                WaveManager.Instance.StartWave(true);
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

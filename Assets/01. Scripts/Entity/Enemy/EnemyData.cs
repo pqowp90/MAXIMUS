@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System;
 using System.Collections;
 
-[CreateAssetMenu(fileName = "EnemyData", menuName = "KBluePurple/Data/EnemyData")]
+[System.Serializable]
+[CreateAssetMenu(fileName = "EnemyData", menuName = "Wave/Enemy")]
 public class EnemyData : ScriptableObject
 {
     public int type;

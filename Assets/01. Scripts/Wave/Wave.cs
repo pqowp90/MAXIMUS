@@ -1,67 +1,103 @@
 ﻿using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Wave
 {
-    private WaveEnemy[] _enemies;
+    private List<Enemy> _enemies = new List<Enemy>();
     public WaveRange[] SpawnRanges;
+    private WaveSO waveInfo;
 
-    public Wave()
+    public int EnemyCount => _enemies.Count();
+
+    private List<Ore> _ores = new List<Ore>();
+
+    public int OreCount => _ores.Count();
+
+    public Wave(WaveSO sO)
     {
-        InitializeEnemies(FormulaFunction.EnemyCount());
-        InitializeSpawnRanges(FormulaFunction.DirectionCount());
+        waveInfo = sO;
+
+        InitializeOres();
+        InitializeEnemies();
+        InitializeSpawnRanges();
     }
 
-    public int EnemyCount { get; private set; }
-
-    private void InitializeEnemies(int enemyCount)
+    private void InitializeOres()
     {
-        EnemyCount = enemyCount;
-        _enemies = new WaveEnemy[enemyCount];
-
-        _enemies[0] = new WaveEnemy(0);
-        for (var i = 1; i < enemyCount; i++)
+        foreach(var o in waveInfo.oreSpawnList)
         {
-            _enemies[i] = new WaveEnemy(i);
+            Ore ore = new Ore();
+            ore.Init(o.oData, o.rate);
+            _ores.Add(ore);
+        }
+    }
+
+    public Ore GetOre()
+    {
+        float sum = 0f;
+        for (int i = 0; i < _ores.Count; i++)
+        {
+            sum += _ores[i].rate;
         }
 
-        _enemies[0].Ratio = 1 - _enemies[1..].Sum(x => x.Ratio);
+        float randomValue = UnityEngine.Random.Range(0, sum);
+        float tempSum = 0;
+
+        for (int i = 0; i < _ores.Count; i++)
+        {
+            if (randomValue >= tempSum && randomValue < tempSum + _ores[i].rate)
+            {
+                return _ores[i];
+            }
+            else
+            {
+                tempSum += _ores[i].rate;
+            }
+        }
+
+        return _ores[0];
     }
 
-    private void InitializeSpawnRanges(int directionCount)
+    private void InitializeEnemies()
     {
-        SpawnRanges = new WaveRange[directionCount];
+        foreach(var enemy in waveInfo.enemySpawnList)
+        {
+            for(int i = 0; i < enemy.count; i++)
+            {
+                Enemy e = new Enemy();
+                e.Init(enemy.eData);
+                _enemies.Add(e);
+            }
+        }
+        
+        for(int i = 0; i < 100; i++)
+        {
+            int key = Random.Range(0, EnemyCount);
+            Enemy e = _enemies[0];
+            _enemies[0] = _enemies[key];
+            _enemies[key] = e;
+        }
+    }
+
+    private void InitializeSpawnRanges()
+    {
+        SpawnRanges = new WaveRange[3];
 
         if (WaveManager.Instance.WaveRanges.Clone() is not WaveRange[] ranges) return;
         var waveRanges = ranges.ToList();
 
-        for (var i = 0; i < ranges.Length - directionCount; i++)
+        for (var i = 0; i < ranges.Length - 3; i++)
             waveRanges.RemoveAt(Random.Range(0, waveRanges.Count));
 
-        for (var i = 0; i < directionCount; i++)
+        for (var i = 0; i < 3; i++)
             SpawnRanges[i] = waveRanges[i];
     }
 
-    public WaveEnemy GetEnemy()
+    public Enemy GetEnemy()
     {
-        EnemyCount--;
-        return _enemies[Random.Range(0, EnemyDataContainer.Instance.enemyData.Length)];
-
-        /*var random = Random.Range(0f, 2f);
-        var sum = 0f;
-
-        EnemyCount--;
-
-
-        for (var i = 0; i < EnemyCount; i++)
-        {
-            sum += _enemies[i].Ratio;
-            if (random <= sum)
-            {
-                return _enemies[i];
-            }
-        }
-
-        return _enemies[0];*/
+        Enemy enemy = _enemies[0];
+        _enemies.Remove(enemy);
+        return enemy;
     }
 }

@@ -33,11 +33,12 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
     public void SetRecipe(FactoryRecipesSO _recipe)
     {
         curRecipe = _recipe;
-        outPutSpace.dropItem.item = _recipe.result.item;
+        outPutSpace.connectSO = _recipe.result.item;
         for (int i = 0; i < _recipe.ingredients.Count; i++)
         {
-            inputSpaces[i].dropItem.item = _recipe.ingredients[i].item;
+            inputSpaces[i].connectSO = _recipe.ingredients[i].item;
         }
+        GetComponent<Building>().onoff = true;
     }
     
     public void AddToManager(Vector2Int curPos, int curRotation)

@@ -50,10 +50,21 @@ public class ItemSpace : MonoBehaviour
 
         if(spaceType == SpaceType.Multy)
         {
-            if(dropItem == null)
+            if(connectSO == null)
+            {
+                return;
+            }
+            Debug.Log("Multy");
+            if(dropItem == null && _space.dropItem.item == connectSO){
                 dropItem = _space.TakeItem();
-            else if(dropItem == _space)
                 count++;
+            }
+            
+            else if(_space.dropItem.item == connectSO)
+            {
+                _space.TakeItem().gameObject.SetActive(false);
+                count++;
+            }
             else
                 return;
         }
@@ -93,12 +104,8 @@ public class ItemSpace : MonoBehaviour
         {
             if(dropItem != null)
             {
-                count--;
-                if(count <= 0)
-                {
-                    count = 0;
-                    dropItem = null;
-                }
+                count=0;
+                dropItem = null;
             }
         }
         

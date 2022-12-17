@@ -19,12 +19,14 @@ public class WaveManager : MonoSingleton<WaveManager>
 
     public WaveRange[] WaveRanges => UpdateWaveRange();
 
-    public int WaveCount { get; private set; }
+    [field:SerializeField] public int WaveCount { get; private set; }
     public Wave CurrentWave { get; private set; }
 
     [Header("Wave Info")]
     public List<WaveSO> waveList = new List<WaveSO>();
     [SerializeField] private int _maxOreSpawnCount = 20;
+    [SerializeField] private float _oreSpawnRadius = 30.0f;
+    [SerializeField] private float _enemySpawnDelay;
     
     private void Start() 
     {
@@ -32,6 +34,7 @@ public class WaveManager : MonoSingleton<WaveManager>
         nextSpawnTime = 0;
         WaveCount = 0;
         CurrentWave = new Wave(waveList[WaveCount]);
+        _enemySpawnDelay = Random.Range(30.0f, 40.0f) / CurrentWave.WAVESO.EnemySpawnCount;
 
         foreach(var list in waveList)
         {
@@ -66,6 +69,9 @@ public class WaveManager : MonoSingleton<WaveManager>
             Gizmos.DrawWireCube(new Vector3(waveRange.position.x, waveRange.position.y, waveRange.position.z),
                 new Vector3(waveRange.size.x, waveRange.size.y, waveRange.size.z));
         }
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(player.position, new Vector3(_oreSpawnRadius, 1f, _oreSpawnRadius));
     }
 
     private WaveRange[] UpdateWaveRange()
@@ -97,6 +103,8 @@ public class WaveManager : MonoSingleton<WaveManager>
         {
             WaveCount++;
             CurrentWave = new Wave(waveList[WaveCount]);
+
+            _enemySpawnDelay = Random.Range(30.0f, 40.0f) / CurrentWave.WAVESO.EnemySpawnCount;
         }
     }
 
@@ -108,12 +116,12 @@ public class WaveManager : MonoSingleton<WaveManager>
         if(isNight)
         {
             SpawnEnemy();
-            nextSpawnTime += Random.Range(2f, 10f);
+            nextSpawnTime += _enemySpawnDelay;
         }
         else 
         {
             SpawnOre();
-            nextSpawnTime += Random.Range(10f, 50f);
+            nextSpawnTime += CurrentWave.WAVESO.OreSpawnDelay;
         }
 
         
@@ -146,14 +154,7 @@ public class WaveManager : MonoSingleton<WaveManager>
             return;
         }
 
-        var waveRange = CurrentWave.SpawnRanges[Random.Range(0, CurrentWave.SpawnRanges.Length)];
-        var position = new Vector3(
-            Random.Range(waveRange.position.x - waveRange.size.x / 2f,
-                waveRange.position.x + waveRange.size.x / 2f),
-            100f,
-            Random.Range(waveRange.position.z - waveRange.size.z / 2f,
-                waveRange.position.z + waveRange.size.z / 2f)
-        );
+        var position = player.position + new Vector3( Random.Range((_oreSpawnRadius / 2) * -1, _oreSpawnRadius / 2), 0, Random.Range((_oreSpawnRadius / 2) * -1, _oreSpawnRadius / 2));
 
         RaycastHit hit;
         Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity, _groundLayer);

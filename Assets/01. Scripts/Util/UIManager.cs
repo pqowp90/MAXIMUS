@@ -22,7 +22,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public GameObject player;
 
-    void Awake()
+    public override void Awake()
     {
         player = FindObjectOfType<Player>().gameObject;
     }

@@ -127,7 +127,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Mine()
     {
-        Debug.Log("Mining");
         mineOre.TakeDamage(1);
         ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, mineOre.dropAmount);
     }

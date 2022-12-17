@@ -17,5 +17,5 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 70865d647b040334e84539f57bc0cea9, type: 2}
   dropMinAmount: 1
   dropMaxAmount: 2
-  maxHealth: 3
+  maxHealth: 10
   dropItem: {fileID: 11400000, guid: 13c1eee79854dad42bd2ce7076644eec, type: 2}

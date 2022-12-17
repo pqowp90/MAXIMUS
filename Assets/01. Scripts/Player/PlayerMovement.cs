@@ -126,16 +126,6 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("Walk", (moveDirection != Vector3.zero));
 
-        // if(moveDirection == Vector3.zero) // 어차피 겟불하면 검색을 한번 해버려서 그냥 연산 안하고 넣어주는게 빠름
-        // {
-        //     if(animator.GetBool("Walk") == true)
-        //         animator.SetBool("Walk", false);
-        // }
-        // else
-        // {
-        //     if (animator.GetBool("Walk") == false)
-        //         animator.SetBool("Walk", true);
-        // }
         animator.SetBool("IsGround", grounded);
         // on ground
         if (grounded)

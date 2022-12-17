@@ -15,6 +15,8 @@ MonoBehaviour:
   oreSpawnList:
   - oData: {fileID: 11400000, guid: 9e2503ef6597648469eb06b8f8111cdb, type: 2}
     rate: 1
+  minOreSpawnDelay: 5
+  maxOreSpawnDelay: 11
   enemySpawnList:
   - eData: {fileID: 11400000, guid: 147f238b866e14a408c5a15b1ec00b23, type: 2}
-    count: 4
+    count: 10

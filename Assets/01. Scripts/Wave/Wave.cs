@@ -6,7 +6,8 @@ public class Wave
 {
     private List<Enemy> _enemies = new List<Enemy>();
     public WaveRange[] SpawnRanges;
-    private WaveSO waveInfo;
+    private WaveSO _waveInfo;
+    public WaveSO WAVESO => _waveInfo;
 
     public int EnemyCount => _enemies.Count();
 
@@ -16,7 +17,7 @@ public class Wave
 
     public Wave(WaveSO sO)
     {
-        waveInfo = sO;
+        _waveInfo = sO;
 
         InitializeOres();
         InitializeEnemies();
@@ -25,7 +26,7 @@ public class Wave
 
     private void InitializeOres()
     {
-        foreach(var o in waveInfo.oreSpawnList)
+        foreach(var o in _waveInfo.oreSpawnList)
         {
             Ore ore = new Ore();
             ore.Init(o.oData, o.rate);
@@ -61,7 +62,7 @@ public class Wave
 
     private void InitializeEnemies()
     {
-        foreach(var enemy in waveInfo.enemySpawnList)
+        foreach(var enemy in _waveInfo.enemySpawnList)
         {
             for(int i = 0; i < enemy.count; i++)
             {

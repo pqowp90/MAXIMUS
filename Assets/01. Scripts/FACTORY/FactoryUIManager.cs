@@ -87,7 +87,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             return;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
         {
-            
+            CloseTap();
             
             Building building = hit.collider.GetComponentInParent<Building>();
             if(building != null)

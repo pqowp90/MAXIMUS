@@ -11,12 +11,9 @@ public class RecipePanel : MonoBehaviour, IPoolable
     private GameObject recipePanelParent;
     [SerializeField]
     private TMP_Text costText;
+    [SerializeField]
     public Button button;
-    private void Awake() 
-    {
-        button = GetComponent<Button>();
-        
-    }
+
     public void OnPool()
     {
         resultPanel.ResetPanel();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class FactoryUIManager : MonoSingleton<FactoryUIManager>
 {
@@ -43,6 +44,8 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     private GameObject poolSpace;
     [SerializeField]
     private GameObject inputPanelPerent;
+    [SerializeField]
+    private TMP_Text costUIText;
 
 
     //-------------------------------------------
@@ -150,6 +153,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         if(factoryBase.curRecipe == null)
             return;
         resultPanel.itemImage.sprite = factoryBase.curRecipe.result.item.icon;
+        costUIText.text = factoryBase.curRecipe.cost.ToString();
         resultPanel.itemText.text = factoryBase.outPutSpace.count.ToString();
         foreach (var panel in inputPanelList)
         {
@@ -158,8 +162,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         for (int i = 0; i < factoryBase.curRecipe.ingredients.Count; i++)
         {
             ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemSpacePanel");
-            itemPanel.itemImage.sprite = factoryBase.inputSpaces[i].connectSO.icon;
-            itemPanel.itemText.text = factoryBase.inputSpaces[i].count.ToString();
+            itemPanel.itemSpace = factoryBase.inputSpaces[i];
             inputPanelList.Add(itemPanel.gameObject);
         }
     }

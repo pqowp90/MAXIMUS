@@ -432,7 +432,7 @@ MonoBehaviour:
   inputPanelList: []
   recipePanelParent: {fileID: 1154522588222962525}
   costText: {fileID: 8261153022651456211}
-  button: {fileID: 0}
+  button: {fileID: 3366801116260093316}
 --- !u!1 &3715555149168742189
 GameObject:
   m_ObjectHideFlags: 0

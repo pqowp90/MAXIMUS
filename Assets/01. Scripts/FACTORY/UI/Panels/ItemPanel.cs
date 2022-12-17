@@ -13,6 +13,7 @@ public class ItemPanel : MonoBehaviour, IPoolable
     [SerializeField]
     public TMP_Text  itemDiscription;
     public int itemID;
+    public ItemSpace itemSpace;
     public void SetItemRecipe(Item item, int count)
     {
         itemImage.sprite = item.icon;
@@ -26,6 +27,16 @@ public class ItemPanel : MonoBehaviour, IPoolable
     public void ButtonClick()
     {
         FactoryUIManager.Instance.SetDropperItem(itemID);
+    }
+    private void Update() {
+        if(itemSpace != null)
+        {
+            if(itemSpace.connectSO != null)
+            {
+                itemImage.sprite = itemSpace.connectSO.icon;
+                itemText.text = itemSpace.count.ToString();
+            }
+        }
     }
 
     public void OnPool()

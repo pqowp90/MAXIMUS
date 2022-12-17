@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -19,6 +20,12 @@ public class PlayerAttack : MonoBehaviour
     public bool AttackPossible => _isAttackDelay;
 
     private Vector3 _direction;
+
+    private void Start() 
+    {
+        _turrats[0].forward = transform.forward;
+        _turrats[1].forward = transform.forward;
+    }
 
     public void Attack()
     {
@@ -59,7 +66,6 @@ public class PlayerAttack : MonoBehaviour
             bullet.projectile.damage = weapon.bullet.Damage;
             bullet.rigidbody.velocity = Vector3.zero;
             bullet.rigidbody.AddForce(_turrat.forward * 1000);
-            Debug.Log(bullet);
         }
         
         _isAttackDelay = true;

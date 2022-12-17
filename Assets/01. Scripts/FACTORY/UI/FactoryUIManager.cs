@@ -214,7 +214,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         foreach (var item in items)
         {
             ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");
-            
+            SetCurItemPanel(item, itemPanel);
             dropperItemPanels.Add(itemPanel.gameObject);
         }
         

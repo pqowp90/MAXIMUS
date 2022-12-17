@@ -167,6 +167,7 @@ MonoBehaviour:
   inputPanelList: []
   recipePanelParent: {fileID: 1904261012}
   poolSpace: {fileID: 27827523}
+  inputPanelPerent: {fileID: 1693425782}
 --- !u!4 &27827525
 Transform:
   m_ObjectHideFlags: 0

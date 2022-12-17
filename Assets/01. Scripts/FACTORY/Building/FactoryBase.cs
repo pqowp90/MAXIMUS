@@ -38,6 +38,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
         {
             inputSpaces[i].connectSO = _recipe.ingredients[i].item;
         }
+        FactoryUIManager.Instance.SetFactoryUI(this);
         GetComponent<Building>().onoff = true;
     }
     

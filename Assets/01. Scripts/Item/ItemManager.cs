@@ -43,11 +43,10 @@ public class ItemManager : MonoSingleton<ItemManager>
             itemObj.meshFilter.mesh = itemObj.item.mesh;
             itemObj.transform.position = pos + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.5f, 2f) + 0.5f, Random.Range(-0.5f, 0.5f));
         }
-        UIManager.Instance.ItemEnter(item, amount);
     }
 
     private List<GameObject> flyingObts = new List<GameObject>();
-    public void GetItem(GameObject itemObj)
+    public void GetItem(GameObject itemObj, int amount)
     {
         if (flyingObts.Contains(itemObj) == true) return;
 
@@ -60,25 +59,26 @@ public class ItemManager : MonoSingleton<ItemManager>
             {
                 if(_item.isStackable == true)
                 {
-                    _item.amount += 1;
-                    ItemEnterAnimation(itemObj);
+                    _item.amount += amount;
+                    ItemEnterAnimation(itemObj, amount);
                     return;
                 }
             }
         }
 
-        item.amount = 1;
+        item.amount = amount;
         inventorySO.itemList.Add(item);
-        ItemEnterAnimation(itemObj);
+        ItemEnterAnimation(itemObj, amount);
     }
 
-    private void ItemEnterAnimation(GameObject obj)
+    private void ItemEnterAnimation(GameObject obj, int amount)
     {
         obj.GetComponent<DropItem>().OffRb(true);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.transform.DOMove(_itemGiveTrm.position, 0.5f).SetEase(Ease.InCubic));
         seq.AppendCallback(() => obj.SetActive(false));
+        seq.AppendCallback(()=>UIManager.Instance.ItemEnter(obj.GetComponent<DropItem>().item, amount));
     }
 
     public List<Item> GetItemsByType(ITEM_TYPE iTEM_TYPE)

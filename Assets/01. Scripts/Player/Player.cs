@@ -78,9 +78,25 @@ public class Player : MonoBehaviour, IDamageable
         Collider[] _item = Physics.OverlapSphere(transform.position, _itemFindRadius, _itemLayer);
         if (_item.Length > 0)
         {
+            Dictionary<string, int> itemCheckList = new Dictionary<string, int>();
+            Dictionary<string, DropItem> itemList = new Dictionary<string, DropItem>();
             foreach (var item in _item)
             {
-                ItemManager.Instance.GetItem(item.transform.parent.gameObject);
+                DropItem dropItem = item.transform.parent.GetComponent<DropItem>();
+                if(itemCheckList.ContainsKey(dropItem.item.name))
+                {
+                    itemCheckList[dropItem.item.name]++;
+                }
+                else
+                {
+                    itemCheckList.Add(dropItem.item.name, 1);
+                    itemList.Add(dropItem.item.name, dropItem);
+                }
+            }
+
+            foreach(var item in itemCheckList)
+            {
+                ItemManager.Instance.GetItem(itemList[item.Key].gameObject, item.Value);
             }
         }
     }

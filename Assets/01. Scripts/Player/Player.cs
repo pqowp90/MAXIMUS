@@ -14,18 +14,24 @@ public class Player : MonoBehaviour, IDamageable
     public TMP_Text ammoText;
     public ItemDB inventory;
     private PlayerAttack attack;
+    public PlayerMovement playerMove;
 
 
     [Header("Item")]
     [SerializeField] private LayerMask _itemLayer;
     [SerializeField] private float _itemFindRadius = 1f;
 
+    #region Mining
     [Header("Ore")]
     [SerializeField] private LayerMask _oreLayer;
     [SerializeField] private float _oreSearchRadius = 5f;
+
+    private Ore mineOre;
+    
     public bool isMine = false;
     private bool _isFindOre = false;
-    private Ore mineOre;
+    private bool _isMining = false;
+    #endregion
 
     [Header("Keybinds")]
     public KeyCode reloadKey = KeyCode.R;
@@ -38,6 +44,7 @@ public class Player : MonoBehaviour, IDamageable
     private void Start()
     {
         attack = GetComponent<PlayerAttack>();
+        playerMove = GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -51,8 +58,7 @@ public class Player : MonoBehaviour, IDamageable
         }
         if(Input.GetKeyUp(miningKey))
         {
-            isMine = true;
-            _isFindOre = false;
+            MineMod(true);
             UIManager.Instance.MessageDown();
         }
         if(Input.GetKeyDown(reloadKey))
@@ -118,17 +124,27 @@ public class Player : MonoBehaviour, IDamageable
             if(isMine || _isFindOre)
             {
                 UIManager.Instance.MessageDown();
-                isMine = false;
-                _isFindOre = false;
+                MineMod(false);
             }
         }
+    }
+
+    private void MineMod(bool value)
+    {
+        _isFindOre = false;
+        _isMining = false;
+        isMine = value;
     }
 
     private void Attak()
     {
         if(isMine)
         {
-            Mine();
+            if(_isMining == false)
+            {
+                playerMove.animator.SetTrigger("Mine");
+                _isMining = true;
+            }
             return;
         }
 
@@ -141,11 +157,13 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    private void Mine()
+    public void Mine()
     {
+        _isMining = false;
         mineOre.TakeDamage(1);
         ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, mineOre.dropAmount);
     }
+
 
     public void TakeDamage(float damage)
     {

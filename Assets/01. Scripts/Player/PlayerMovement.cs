@@ -38,8 +38,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
-
-    Animator animator;
+    public Animator animator;
 
     private void Awake()
     {

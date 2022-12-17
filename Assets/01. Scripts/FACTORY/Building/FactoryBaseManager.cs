@@ -35,8 +35,8 @@ public class FactoryBaseManager : MonoSingleton<FactoryBaseManager>, BuildAbilit
                 continue;
             foreach (var recipe in factory.curRecipe.ingredients)
             {
-                ItemSpace itemSpace = factory.inputSpaces.Find(x => x.dropItem.item == recipe.item);
-                if(recipe.count <= itemSpace.amount)
+                ItemSpace itemSpace = factory.inputSpaces.Find(x => x.connectSO == recipe.item);
+                if(recipe.count <= itemSpace.count)
                 {
                     //factory.outPutSpace.dropItem = 
                 }

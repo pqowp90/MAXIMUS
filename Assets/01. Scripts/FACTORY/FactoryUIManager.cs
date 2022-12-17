@@ -20,11 +20,28 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     private ItemPanel curItemPanel;
     [SerializeField]
     private GameObject canvas;
+    private List<GameObject> dropperItemPanels = new List<GameObject>();
     //-------------------------------------------
     [Header("FactoryUI")]
     //-------------------------------------------
     [SerializeField]
+    private GameObject makingUI;
+    [SerializeField]
+    private GameObject notMakeingUI;
+    [SerializeField]
     private GameObject FactoryUI;
+    private FactoryBase factoryBase;
+    
+    [SerializeField]
+    private ItemPanel resultPanel;
+    [SerializeField]
+    private List<GameObject> inputPanelList = new List<GameObject>();
+    [SerializeField]
+    private GameObject recipePanelParent;
+    private List<GameObject> recipePanelList = new List<GameObject>();
+    [SerializeField]
+    private GameObject poolSpace;
+
 
     //-------------------------------------------
 
@@ -33,7 +50,23 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     {
         PoolManager.CreatePool<ItemPanel>("ItemPanel", content);
         PoolManager.CreatePool<Billboard>("Billboard", canvas);
+        PoolManager.CreatePool<RecipePanel>("RecipePanel", recipePanelParent);
+        PoolManager.CreatePool<ItemPanel>("ItemUI", poolSpace);
+        InputManager.Instance.FactoryKeyAction -= PressESC;
+        InputManager.Instance.FactoryKeyAction += PressESC;
     }
+    public ItemPanel GetItemUI(GameObject parent)
+    {
+        ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemUI");
+        itemPanel.transform.SetParent(parent.transform);
+        return itemPanel;
+    }
+    public void GiveBackItemUI(GameObject itemPanel)
+    {
+        itemPanel.transform.SetParent(poolSpace.transform);
+        itemPanel.SetActive(false);
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -54,39 +87,118 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             return;
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out hit, Mathf.Infinity, buildingLayerMask))
         {
-            
+            CloseTap();
             
             Building building = hit.collider.GetComponentInParent<Building>();
             if(building != null)
             {
-                
+                if(GridManager.Instance.disassemblyMode || GridManager.Instance.buildingMode)
+                    return;
                 switch (building.buildingType)
                 {
+                    
                     case BuildingType.Dropper:
                     {
                         SetDropperUI();
-                        if(GridManager.Instance.disassemblyMode || GridManager.Instance.buildingMode)
-                            return;
-                        dropperUI.SetActive(true);
+                        
                         dropper = building.GetComponent<Dropper>();
                         if(curItemPanel != null && dropper != null)
                             SetCurItemPanel(dropper.space.connectSO, curItemPanel);
+                        dropperUI.SetActive(true);
                     }
                     break;
                     case BuildingType.Foundry:
+                    {
+                        factoryBase = building.GetComponent<FactoryBase>();
+                        if(!factoryBase)return;
+                        List<FactoryRecipesSO> recipes = factoryBase.factoryRecipesSO;
+                        SetFactoryUI(recipes);
+                        FactoryUI.SetActive(true);
+                    }
                     break;
                 }
             }
         }else{
-            dropperUI.SetActive(false);
-            dropper = null;
+            CloseTap();
         }
         
     }
-    private List<GameObject> itemPanels = new List<GameObject>();
+    private void PressESC()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            CloseTap();
+        }
+    }
+    private void CloseTap()
+    {
+        if(dropperUI.activeSelf)
+        {
+            dropperUI.SetActive(false);
+            dropper = null;
+        }
+        if(FactoryUI.activeSelf)
+        {
+            FactoryUI.SetActive(false);
+            factoryBase = null;
+        }
+    }
+    private void SetRecipe(FactoryRecipesSO recipesSO)
+    {
+        if(recipesSO == null)
+            return;
+        resultPanel.itemImage.sprite = recipesSO.result.item.icon;
+        resultPanel.itemText.text = factoryBase.outPutSpace.count.ToString();
+        for (int i = 0; i < recipesSO.ingredients.Count; i++)
+        {
+            ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");
+            itemPanel.itemImage.sprite = factoryBase.inputSpaces[i].connectSO.icon;
+            itemPanel.itemText.text = factoryBase.inputSpaces[i].count.ToString();
+            inputPanelList.Add(itemPanel.gameObject);
+        }
+    }
+    private void SetFactoryUI(List<FactoryRecipesSO> recipes)
+    {
+
+        // if(factoryBase.curRecipe){
+        //     resultPanel.itemImage.sprite = factoryBase.curRecipe.result.item.icon;
+        //     resultPanel.itemText.text = factoryBase.curRecipe.result.count.ToString();
+            
+        // }
+        // else{
+        //     resultPanel.itemImage.sprite = null;
+        // }
+        foreach (var item in recipePanelList)
+        {
+            item.SetActive(false);
+        }
+        recipePanelList.Clear();
+        if(factoryBase.curRecipe == null)
+        {
+            notMakeingUI.SetActive(true);
+            makingUI.SetActive(false);
+        }
+        else
+        {
+            notMakeingUI.SetActive(false);
+            makingUI.SetActive(true);
+        }
+        
+
+        foreach (var recipesSO in recipes)
+        {
+            RecipePanel recipePanel = PoolManager.GetItem<RecipePanel>("RecipePanel");
+            recipePanel.ClearRecipe();
+            recipePanel.SetRecipe(recipesSO);
+            recipePanel.button.onClick.AddListener(delegate{factoryBase.SetRecipe(recipesSO);});
+            recipePanelList.Add(recipePanel.gameObject);
+        }
+        
+    }
+    
     private void SetDropperUI()
     {
-        foreach (var item in itemPanels)
+        foreach (var item in dropperItemPanels)
         {
             item.SetActive(false);
         }
@@ -95,7 +207,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         {
             ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");
             SetCurItemPanel(item, itemPanel);
-            itemPanels.Add(itemPanel.gameObject);
+            dropperItemPanels.Add(itemPanel.gameObject);
         }
         
     }

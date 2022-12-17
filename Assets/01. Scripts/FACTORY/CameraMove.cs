@@ -28,6 +28,8 @@ public class CameraMove : MonoBehaviour
     {
         InputManager.Instance.FactoryKeyAction -= WASD_Move;
         InputManager.Instance.FactoryKeyAction += WASD_Move;
+        InputManager.Instance.FactoryKeyAction -= MoveRotation;
+        InputManager.Instance.FactoryKeyAction += MoveRotation;
     }
 
     // Update is called once per frame
@@ -38,12 +40,11 @@ public class CameraMove : MonoBehaviour
     private void Move()
     {
         
-        MoveRotation();
         Input.GetAxisRaw("Mouse ScrollWheel");
     }
     private void MoveRotation()
     {
-        arrowInputDir = new Vector3(Input.GetAxisRaw("ArrowVertical"), Input.GetAxisRaw("ArrowHorizontal"), 0) * Time.deltaTime * rotationSpeed;
+        arrowInputDir = new Vector3(0, Input.GetAxisRaw("ArrowHorizontal"), 0) * Time.deltaTime * rotationSpeed;
         curRotation += arrowInputDir;
         transform.rotation = Quaternion.Euler(curRotation);
     }

@@ -19,12 +19,12 @@ public class ItemSpace : MonoBehaviour
     public bool canIn = true;
     public bool canOut = true;
     public SpaceType spaceType = SpaceType.Solo;
-    public int amount = 0;
+    public int count = 0;
     public void Reset() {
         
         connectSO = null;
         dropItem = null;
-        amount = 0;
+        count = 0;
     }
     private void ChangeSO()
     {
@@ -53,7 +53,7 @@ public class ItemSpace : MonoBehaviour
             if(dropItem == null)
                 dropItem = _space.TakeItem();
             else if(dropItem == _space)
-                amount++;
+                count++;
             else
                 return;
         }
@@ -69,29 +69,34 @@ public class ItemSpace : MonoBehaviour
     {
         DropItem temp = dropItem;
         if(spaceType == SpaceType.Connected){
-            GetNextDropItem();
-            dropItem = null;
+            if(dropItem != null)
+            {
+                GetNextDropItem();
+                temp = dropItem;
+                dropItem = null;
+            }
         }
         else if(spaceType == SpaceType.Multy)
         {
             if(dropItem != null)
             {
-                amount--;
-                if(amount <= 0)
+                count--;
+                if(count <= 0)
                 {
-                    amount = 0;
+                    count = 0;
                     dropItem = null;
                 }
+                temp = ItemManager.Instance.DropItem(Vector3.zero, connectSO);
             }
         }
         else if(spaceType == SpaceType.Solo)
         {
             if(dropItem != null)
             {
-                amount--;
-                if(amount <= 0)
+                count--;
+                if(count <= 0)
                 {
-                    amount = 0;
+                    count = 0;
                     dropItem = null;
                 }
             }

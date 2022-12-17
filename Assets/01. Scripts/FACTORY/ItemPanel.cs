@@ -13,18 +13,22 @@ public class ItemPanel : MonoBehaviour, IPoolable
     [SerializeField]
     public TMP_Text  itemDiscription;
     public int itemID;
-    public void Awake()
+    public void SetItemRecipe(Item item, int count)
     {
-        //itemImage = GetComponentInChildren<Image>();
-        //itemText = GetComponentInChildren<TMP_Text>();
+        itemImage.sprite = item.icon;
+        itemText.text = count.ToString();
     }
-    public void OnPool()
+    public void ResetPanel()
     {
+        itemImage.sprite = null;
+        itemText.text = "";
     }
     public void ButtonClick()
     {
         FactoryUIManager.Instance.SetDropperItem(itemID);
     }
 
-    
+    public void OnPool()
+    {
+    }
 }

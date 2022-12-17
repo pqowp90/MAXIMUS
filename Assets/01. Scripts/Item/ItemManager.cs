@@ -28,7 +28,6 @@ public class ItemManager : MonoSingleton<ItemManager>
         itemObj.meshRenderer.material = itemObj.item.material;
         itemObj.meshFilter.mesh = itemObj.item.mesh;
         itemObj.transform.position = pos + new Vector3(0, 0.5f, 0);
-        UIManager.Instance.ItemEnter(item, 1);
 
         return itemObj;
     }

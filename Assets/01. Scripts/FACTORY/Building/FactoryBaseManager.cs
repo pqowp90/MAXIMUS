@@ -13,6 +13,10 @@ public class FactoryBaseManager : MonoSingleton<FactoryBaseManager>, BuildAbilit
             //GridManager.Instance.canInsertPoss.TryAdd(item + _pos, building.outPutSpace);
             GridManager.Instance.canInsertPoss.TryAdd(item + _pos, new List<ItemSpace>());
             GridManager.Instance.canInsertPoss[item + _pos].Add(building.outPutSpace);
+            foreach (var Space in building.inputSpaces)
+            {
+                GridManager.Instance.canInsertPoss[item + _pos].Add(Space);   
+            }
         }
         factoryBases.Add(building);
     }

@@ -24,6 +24,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public override void Awake()
     {
+        base.Awake();
         player = FindObjectOfType<Player>().gameObject;
     }
 

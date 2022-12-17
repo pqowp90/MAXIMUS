@@ -78,7 +78,7 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
                     if(dropItem == null)
                     {
                         item.beforeItemCarrierBase.dropItem.transform.position = item.transform.position;
-                        item.nextItemCarrierBase.dropItem = item.beforeItemCarrierBase.TakeItem();
+                        item.nextItemCarrierBase.GiveItem(item.beforeItemCarrierBase);
                         movedItem.Add(item.nextItemCarrierBase.dropItem);
                     }
                 }

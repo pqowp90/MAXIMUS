@@ -17,7 +17,7 @@ MonoBehaviour:
   ingredients:
   - item: {fileID: 11400000, guid: 13c1eee79854dad42bd2ce7076644eec, type: 2}
     count: 1
-  cost: 2
+  cost: 3
   result:
     item: {fileID: 11400000, guid: a5e73862597a5024e9d606b019ebcd7b, type: 2}
     count: 1

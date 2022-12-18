@@ -74,6 +74,14 @@ public class ItemSpace : MonoBehaviour
             else
                 return;
         }
+        else if(spaceType == SpaceType.Connected)
+        {
+            if(_space.dropItem.item == connectSO)
+            {
+                _space.TakeItem().gameObject.SetActive(false);
+                connectSO.amount++;
+            }
+        }
     }
     public DropItem TakeItem()
     {
@@ -92,6 +100,7 @@ public class ItemSpace : MonoBehaviour
             if(count <= 0)
             {
                 count = 0;
+                return dropItem = null;
             }
             temp = ItemManager.Instance.DropItem(Vector3.zero, connectSO);
         }

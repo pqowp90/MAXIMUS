@@ -72,7 +72,7 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
         {
             if(item.nextItemCarrierBase != null && item.beforeItemCarrierBase != null)
             {
-                if(item.beforeItemCarrierBase.dropItem != null)
+                if(item.beforeItemCarrierBase.dropItem != null || item.beforeItemCarrierBase.spaceType == SpaceType.Multy)
                 {
                     if(item.nextItemCarrierBase.dropItem == null || item.nextItemCarrierBase.spaceType == SpaceType.Multy)
                     {

@@ -54,7 +54,6 @@ public class ItemSpace : MonoBehaviour
             {
                 return;
             }
-            Debug.Log("Multy");
             if(dropItem == null && _space.dropItem.item == connectSO){
                 dropItem = _space.TakeItem();
                 count++;
@@ -89,16 +88,12 @@ public class ItemSpace : MonoBehaviour
         }
         else if(spaceType == SpaceType.Multy)
         {
-            if(dropItem != null)
+            count--;
+            if(count <= 0)
             {
-                count--;
-                if(count <= 0)
-                {
-                    count = 0;
-                    dropItem = null;
-                }
-                temp = ItemManager.Instance.DropItem(Vector3.zero, connectSO);
+                count = 0;
             }
+            temp = ItemManager.Instance.DropItem(Vector3.zero, connectSO);
         }
         else if(spaceType == SpaceType.Solo)
         {

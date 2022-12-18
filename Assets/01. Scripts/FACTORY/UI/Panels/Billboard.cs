@@ -16,9 +16,11 @@ public class Billboard : MonoBehaviour, IPoolable
     private float heightOffset = 1f;
     [SerializeField]
     private float scale = 5f;
+    private Camera uICamera;
     public void OnPool()
     {
-        
+        if(uICamera == null)
+            uICamera = UICamera.Instance.GetComponent<Camera>();
     }
     
 
@@ -43,9 +45,9 @@ public class Billboard : MonoBehaviour, IPoolable
     {
         if(target)
         {
-            transform.position = Camera.main.WorldToScreenPoint(target.position + Vector3.up * heightOffset);
-            transform.localScale = Vector3.one * scale / (Vector3.Distance(Camera.main.transform.position, target.position));
-            var dot = Vector3.Dot(Camera.main.transform.forward, target.position - Camera.main.transform.position);
+            transform.position = uICamera.WorldToScreenPoint(target.position + Vector3.up * heightOffset);
+            transform.localScale = Vector3.one * scale / (Vector3.Distance(uICamera.transform.position, target.position));
+            var dot = Vector3.Dot(uICamera.transform.forward, target.position - uICamera.transform.position);
             if(dot < 0)
                 canvasGroup.alpha = 0f;
             else

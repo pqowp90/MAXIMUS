@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class FactoryBase : MonoBehaviour, BuildingTransfrom
 {
@@ -13,6 +14,8 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
 
     public List<ItemSpace> inputSpaces = new List<ItemSpace>();
     public ItemSpace outPutSpace;
+    public int productionProgress;
+    public Action incressProductionProgress;
     
     private void Awake() {
         outPutSpace = gameObject.AddComponent<ItemSpace>();
@@ -40,6 +43,17 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
         }
         FactoryUIManager.Instance.SetFactoryUI(this);
         GetComponent<Building>().onoff = true;
+    }
+    public void OneTick()
+    {
+        if(curRecipe == null) return;
+        productionProgress++;
+        if(productionProgress >= curRecipe.cost)
+        {
+            productionProgress = 0;
+            outPutSpace.count++;
+        }
+        incressProductionProgress?.Invoke();
     }
     
     public void AddToManager(Vector2Int curPos, int curRotation)

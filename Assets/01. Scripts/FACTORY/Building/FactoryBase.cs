@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class FactoryBase : MonoBehaviour, BuildingTransfrom
 {
-    private AudioSource audioSource;
     private int rotation;
     private int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
     public Vector2Int pos;
@@ -15,11 +13,8 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
 
     public List<ItemSpace> inputSpaces = new List<ItemSpace>();
     public ItemSpace outPutSpace;
-    public int productionProgress;
-    public Action incressProductionProgress;
     
     private void Awake() {
-        audioSource = GetComponent<AudioSource>();
         outPutSpace = gameObject.AddComponent<ItemSpace>();
         outPutSpace.Reset();
         outPutSpace.canIn = false;
@@ -45,24 +40,6 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
         }
         FactoryUIManager.Instance.SetFactoryUI(this);
         GetComponent<Building>().onoff = true;
-    }
-    public void OneTick()
-    {
-        
-        if(curRecipe == null) return;
-        productionProgress++;
-        audioSource.PlayOneShot(FactorySoundManager.Instance.soundContaner.GetAudioClip("FactoryImpactSound"));
-        if(productionProgress >= curRecipe.cost)
-        {
-            foreach (var recipe in curRecipe.ingredients)
-            {
-                ItemSpace itemSpace = inputSpaces.Find(x => x.connectSO == recipe.item);
-                itemSpace.count -= recipe.count;
-            }
-            productionProgress = 0;
-            outPutSpace.count++;
-        }
-        incressProductionProgress?.Invoke();
     }
     
     public void AddToManager(Vector2Int curPos, int curRotation)

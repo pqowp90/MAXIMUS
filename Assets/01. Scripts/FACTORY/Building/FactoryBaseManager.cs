@@ -37,27 +37,17 @@ public class FactoryBaseManager : MonoSingleton<FactoryBaseManager>, BuildAbilit
         {
             if(factory.curRecipe == null)
                 continue;
-            bool isCanUse = true;
             foreach (var recipe in factory.curRecipe.ingredients)
             {
                 ItemSpace itemSpace = factory.inputSpaces.Find(x => x.connectSO == recipe.item);
-                if(itemSpace == null)
+                if(recipe.count <= itemSpace.count)
                 {
-                    isCanUse = false;
-                    break;
-                }else
-                {
-                    if(itemSpace.count < recipe.count)
-                    {
-                        isCanUse = false;
-                        break;
-                    }
+                    //factory.outPutSpace.dropItem = 
                 }
-                
-            }
-            if(isCanUse)
-            {
-                factory.OneTick();
+                else
+                {
+                    return;
+                }
             }
         }
     }

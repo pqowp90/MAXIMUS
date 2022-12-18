@@ -54,14 +54,15 @@ public class UIManager : MonoSingleton<UIManager>
         var ui = PoolManager.GetItem<ItemEnterUI>("ItemEnterUIPrefab");
         ui.itemIcon.sprite = item.icon;
         ui.amountText.text = $"+{amount}";
-        items.Add(ui.gameObject);
-        ui.transform.position = new Vector3(160, 50);
 
         int cnt = items.Count;
         for(int i = 0; i < items.Count; i++)
         {
-            items[i].transform.DOMoveY(110 * cnt--, 0.7f);
+            items[i].transform.DOMoveY(80 * cnt--, 0.7f);
         }
+
+        items.Add(ui.gameObject);
+        ui.transform.position = new Vector3(200, 130);
     }
 
     public void Message(string text)

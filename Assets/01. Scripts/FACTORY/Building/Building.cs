@@ -50,7 +50,13 @@ public class Building : MonoBehaviour, IPoolable
         {
             type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});
         }
-        
+        for (int i = 0; i < ((rotate % 4) + 4) % 4; i++)
+        {
+            for (int j = 0; j < range.Count; j++)
+            {
+                range[j] = new Vector2Int(range[j].y, -range[j].x);
+            }
+        }
         foreach (var item in range)
         {
             InserterManager.Instance.FindAdjacency(curPos + item);

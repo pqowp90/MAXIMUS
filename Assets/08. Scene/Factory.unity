@@ -217,6 +217,7 @@ MonoBehaviour:
   progressEffectParent: {fileID: 19565130}
   costUIText: {fileID: 276653553}
   makeProgressSlider: {fileID: 950042691}
+  makingPersentText: {fileID: 1506896073}
 --- !u!4 &27827525
 Transform:
   m_ObjectHideFlags: 0

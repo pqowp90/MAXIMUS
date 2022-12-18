@@ -51,6 +51,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
         
         if(curRecipe == null) return;
         productionProgress++;
+        audioSource.pitch = UnityEngine.Random.Range(1f, 1.2f);
         audioSource.PlayOneShot(FactorySoundManager.Instance.soundContaner.GetAudioClip("FactoryImpactSound"));
         if(productionProgress >= curRecipe.cost)
         {

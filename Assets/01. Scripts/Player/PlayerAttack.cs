@@ -21,12 +21,6 @@ public class PlayerAttack : MonoBehaviour
 
     private Vector3 _direction;
 
-    private void Start() 
-    {
-        _turrats[0].forward = transform.forward;
-        _turrats[1].forward = transform.forward;
-    }
-
     public void Attack()
     {
         Collider[] _targets = Physics.OverlapSphere(transform.position, _radius, _layer);

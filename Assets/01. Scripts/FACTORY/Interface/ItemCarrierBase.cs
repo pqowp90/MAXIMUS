@@ -96,11 +96,12 @@ public class ItemSpace : MonoBehaviour
         }
         else if(spaceType == SpaceType.Multy)
         {
+            if(count <= 0)
+                return null;
             count--;
             if(count <= 0)
             {
                 count = 0;
-                return dropItem = null;
             }
             temp = ItemManager.Instance.DropItem(Vector3.zero, connectSO);
         }

@@ -16,6 +16,9 @@ public class Player : MonoBehaviour, IDamageable
     private PlayerAttack attack;
     public PlayerMovement playerMove;
 
+    private Animator _turretAnimation1;
+    private Animator _turretAnimation2;
+
 
     [Header("Item")]
     [SerializeField] private LayerMask _itemLayer;
@@ -25,6 +28,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Ore")]
     [SerializeField] private LayerMask _oreLayer;
     [SerializeField] private float _oreSearchRadius = 5f;
+    [SerializeField] private AudioClip _mineClip;
 
     private Ore mineOre;
     
@@ -45,6 +49,14 @@ public class Player : MonoBehaviour, IDamageable
     {
         attack = GetComponent<PlayerAttack>();
         playerMove = GetComponent<PlayerMovement>();
+
+        _turretAnimation1 = transform.Find("Turret").GetChild(0).GetComponent<Animator>();
+        _turretAnimation2 = transform.Find("Turret").GetChild(1).GetComponent<Animator>();
+
+        _turretAnimation1.SetTrigger("Unpack");
+        _turretAnimation2.SetTrigger("Unpack");
+
+       
     }
 
     private void Update()
@@ -134,6 +146,9 @@ public class Player : MonoBehaviour, IDamageable
         _isFindOre = false;
         _isMining = false;
         isMine = value;
+
+        _turretAnimation1.SetBool("Packing", value);
+        _turretAnimation2.SetBool("Packing", value);
     }
 
     private void Attak()
@@ -154,6 +169,8 @@ public class Player : MonoBehaviour, IDamageable
         else if (!WeaponManager.Instance.IsReloading && !attack.AttackPossible)
         {
             attack.Attack();
+            _turretAnimation1.SetTrigger("Shoot");
+            _turretAnimation2.SetTrigger("Shoot");
         }
     }
 

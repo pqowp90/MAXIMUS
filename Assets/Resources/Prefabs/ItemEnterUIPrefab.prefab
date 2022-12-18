@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 3641064770686006577}
   - component: {fileID: 3641064770686006542}
   - component: {fileID: 3641064770686006543}
+  - component: {fileID: -7903993703584962853}
   m_Layer: 5
   m_Name: ItemEnterUIPrefab
   m_TagString: Untagged
@@ -363,6 +364,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &-7903993703584962853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3641064770686006541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8df7ba9062a53439790ba856a9efd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountText: {fileID: 0}
+  itemIcon: {fileID: 0}
 --- !u!1 &3641064771703529893
 GameObject:
   m_ObjectHideFlags: 0

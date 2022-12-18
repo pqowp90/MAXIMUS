@@ -55,14 +55,15 @@ public class UIManager : MonoSingleton<UIManager>
         ui.itemIcon.sprite = item.icon;
         ui.amountText.text = $"+{amount}";
 
-        int cnt = items.Count;
-        for(int i = 0; i < items.Count; i++)
-        {
-            items[i].transform.DOMoveY(80 * cnt--, 0.7f);
-        }
-
         items.Add(ui.gameObject);
-        ui.transform.position = new Vector3(200, 130);
+        ui.transform.position = new Vector3(-130, 130);
+
+        items[items.Count - 1].transform.DOMoveX(200, 0.2f);
+        int cnt = items.Count - 1;
+        for(int i = 0; i < items.Count - 1; i++)
+        {
+            items[i].transform.DOMoveY(80 * cnt-- + 130, 0.7f);
+        }
     }
 
     public void Message(string text)

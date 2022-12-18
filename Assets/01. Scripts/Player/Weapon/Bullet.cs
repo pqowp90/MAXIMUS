@@ -12,14 +12,10 @@ public class Bullet
     public float attackDelay;
     public int minDamage;
     public int maxDamage;
-    public int maxAmmo;
 
     public int Damage => UnityEngine.Random.Range(minDamage, maxDamage + 1);
-
-    [Header("자동설정값")]
-    public int ammo;
     
-    public int haveAmmo
+    public int Ammo
     {
         get
         {
@@ -34,32 +30,4 @@ public class Bullet
 
     [HideInInspector]
     public Item bulletItem;
-
-    public bool CheckReloaing
-    {
-        get
-        {
-            if(ammo != maxAmmo && haveAmmo > 0)
-            {
-                if(haveAmmo < maxAmmo)
-                {
-                    return true;
-                }
-                int addAmmo = maxAmmo - ammo;
-                return addAmmo <= haveAmmo;
-            }
-            return false;
-        }
-    }
-
-    public void AmmoReload()
-    {
-        int addAmmo = maxAmmo - ammo;
-        if (haveAmmo < maxAmmo)
-        {
-            addAmmo = haveAmmo;
-        }
-        ammo += addAmmo;
-        haveAmmo -= addAmmo;
-    }
 }

@@ -72,15 +72,16 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
         {
             if(item.nextItemCarrierBase != null && item.beforeItemCarrierBase != null)
             {
-                if(item.beforeItemCarrierBase.dropItem != null)
+                if(item.beforeItemCarrierBase.dropItem != null || item.beforeItemCarrierBase.spaceType == SpaceType.Multy)
                 {
                     if(item.nextItemCarrierBase.dropItem == null || item.nextItemCarrierBase.spaceType == SpaceType.Multy)
                     {
                         DropItem dropItem = movedItem.Find(x => x == item.beforeItemCarrierBase.dropItem);
                         if(dropItem == null)
                         {
-                            item.beforeItemCarrierBase.dropItem.transform.position = item.transform.position;
                             item.nextItemCarrierBase.GiveItem(item.beforeItemCarrierBase);
+                            if(item.nextItemCarrierBase.dropItem)
+                                item.nextItemCarrierBase.dropItem.transform.position = item.transform.position;
                             movedItem.Add(item.nextItemCarrierBase.dropItem);
                         }
                     }

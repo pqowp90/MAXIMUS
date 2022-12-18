@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class FactoryUIManager : MonoSingleton<FactoryUIManager>
 {
@@ -45,8 +46,13 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     [SerializeField]
     private GameObject inputPanelPerent;
     [SerializeField]
+    private GameObject progressEffectParent;
+    [SerializeField]
     private TMP_Text costUIText;
-
+    [SerializeField]
+    private Slider makeProgressSlider;
+    private float lerpedProgress = 0f;
+    private float realProgress = 0f;
 
     //-------------------------------------------
 
@@ -58,8 +64,9 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         PoolManager.CreatePool<RecipePanel>("RecipePanel", recipePanelParent);
         PoolManager.CreatePool<ItemPanel>("ItemUI", poolSpace);
         PoolManager.CreatePool<ItemPanel>("ItemSpacePanel", inputPanelPerent);
-        InputManager.Instance.FactoryKeyAction -= PressESC;
-        InputManager.Instance.FactoryKeyAction += PressESC;
+        PoolManager.CreatePool<PoolingEffect>("FactoryMakingEffect", recipePanelParent);
+        InputManager.Instance.FactoryKeyAction -= InputKey;
+        InputManager.Instance.FactoryKeyAction += InputKey;
     }
     public ItemPanel GetItemUI(GameObject parent)
     {
@@ -77,10 +84,8 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
-        {
-            ClickBuilding();
-        }
+        lerpedProgress = Mathf.Lerp(lerpedProgress, realProgress, Time.deltaTime * TickManager.Instance.tickTime * 10f);
+        makeProgressSlider.value = lerpedProgress;
     }
     private void ClickBuilding()
     {
@@ -115,7 +120,10 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
                     break;
                     case BuildingType.Foundry:
                     {
+                        if(factoryBase != null)
+                            factoryBase.incressProductionProgress = null;
                         factoryBase = building.GetComponent<FactoryBase>();
+                        factoryBase.incressProductionProgress += delegate{UpdateProductionProgress(factoryBase);CreateEffect();};
                         if(!factoryBase)return;
                         SetFactoryUI(factoryBase);
                         FactoryUI.SetActive(true);
@@ -125,18 +133,26 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             }
         }else{
             CloseTap();
+            
         }
         
     }
-    private void PressESC()
+    private void InputKey()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
             CloseTap();
         }
+        if(Input.GetMouseButtonDown(0))
+        {
+            ClickBuilding();
+        }
     }
-    private void CloseTap()
+    public void CloseTap()
     {
+        if(factoryBase != null)
+            factoryBase.incressProductionProgress = null;
+            
         if(dropperUI.activeSelf)
         {
             dropperUI.SetActive(false);
@@ -177,6 +193,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         // else{
         //     resultPanel.itemImage.sprite = null;
         // }
+        UpdateProductionProgress(factoryBase);
         foreach (var item in recipePanelList)
         {
             item.SetActive(false);
@@ -195,7 +212,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         if(factoryBase.curRecipe != null)
             SetRecipe(factoryBase);
         
-
+        
         foreach (var recipesSO in factoryBase.factoryRecipesSO)
         {
             RecipePanel recipePanel = PoolManager.GetItem<RecipePanel>("RecipePanel");
@@ -239,5 +256,21 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         if(curItemPanel != null && dropper != null)
             SetCurItemPanel(dropper.space.connectSO, curItemPanel);
         //dropperUI.SetActive(false);
+    }
+
+    private void UpdateProductionProgress(FactoryBase factory)
+    {
+        if(factory.curRecipe == null)
+            return;
+
+        realProgress = (float)factory.productionProgress / ((float)factory.curRecipe.cost-1);
+        if(realProgress <= 0)
+            lerpedProgress = 0;
+        //Debug.Log(factory.productionProgress / factory.curRecipe.cost);
+        resultPanel.itemText.text = factoryBase.outPutSpace.count.ToString();
+    }
+    private void CreateEffect()
+    {
+        PoolManager.GetItem<PoolingEffect>("FactoryMakingEffect").transform.position = progressEffectParent.transform.position;
     }
 }

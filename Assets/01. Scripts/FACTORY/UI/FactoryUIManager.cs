@@ -53,6 +53,8 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     private Slider makeProgressSlider;
     private float lerpedProgress = 0f;
     private float realProgress = 0f;
+    [SerializeField]
+    private TMP_Text makingPersentText;
 
     //-------------------------------------------
 
@@ -80,12 +82,25 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         itemPanel.SetActive(false);
     }
 
-
+    public IEnumerator LerpByTime(float start, float end, float timeToMove)
+    {
+        var currentPos = start;
+        var t = 0f;
+        while (t < 1)
+        {
+            t += Time.deltaTime / timeToMove;
+            end = Mathf.Lerp(currentPos, end, t);
+            yield return null;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        lerpedProgress = Mathf.Lerp(lerpedProgress, realProgress, Time.deltaTime * TickManager.Instance.tickTime * 10f);
         makeProgressSlider.value = lerpedProgress;
+        makingPersentText.text = "제작중 "+Mathf.RoundToInt(lerpedProgress * 100).ToString() + "%";
+        if(factoryBase && factoryBase.curRecipe){
+            lerpedProgress = Mathf.Lerp(lerpedProgress, realProgress, Time.deltaTime * TickManager.Instance.tickTime * (factoryBase.curRecipe.cost+1));
+        }
     }
     private void ClickBuilding()
     {
@@ -264,6 +279,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             return;
 
         realProgress = (float)factory.productionProgress / ((float)factory.curRecipe.cost-1);
+        
         if(realProgress <= 0)
             lerpedProgress = 0;
         //Debug.Log(factory.productionProgress / factory.curRecipe.cost);

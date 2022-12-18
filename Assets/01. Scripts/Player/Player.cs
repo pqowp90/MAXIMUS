@@ -116,7 +116,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             if(!isMine && !_isFindOre)
             {
-                UIManager.Instance.Message($"[ {miningKey} ] => Mine Mode Start");
+                UIManager.Instance.Message($"[{miningKey}] MineMod");
                 mineOre = hit.transform.GetComponent<Ore>();
                 _isFindOre = true;
             }

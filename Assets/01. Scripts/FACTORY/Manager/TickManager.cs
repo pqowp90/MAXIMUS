@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class TickManager : MonoSingleton<TickManager>
 {
-    public float tickTime{get;private set;}
     [SerializeField]
-    private float TickTime;
+    private float tickTime = 1f;
     [SerializeField]
     private float timmer = 0f;
     // Start is called before the first frame update
-    public override void Awake()
+    void Start()
     {
-        base.Awake();
-        tickTime = TickTime;
+        
     }
 
     // Update is called once per frame
@@ -27,10 +25,10 @@ public class TickManager : MonoSingleton<TickManager>
         if(timmer >= tickTime)
         {
             timmer -= tickTime;
-            FactoryBaseManager.Instance.Use();
             InserterManager.Instance.Use();
             ConveyorBeltManager.Instance.Use();
             DropperManager.Instance.Use();
+            FactoryBaseManager.Instance.Use();
         }
     }
 }

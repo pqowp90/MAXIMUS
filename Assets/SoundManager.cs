@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoSingleton<SoundManager>
+public class FactorySoundManager : MonoSingleton<FactorySoundManager>
 {
     public SoundContaner soundContaner;
     public override void Awake() {

@@ -51,7 +51,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
         
         if(curRecipe == null) return;
         productionProgress++;
-        audioSource.PlayOneShot(SoundManager.Instance.soundContaner.GetAudioClip("FactoryImpactSound"));
+        audioSource.PlayOneShot(FactorySoundManager.Instance.soundContaner.GetAudioClip("FactoryImpactSound"));
         if(productionProgress >= curRecipe.cost)
         {
             foreach (var recipe in curRecipe.ingredients)

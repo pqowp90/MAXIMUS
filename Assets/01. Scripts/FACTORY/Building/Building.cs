@@ -73,7 +73,7 @@ public class Building : MonoBehaviour, IPoolable
         }
 
 
-        for (int i = 0; i < ((rotate % 4) + 4) % 4; i++)
+        for (int i = 0; i < ((rotate % 4) + 3); i++)
         {
             for (int j = 0; j < range.Count; j++)
             {

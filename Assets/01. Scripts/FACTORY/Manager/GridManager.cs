@@ -51,6 +51,7 @@ public enum BuildingType
     Foundry,
     SteelWorks,
     Dropper,
+    BulletContainer,
     //Combiner,
     // ...
     Count,

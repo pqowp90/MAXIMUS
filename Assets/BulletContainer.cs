@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dropper : MonoBehaviour, BuildingTransfrom
+public class BulletContainer : MonoBehaviour, BuildingTransfrom
 {
     private int rotation;
     public int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
@@ -12,7 +12,8 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
     private void Awake() {
         space = gameObject.AddComponent<ItemSpace>();
         space.Reset();
-        space.canIn = false;
+        space.canIn = true;
+        space.canOut = false;
         space.spaceType = SpaceType.Connected;
     }
     //public List<Vector2Int> inPutRange = new List<Vector2Int>();
@@ -22,7 +23,7 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
         space.Reset();
         
         space.spaceType = SpaceType.Connected;
-        DropperManager.Instance.Build(curPos, curRotation, this);
+        BulletContainerManager.Instance.Build(curPos, curRotation, this);
     }
     private void OnDisable() {
         if(billboard != null)

@@ -17,11 +17,13 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     [SerializeField]
     private GameObject content;
     [SerializeField]
-    private Dropper dropper;
-    [SerializeField]
     private ItemPanel curItemPanel;
     [SerializeField]
     private GameObject canvas;
+    [SerializeField]
+    private Dropper dropper;
+    [SerializeField]
+    private BulletContainer bulletContainer;
     private List<GameObject> dropperItemPanels = new List<GameObject>();
     //-------------------------------------------
     [Header("FactoryUI")]
@@ -70,6 +72,66 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         InputManager.Instance.FactoryKeyAction -= InputKey;
         InputManager.Instance.FactoryKeyAction += InputKey;
     }
+    private void SetDropperUI()
+    {
+        foreach (var item in dropperItemPanels)
+        {
+            item.SetActive(false);
+        }
+        List<Item> items = ItemManager.Instance.GetItemsByType(ITEM_TYPE.Ore);
+        foreach (var item in items)
+        {
+            ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");
+            SetCurItemPanel(item, itemPanel);
+            dropperItemPanels.Add(itemPanel.gameObject);
+        }
+        
+    }
+    private void SetBulletContainerUI()
+    {
+        foreach (var item in dropperItemPanels)
+        {
+            item.SetActive(false);
+        }
+        List<Item> items = ItemManager.Instance.GetItemsByType(ITEM_TYPE.Bullet);
+        foreach (var item in items)
+        {
+            ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");
+            SetCurItemPanel(item, itemPanel);
+            dropperItemPanels.Add(itemPanel.gameObject);
+        }
+        
+    }
+
+    private void SetCurItemPanel(Item item, ItemPanel _ItemPanel)
+    {
+        if(!item)
+            return;
+        _ItemPanel.itemImage.sprite = item.icon;
+        _ItemPanel.itemText.text = item.item_name;
+        if(_ItemPanel.itemDiscription)
+            _ItemPanel.itemDiscription.text = item.explain;
+        _ItemPanel.itemID = item.item_ID;
+
+    }
+    public void SetDropperItem(int id)
+    {
+        if(dropper){
+
+            dropper.space.connectSO = ItemManager.Instance.GetItem(id);
+            dropper.GetComponent<Building>().onoff = true;
+            if(curItemPanel != null && dropper != null)
+                SetCurItemPanel(dropper.space.connectSO, curItemPanel);
+        }
+        //dropperUI.SetActive(false);
+        else if(bulletContainer){
+            bulletContainer.space.connectSO = ItemManager.Instance.GetItem(id);
+            bulletContainer.GetComponent<Building>().onoff = true;
+            if(curItemPanel != null && bulletContainer != null)
+                SetCurItemPanel(bulletContainer.space.connectSO, curItemPanel);
+        }
+    }
+
     public ItemPanel GetItemUI(GameObject parent)
     {
         ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemUI");
@@ -124,6 +186,15 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
                         dropperUI.SetActive(true);
                     }
                     break;
+                    case BuildingType.BulletContainer:
+                    {
+                        SetBulletContainerUI();
+                        bulletContainer = building.GetComponent<BulletContainer>();
+                        if(bulletContainer != null)
+                            SetCurItemPanel(bulletContainer.space.connectSO, curItemPanel);
+                        dropperUI.SetActive(true);
+                    }
+                    break;
                     case BuildingType.Foundry:
                     {
                         if(factoryBase != null)
@@ -143,6 +214,12 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         }
         
     }
+
+    private void SetBulletContainerUI(BulletContainer bulletContainer)
+    {
+        throw new NotImplementedException();
+    }
+
     private void InputKey()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -229,39 +306,6 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             recipePanelList.Add(recipePanel.gameObject);
         }
         
-    }
-    private void SetDropperUI()
-    {
-        foreach (var item in dropperItemPanels)
-        {
-            item.SetActive(false);
-        }
-        List<Item> items = ItemManager.Instance.GetItemsByType(ITEM_TYPE.Ore);
-        foreach (var item in items)
-        {
-            ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");
-            SetCurItemPanel(item, itemPanel);
-            dropperItemPanels.Add(itemPanel.gameObject);
-        }
-        
-    }
-    private void SetCurItemPanel(Item item, ItemPanel _ItemPanel)
-    {
-        if(!item)
-            return;
-        _ItemPanel.itemImage.sprite = item.icon;
-        _ItemPanel.itemText.text = item.item_name;
-        if(_ItemPanel.itemDiscription)
-            _ItemPanel.itemDiscription.text = item.explain;
-        _ItemPanel.itemID = item.item_ID;
-
-    }
-    public void SetDropperItem(int id)
-    {
-        dropper.space.connectSO = ItemManager.Instance.GetItem(id);
-        if(curItemPanel != null && dropper != null)
-            SetCurItemPanel(dropper.space.connectSO, curItemPanel);
-        //dropperUI.SetActive(false);
     }
 
     private void UpdateProductionProgress(FactoryBase factory)

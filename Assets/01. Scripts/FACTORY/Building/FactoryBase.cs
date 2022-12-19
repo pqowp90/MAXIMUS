@@ -12,11 +12,11 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
     public List<FactoryRecipesSO> factoryRecipesSO = new List<FactoryRecipesSO>();
     public FactoryRecipesSO curRecipe;
     private Billboard billboard;
-
     public List<ItemSpace> inputSpaces = new List<ItemSpace>();
     public ItemSpace outPutSpace;
     public int productionProgress;
     public Action incressProductionProgress;
+    
     
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -33,6 +33,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
             inputSpaces[i].canIn = true;
             inputSpaces[i].spaceType = SpaceType.Multy;
         }
+        
     }
 
     public void SetRecipe(FactoryRecipesSO _recipe)
@@ -46,13 +47,19 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
         FactoryUIManager.Instance.SetFactoryUI(this);
         GetComponent<Building>().onoff = true;
     }
+    private void PlaySound(string _name)
+    {
+        audioSource.pitch = UnityEngine.Random.Range(1f, 1.2f);
+        audioSource.volume = UnityEngine.Random.Range(0.1f, 0.12f);
+        audioSource.PlayOneShot(FactorySoundManager.Instance.soundContaner.GetAudioClip(_name));
+    }
     public void OneTick()
     {
         
         if(curRecipe == null) return;
         productionProgress++;
-        audioSource.pitch = UnityEngine.Random.Range(1f, 1.2f);
-        audioSource.PlayOneShot(FactorySoundManager.Instance.soundContaner.GetAudioClip("FactoryImpactSound"));
+        if(incressProductionProgress != null)
+            PlaySound("FactoryImpactSound");
         if(productionProgress >= curRecipe.cost)
         {
             foreach (var recipe in curRecipe.ingredients)

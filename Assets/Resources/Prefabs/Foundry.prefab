@@ -16350,6 +16350,7 @@ MonoBehaviour:
   - {fileID: 1550847040931346597}
   - {fileID: 1550847040764564089}
   rotate: 0
+  noiseAudioSource: {fileID: 0}
 --- !u!114 &9012126348795403923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16382,7 +16383,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e7116abb38b3fd14f87b3b68efa5a4b9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.356
+  m_Volume: 0.287
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -16391,7 +16392,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 38.3
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0

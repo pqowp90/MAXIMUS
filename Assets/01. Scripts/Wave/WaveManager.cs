@@ -102,6 +102,8 @@ public class WaveManager : MonoSingleton<WaveManager>
         if(!isNight)
         {
             WaveCount++;
+            if(waveList[WaveCount] == null) WaveCount--;
+            
             CurrentWave = new Wave(waveList[WaveCount]);
 
             _enemySpawnDelay = Random.Range(30.0f, 40.0f) / CurrentWave.WAVESO.EnemySpawnCount;

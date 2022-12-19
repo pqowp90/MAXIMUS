@@ -60,6 +60,7 @@ public class ItemManager : MonoSingleton<ItemManager>
                 {
                     _item.amount += amount;
                     ItemEnterAnimation(itemObj, amount);
+                    UIManager.Instance.InventoryReload(_item);
                     return;
                 }
             }
@@ -68,6 +69,7 @@ public class ItemManager : MonoSingleton<ItemManager>
         item.amount = amount;
         inventorySO.itemList.Add(item);
         ItemEnterAnimation(itemObj, amount);
+        UIManager.Instance.InventoryItemAdd(item);
     }
 
     private void ItemEnterAnimation(GameObject obj, int amount)

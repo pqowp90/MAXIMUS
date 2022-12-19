@@ -59,10 +59,11 @@ public class PlayerAttack : MonoBehaviour
             bullet.transform.rotation = _turrat.rotation;
             bullet.projectile.damage = weapon.bullet.Damage;
             bullet.rigidbody.velocity = Vector3.zero;
-            bullet.rigidbody.AddForce(_turrat.forward * 1000);
+            bullet.rigidbody.AddForce(_turrat.forward * 100000);
         }
         
         _isAttackDelay = true;
+        UIManager.Instance.SlotAmountReload();
         Invoke("AttackDelay", weapon.bullet.attackDelay);
     }
 

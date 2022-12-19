@@ -22,42 +22,135 @@ public class UIManager : MonoSingleton<UIManager>
 
     #region GUI
 
+    [Header("Health Bar")]
     [SerializeField] private Text _healthText;
     [SerializeField] private Slider _healthSlider;
 
-    #endregion
+    [Header("Skill Slot")]
+    public Color unEnableColor;
+    [SerializeField] private List<Sprite> _skillIcon = new List<Sprite>();
+    [SerializeField] private Transform _skillSlotPanel;
+    private List<Slot> _slotList = new List<Slot>();
+    private int _slotIndex;
 
-    public Player player;
+    [Header("Item Inventory")]
+    private List<InventoryPanel> _inventoryPanels = new List<InventoryPanel>();
+    [SerializeField] private Transform _inventoryPanel;
+    [SerializeField] private GameObject _inventoryPanelPrefab;
+
+    #endregion
+    private Player _player;
 
     public override void Awake()
     {
         base.Awake();
-        player = FindObjectOfType<Player>();
+        _player = FindObjectOfType<Player>();
     }
 
     private void Start()
     {
         PoolManager.CreatePool<ItemEnterUI>("ItemEnterUIPrefab", _itemCanvas.gameObject, 10);
+
+        for(int i = 0; i < 4; i++)
+            _slotList.Add(_skillSlotPanel.GetChild(i).GetComponent<Slot>());
+        SlotInit(SlotType.Bullet);
+        InventoryInit();
+    }
+
+    #region  Skill Slot
+    public void SlotInit(SlotType type)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if(type == SlotType.Bullet)
+            {
+                if(WeaponManager.Instance.weaponList.Count <= i)
+                {
+                    _slotList[i].Lock(true);
+                }
+                else
+                {
+                    _slotList[i].Lock(false);
+                    _slotList[i].Init(WeaponManager.Instance.weaponList[i].bullet.bulletItem);
+                }
+            }
+            else if(type == SlotType.Skill)
+            {
+                if(_skillIcon.Count <= i) _slotList[i].Lock(true);
+                else
+                {
+                    _slotList[i].Lock(false);
+                    _slotList[i].Init(_skillIcon[i]);
+                }
+            }
+        }
+        
+        _slotList[0].SlotEnable();
+        _slotIndex = 0;
+    }
+
+    public void SlotChange()
+    {
+        _slotList[_slotIndex].SlotUnEnable();
+        _slotIndex = WeaponManager.Instance.WeaponIndex;
+        _slotList[_slotIndex].SlotEnable();
+    }
+
+    public void SlotAmountReload()
+    {
+        _slotList[_slotIndex].AmountReload();
+    }
+    #endregion
+
+    public void InventoryInit()
+    {
+        foreach(var item in _player.inventory.itemList)
+        {
+            if(item.item_type == ITEM_TYPE.Bullet) continue;
+
+            InventoryItemAdd(item);
+        }
+    }
+
+    public void InventoryReload(Item item)
+    {
+        foreach(var panel in _inventoryPanels)
+        {
+            if(panel.Item == item)
+            {
+                panel.AmountReload();
+            }
+        }
+    }
+
+    public void InventoryItemAdd(Item item)
+    {
+        InventoryPanel panel = Instantiate(_inventoryPanelPrefab, _inventoryPanel).GetComponent<InventoryPanel>();
+        panel.Init(item);
+        _inventoryPanels.Add(panel);
+        
+        RectTransform rectTrm = _inventoryPanel.parent.GetComponent<RectTransform>();
+        rectTrm.sizeDelta = new Vector2(rectTrm.sizeDelta.x, 80 * (_inventoryPanels.Count - 1) + 120);
     }
 
     public void HelathBarInit()
     {
-        _healthText.text = $"{player.Health} / {player.MaxHealth}";
-        _healthSlider.maxValue = player.MaxHealth;
-        _healthSlider.value = player.MaxHealth;
+        _healthText.text = $"{_player.Health} / {_player.MaxHealth}";
+        _healthSlider.maxValue = _player.MaxHealth;
+        _healthSlider.value = _player.MaxHealth;
     }
 
     public void HealthBarReload()
     {
-        _healthText.text = $"{player.Health} / {player.MaxHealth}";
-        _healthSlider.DOValue(player.Health, 0.2f);
+        _healthText.text = $"{_player.Health} / {_player.MaxHealth}";
+        _healthSlider.DOValue(_player.Health, 0.2f);
     }
 
     public void Popup(Transform pos, string text, bool isPlayer = false)
     {
         var pop = Instantiate(damagePopup);
         pop.transform.position = new Vector3(pos.position.x, pos.position.y + 1f, pos.position.z);
-        pop.transform.LookAt(player.transform);
+        pop.transform.LookAt(_player.transform);
         pop.transform.DORotate(new Vector3(0, pop.transform.rotation.y, 0), 0);
 
         TMP_Text popText = pop.GetComponent<TMP_Text>();
@@ -78,7 +171,7 @@ public class UIManager : MonoSingleton<UIManager>
         items.Add(ui.gameObject);
         ui.transform.position = new Vector3(-130, 130);
 
-        items[items.Count - 1].transform.DOMoveX(200, 0.2f);
+        items[items.Count - 1].transform.DOMoveX(200, 0.3f);
         int cnt = items.Count - 1;
         for(int i = 0; i < items.Count - 1; i++)
         {

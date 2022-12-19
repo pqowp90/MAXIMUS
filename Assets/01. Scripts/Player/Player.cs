@@ -63,11 +63,13 @@ public class Player : MonoBehaviour, IDamageable
         }
         if(Input.GetKeyUp(miningKey))
         {
-            MineMod(true);
-            UIManager.Instance.MessageDown();
+            if(_isFindOre == true)
+            {
+                MineMod(true);
+                UIManager.Instance.MessageDown();
+            }
+            
         }
-
-        ammoText.text = WeaponManager.Instance.weapon.bullet.Ammo.ToString();
     }
 
     private void SwapWeapon()
@@ -119,11 +121,11 @@ public class Player : MonoBehaviour, IDamageable
         }
         else
         {
-            if(isMine || _isFindOre)
+            if(isMine == true)
             {
-                UIManager.Instance.MessageDown();
                 MineMod(false);
             }
+            UIManager.Instance.MessageDown();
         }
     }
 
@@ -132,6 +134,12 @@ public class Player : MonoBehaviour, IDamageable
         _isFindOre = false;
         _isMining = false;
         isMine = value;
+        
+        SlotType type = SlotType.Skill;
+        if(isMine == false)
+            type = SlotType.Bullet;
+
+        UIManager.Instance.SlotInit(type);
     }
 
     private void Attak()

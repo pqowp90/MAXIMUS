@@ -7,6 +7,7 @@ public class WeaponManager : MonoSingleton<WeaponManager>
     public List<Weapon> weaponList;
     public Weapon weapon;
     private int _weaponIndex;
+    public int WeaponIndex => _weaponIndex;
 
     private void Start()
     {
@@ -32,6 +33,7 @@ public class WeaponManager : MonoSingleton<WeaponManager>
             _weaponIndex = weaponList.Count - 1;
 
         weapon = weaponList[_weaponIndex];
+        UIManager.Instance.SlotChange();
     }
 
 }

@@ -102,6 +102,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         }
         
     }
+
     private void SetCurItemPanel(Item item, ItemPanel _ItemPanel)
     {
         if(!item)
@@ -115,11 +116,20 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     }
     public void SetDropperItem(int id)
     {
-        dropper.space.connectSO = ItemManager.Instance.GetItem(id);
-        dropper.GetComponent<Building>().onoff = true;
-        if(curItemPanel != null && dropper != null)
-            SetCurItemPanel(dropper.space.connectSO, curItemPanel);
+        if(dropper){
+
+            dropper.space.connectSO = ItemManager.Instance.GetItem(id);
+            dropper.GetComponent<Building>().onoff = true;
+            if(curItemPanel != null && dropper != null)
+                SetCurItemPanel(dropper.space.connectSO, curItemPanel);
+        }
         //dropperUI.SetActive(false);
+        else if(bulletContainer){
+            bulletContainer.space.connectSO = ItemManager.Instance.GetItem(id);
+            bulletContainer.GetComponent<Building>().onoff = true;
+            if(curItemPanel != null && bulletContainer != null)
+                SetCurItemPanel(bulletContainer.space.connectSO, curItemPanel);
+        }
     }
 
     public ItemPanel GetItemUI(GameObject parent)
@@ -178,7 +188,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
                     break;
                     case BuildingType.BulletContainer:
                     {
-
+                        SetBulletContainerUI();
                         bulletContainer = building.GetComponent<BulletContainer>();
                         if(bulletContainer != null)
                             SetCurItemPanel(bulletContainer.space.connectSO, curItemPanel);

@@ -44,14 +44,14 @@ public class BulletContainer : MonoBehaviour, BuildingTransfrom
     void Update()
     {
         if(!billboard) return;
-        if(space.dropItem == null)
+        if(space.connectSO == null)
         {
             billboard.UpdateText("None", null);
 
         }
         else
         {
-            billboard.UpdateText(space.dropItem.item.amount.ToString(), space.dropItem.item.icon);
+            billboard.UpdateText(space.connectSO.amount.ToString(), space.connectSO.icon);
         }
         
     }

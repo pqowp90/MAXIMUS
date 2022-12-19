@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5450172983596006260}
   - component: {fileID: 5136846001886310958}
   - component: {fileID: 8267437418382669436}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GourmetFactory_Chimney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7019519504781873723}
   - component: {fileID: 4790229132066500362}
   - component: {fileID: 4882182488944149820}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GourmetFactory_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 5821582501803535414}
   - component: {fileID: 2711031723392194598}
   - component: {fileID: 8929084964801937481}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GourmetFactory_Parts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 2669637733380542021}
   - component: {fileID: 3482506424976384155}
   - component: {fileID: 4102150440340659174}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GourmetFactory_Foundation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -343,7 +343,7 @@ GameObject:
   - component: {fileID: 2727521849075985853}
   - component: {fileID: 4632518843959809745}
   - component: {fileID: 3817639089337356618}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GourmetFactory_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 8731406916138234302}
   - component: {fileID: 2625279645070625775}
   - component: {fileID: 4143051416459249612}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GourmetFactory_BigBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7678153295347088455}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EnergyCellFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}

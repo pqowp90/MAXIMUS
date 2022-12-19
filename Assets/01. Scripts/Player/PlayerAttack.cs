@@ -44,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
             _turrats[1].forward = transform.forward;
         }
 
-        TurratShoot(weapon.bullet.ammo == 1 ? 1 : 2);
+        TurratShoot(weapon.bullet.Ammo == 1 ? 1 : 2);
     }
 
     private void TurratShoot(int amount)
@@ -52,7 +52,7 @@ public class PlayerAttack : MonoBehaviour
         for(int i = 0; i < amount; i++)
         {
             Transform _turrat = _turrats[i];
-            weapon.bullet.ammo--;
+            weapon.bullet.Ammo--;
 
             var bullet = PoolManager.GetItem<BulletObj>($"Bullet_{weapon.bullet.bullet_name}");
             bullet.transform.position = _turrat.Find("ShootPos").transform.position;

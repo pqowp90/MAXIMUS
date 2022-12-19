@@ -20,17 +20,37 @@ public class UIManager : MonoSingleton<UIManager>
 
     #endregion
 
-    public GameObject player;
+    #region GUI
+
+    [SerializeField] private Text _healthText;
+    [SerializeField] private Slider _healthSlider;
+
+    #endregion
+
+    public Player player;
 
     public override void Awake()
     {
         base.Awake();
-        player = FindObjectOfType<Player>().gameObject;
+        player = FindObjectOfType<Player>();
     }
 
     private void Start()
     {
         PoolManager.CreatePool<ItemEnterUI>("ItemEnterUIPrefab", _itemCanvas.gameObject, 10);
+    }
+
+    public void HelathBarInit()
+    {
+        _healthText.text = $"{player.Health} / {player.MaxHealth}";
+        _healthSlider.maxValue = player.MaxHealth;
+        _healthSlider.value = player.MaxHealth;
+    }
+
+    public void HealthBarReload()
+    {
+        _healthText.text = $"{player.Health} / {player.MaxHealth}";
+        _healthSlider.DOValue(player.Health, 0.2f);
     }
 
     public void Popup(Transform pos, string text, bool isPlayer = false)

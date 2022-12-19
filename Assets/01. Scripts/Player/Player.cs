@@ -10,6 +10,10 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour, IDamageable
 {
     private float _hp = 100;
+    private float _maxHp = 100;
+    public float Health { get => _hp; set => _hp = value; }
+    public float MaxHealth => _maxHp;
+
     private bool _isOpenBag;
     public TMP_Text ammoText;
     public ItemDB inventory;
@@ -35,18 +39,17 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     [Header("Keybinds")]
-    public KeyCode reloadKey = KeyCode.R;
     public KeyCode bagOpenKey = KeyCode.E;
     public KeyCode miningKey = KeyCode.F;
 
     public UnityEvent<float> OnDamageTaken { get; set; }
-    public float Health { get => _hp; set => _hp = value; }
 
     private void Start()
     {
         attack = GetComponent<PlayerAttack>();
         playerMove = GetComponent<PlayerMovement>();
-       
+       _hp = _maxHp;
+       UIManager.Instance.HelathBarInit();
     }
 
     private void Update()
@@ -63,22 +66,15 @@ public class Player : MonoBehaviour, IDamageable
             MineMod(true);
             UIManager.Instance.MessageDown();
         }
-        if(Input.GetKeyDown(reloadKey))
-        {
-            WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
-        }
 
-        ammoText.text = WeaponManager.Instance.weapon.ammoText;
+        ammoText.text = WeaponManager.Instance.weapon.bullet.Ammo.ToString();
     }
 
     private void SwapWeapon()
     {
-        if(!WeaponManager.Instance.IsReloading)
-        {
-            float wheelInput = Input.GetAxis("Mouse ScrollWheel");
-            if (wheelInput == 0) return;
-            WeaponManager.Instance.SwapWeapon(wheelInput > 0);
-        }
+        float wheelInput = Input.GetAxis("Mouse ScrollWheel");
+        if (wheelInput == 0) return;
+        WeaponManager.Instance.SwapWeapon(wheelInput > 0);
     }
 
     private void SearchItem()
@@ -150,10 +146,9 @@ public class Player : MonoBehaviour, IDamageable
             return;
         }
 
-        if (attack.weapon == null) return;
+        if (attack.weapon == null || attack.weapon.bullet.Ammo == 0) return;
 
-        if (attack.weapon.bullet.ammo == 0) WeaponManager.Instance.StartCoroutine(WeaponManager.Instance.WeaponReloading());
-        else if (!WeaponManager.Instance.IsReloading && !attack.AttackPossible)
+        if (!attack.AttackPossible)
         {
             attack.Attack();
         }
@@ -170,6 +165,7 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         _hp -= damage;
+        UIManager.Instance.HealthBarReload();
         UIManager.Instance.Popup(transform, damage.ToString(), true);
 
         if(_hp <= 0)

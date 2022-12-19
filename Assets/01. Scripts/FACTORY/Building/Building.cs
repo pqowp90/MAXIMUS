@@ -24,6 +24,7 @@ public class Building : MonoBehaviour, IPoolable
     [SerializeField]
     private List<GameObject> onOffGameObjects = new List<GameObject>();
     public int rotate;
+    private Vector2Int pos;
     [SerializeField]
     private AudioSource noiseAudioSource;
     
@@ -49,6 +50,7 @@ public class Building : MonoBehaviour, IPoolable
     }
     public void SetBuildingType(Vector2Int curPos, int curRotation)
     {
+        pos = curPos;
         rotate = curRotation;
         string typeName = buildingType.ToString();
         switch (buildingType)
@@ -63,7 +65,8 @@ public class Building : MonoBehaviour, IPoolable
         {
             type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});
         }
-        Vector2Int[] rangeArray = new Vector2Int[range.Count];
+        rangeArray.Clear();
+        rangeArray.AddRange(range);
         for (int i = 0; i < range.Count; i++)
         {
             rangeArray[i] = new Vector2Int(range[i].y, -range[i].x);
@@ -80,6 +83,15 @@ public class Building : MonoBehaviour, IPoolable
         foreach (var item in rangeArray)
         {
             InserterManager.Instance.FindAdjacency(curPos + item);
+        }
+        
+    }
+    private List<Vector2Int> rangeArray = new List<Vector2Int>();
+    private void OnDrawGizmos() {
+        for (int i = 0; i < rangeArray.Count; i++)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(new Vector3(rangeArray[i].x+pos.x, 0, rangeArray[i].y+pos.y), 0.1f);
         }
         
     }

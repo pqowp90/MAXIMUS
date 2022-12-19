@@ -27,14 +27,18 @@ public class WaveManager : MonoSingleton<WaveManager>
     [SerializeField] private int _maxOreSpawnCount = 20;
     [SerializeField] private float _oreSpawnRadius = 30.0f;
     [SerializeField] private float _enemySpawnDelay;
+    private int _day = 0;
+    public int Day => _day;
     
     private void Start() 
     {
         timer = 0f;
         nextSpawnTime = 0;
         WaveCount = 0;
+        _day = 1;
         CurrentWave = new Wave(waveList[WaveCount]);
         _enemySpawnDelay = Random.Range(30.0f, 40.0f) / CurrentWave.WAVESO.EnemySpawnCount;
+        UIManager.Instance.DayUIReload(true);
 
         foreach(var list in waveList)
         {
@@ -99,13 +103,19 @@ public class WaveManager : MonoSingleton<WaveManager>
         timer = 0f;
         nextSpawnTime = 0;
         isNight = night;
+
         if(!isNight)
         {
+            _day++;
             WaveCount++;
+            if(waveList.Count <= WaveCount) WaveCount--;
+
             CurrentWave = new Wave(waveList[WaveCount]);
 
             _enemySpawnDelay = Random.Range(30.0f, 40.0f) / CurrentWave.WAVESO.EnemySpawnCount;
         }
+
+        UIManager.Instance.DayUIReload(!isNight);
     }
 
     private void SpawnTimer()

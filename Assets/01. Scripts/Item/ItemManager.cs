@@ -68,6 +68,7 @@ public class ItemManager : MonoSingleton<ItemManager>
         item.amount = amount;
         inventorySO.itemList.Add(item);
         ItemEnterAnimation(itemObj, amount);
+        UIManager.Instance.InventoryItemAdd(item);
     }
 
     private void ItemEnterAnimation(GameObject obj, int amount)
@@ -78,6 +79,7 @@ public class ItemManager : MonoSingleton<ItemManager>
         seq.Append(obj.transform.DOMove(_itemGiveTrm.position, 0.5f).SetEase(Ease.InCubic));
         seq.AppendCallback(() => obj.SetActive(false));
         seq.AppendCallback(()=>UIManager.Instance.ItemEnter(obj.GetComponent<DropItem>().item, amount));
+        seq.AppendCallback(()=>UIManager.Instance.InventoryReload(obj.GetComponent<DropItem>().item));
     }
 
     public List<Item> GetItemsByType(ITEM_TYPE iTEM_TYPE)

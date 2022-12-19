@@ -28,6 +28,8 @@ public class Bullet
         }
     }
 
+    public GameObject muzzlePrefab;
+
     [HideInInspector]
     public Item bulletItem;
 }

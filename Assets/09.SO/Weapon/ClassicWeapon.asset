@@ -18,7 +18,6 @@ MonoBehaviour:
     attackDelay: 0.2
     minDamage: 1
     maxDamage: 3
-    maxAmmo: 50
-    ammo: 99387
+    muzzlePrefab: {fileID: 1584403288528622, guid: 2eb0d1c997028f344ba8ee6cc887fab7, type: 3}
     bulletItem: {fileID: 11400000, guid: 23c4aed59f721c54aa2e1e453b2733a8, type: 2}
   reloadingTime: 2

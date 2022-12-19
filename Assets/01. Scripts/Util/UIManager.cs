@@ -5,7 +5,6 @@ using TMPro;
 using Unity.VisualScripting;
 using DG.Tweening;
 using UnityEngine.UI;
-using JetBrains.Annotations;
 
 public class UIManager : MonoSingleton<UIManager>
 {
@@ -25,6 +24,7 @@ public class UIManager : MonoSingleton<UIManager>
     [Header("Health Bar")]
     [SerializeField] private Text _healthText;
     [SerializeField] private Slider _healthSlider;
+    [SerializeField] private Slider _healthLerpSlider;
 
     [Header("Skill Slot")]
     public Color unEnableColor;
@@ -37,6 +37,12 @@ public class UIManager : MonoSingleton<UIManager>
     private List<InventoryPanel> _inventoryPanels = new List<InventoryPanel>();
     [SerializeField] private Transform _inventoryPanel;
     [SerializeField] private GameObject _inventoryPanelPrefab;
+
+    [Header("Day")]
+    [SerializeField] private Sprite _sunIcon;
+    [SerializeField] private Sprite _nightIcon;
+    [SerializeField] private Text _dayText;
+    [SerializeField] private Image _dayIcon;
 
     #endregion
     private Player _player;
@@ -102,6 +108,7 @@ public class UIManager : MonoSingleton<UIManager>
     }
     #endregion
 
+    #region Inventory
     public void InventoryInit()
     {
         foreach(var item in _player.inventory.itemList)
@@ -132,19 +139,41 @@ public class UIManager : MonoSingleton<UIManager>
         RectTransform rectTrm = _inventoryPanel.parent.GetComponent<RectTransform>();
         rectTrm.sizeDelta = new Vector2(rectTrm.sizeDelta.x, 80 * (_inventoryPanels.Count - 1) + 120);
     }
+    #endregion
 
+    #region Health Bar
     public void HelathBarInit()
     {
         _healthText.text = $"{_player.Health} / {_player.MaxHealth}";
         _healthSlider.maxValue = _player.MaxHealth;
         _healthSlider.value = _player.MaxHealth;
+        _healthLerpSlider.maxValue = _player.MaxHealth;
+        _healthLerpSlider.value = _player.MaxHealth;
     }
 
     public void HealthBarReload()
     {
         _healthText.text = $"{_player.Health} / {_player.MaxHealth}";
-        _healthSlider.DOValue(_player.Health, 0.2f);
+        StartCoroutine(HealthBarLerp());
     }
+
+    private IEnumerator HealthBarLerp()
+    {
+        _healthSlider.DOValue(_player.Health, 0.2f);
+        yield return new WaitForSeconds(0.1f);
+        _healthLerpSlider.DOValue(_player.Health, 0.3f);
+    }
+    #endregion
+
+    #region Day
+
+    public void DayUIReload(bool isSun)
+    {
+        _dayText.text = $"Day {WaveManager.Instance.Day}";
+        _dayIcon.sprite = isSun == true ? _sunIcon : _nightIcon;
+    }
+
+    #endregion
 
     public void Popup(Transform pos, string text, bool isPlayer = false)
     {

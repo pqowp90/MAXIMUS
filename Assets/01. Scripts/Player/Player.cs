@@ -42,6 +42,14 @@ public class Player : MonoBehaviour, IDamageable
     public KeyCode bagOpenKey = KeyCode.E;
     public KeyCode miningKey = KeyCode.F;
 
+    [Header("Sound")]
+    [SerializeField] private AudioClip _mineAttack;
+    [SerializeField] private AudioClip _mineBreak;
+
+    [Header("Effect")]
+    [SerializeField] private GameObject _mineAttackEffect;
+    [SerializeField] private GameObject _mineBreakEffect;
+
     public UnityEvent<float> OnDamageTaken { get; set; }
 
     private void Start()
@@ -165,8 +173,13 @@ public class Player : MonoBehaviour, IDamageable
     public void Mine()
     {
         _isMining = false;
+        if(mineOre.Health - 1 == 0)
+        {
+            SoundManager.Instance.PlayClip(_mineBreak);
+        }
         mineOre.TakeDamage(1);
         ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, mineOre.dropAmount);
+        SoundManager.Instance.PlayClip(_mineAttack);
     }
 
 

@@ -7,12 +7,9 @@ using DG.Tweening;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField]
-    private List<Transform> _turrats = new List<Transform>();
-    [SerializeField]
-    private float _radius;
-    [SerializeField]
-    private LayerMask _layer;
+    [SerializeField] private List<Transform> _turrats = new List<Transform>();
+    [SerializeField] private float _radius;
+    [SerializeField] private LayerMask _layer;
 
     public Weapon weapon => WeaponManager.Instance.weapon;
 
@@ -20,6 +17,13 @@ public class PlayerAttack : MonoBehaviour
     public bool AttackPossible => _isAttackDelay;
 
     private Vector3 _direction;
+
+    [Header("Sound")]
+    [SerializeField] private AudioClip _bulletShoot;
+
+    private void Start() {
+        PoolManager.CreatePool<PoolingEffect>("BulletShell", ItemManager.Instance.poolObj, 10);
+    }
 
     public void Attack()
     {
@@ -59,7 +63,17 @@ public class PlayerAttack : MonoBehaviour
             bullet.transform.rotation = _turrat.rotation;
             bullet.projectile.damage = weapon.bullet.Damage;
             bullet.rigidbody.velocity = Vector3.zero;
-            bullet.rigidbody.AddForce(_turrat.forward * 100000);
+            bullet.rigidbody.AddForce(_turrat.forward * 7000);
+
+            var shell = PoolManager.GetItem<PoolingEffect>("BulletShell");
+            shell.transform.position = _turrat.Find("ShellPos").transform.position;
+
+            var muzzle = Instantiate(WeaponManager.Instance.weapon.bullet.muzzlePrefab);
+            muzzle.transform.parent = _turrat.Find("ShootPos");
+            muzzle.transform.position = _turrat.Find("ShootPos").position;
+            muzzle.transform.rotation = _turrat.rotation;
+
+            SoundManager.Instance.PlayClip(_bulletShoot);
         }
         
         _isAttackDelay = true;

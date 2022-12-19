@@ -13,6 +13,6 @@ public class SoundManager : MonoSingleton<SoundManager>
     public void PlayClip(AudioClip clip)
     {
         _audio.clip = clip;
-        _audio.Play();
+        _audio.PlayOneShot(clip);
     }
 }

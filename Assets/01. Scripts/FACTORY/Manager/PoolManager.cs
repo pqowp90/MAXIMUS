@@ -60,9 +60,21 @@ public class PoolManager
            if (firstItem.gameObject.activeSelf)
            {  //첫번째 아이템이 이미 사용중이라면
                 q.Enqueue(q.Dequeue());
-                GameObject prefab = prefabDictionary[name];
-                GameObject g = GameObject.Instantiate(prefab, firstItem.transform.parent);
-                item = g.GetComponent<T>();
+                foreach (var poolObj in q)
+                {
+                    if(poolObj.gameObject.activeSelf == false)
+                    {
+                        item = poolObj;
+                        item.gameObject.SetActive(true);
+                        break;
+                    }
+                }
+                if(item == null)
+                {
+                    GameObject prefab = prefabDictionary[name];
+                    GameObject g = GameObject.Instantiate(prefab, firstItem.transform.parent);
+                    item = g.GetComponent<T>();
+                }
            }
            else
            {

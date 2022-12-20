@@ -65,7 +65,7 @@ public class Player : MonoBehaviour, IDamageable
         SearchItem();
         SearchOre();
         SwapWeapon();
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") && Time.timeScale != 0)
         {
             Attak();
         }

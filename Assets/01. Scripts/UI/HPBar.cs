@@ -36,8 +36,8 @@ public class HPBar : MonoBehaviour
 
     public void Init(float value)
     {
-        Value = value;
         MaximumValue = value;
+        Value = value;
         MinimumValue = 0;
     }
 }

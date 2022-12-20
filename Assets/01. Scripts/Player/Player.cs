@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -15,7 +16,6 @@ public class Player : MonoBehaviour, IDamageable
     public float MaxHealth => _maxHp;
 
     private bool _isOpenBag;
-    public TMP_Text ammoText;
     public ItemDB inventory;
     private PlayerAttack attack;
     public PlayerMovement playerMove;
@@ -32,6 +32,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private AudioClip _mineClip;
 
     private Ore mineOre;
+    private RaycastHit mineHit;
     
     public bool isMine = false;
     private bool _isFindOre = false;
@@ -46,10 +47,6 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private AudioClip _mineAttack;
     [SerializeField] private AudioClip _mineBreak;
 
-    [Header("Effect")]
-    [SerializeField] private GameObject _mineAttackEffect;
-    [SerializeField] private GameObject _mineBreakEffect;
-
     public UnityEvent<float> OnDamageTaken { get; set; }
 
     private void Start()
@@ -58,6 +55,9 @@ public class Player : MonoBehaviour, IDamageable
         playerMove = GetComponent<PlayerMovement>();
        _hp = _maxHp;
        UIManager.Instance.HelathBarInit();
+
+       PoolManager.CreatePool<PoolingEffect>("MineAttackEffect", ItemManager.Instance.poolObj, 10);
+       PoolManager.CreatePool<PoolingEffect>("MineBreakEffect", ItemManager.Instance.poolObj, 10);
     }
 
     private void Update()
@@ -121,13 +121,12 @@ public class Player : MonoBehaviour, IDamageable
 
     private void SearchOre()
     {
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position, transform.forward + new Vector3(0, 0.5f, 0), out hit, _oreSearchRadius, _oreLayer))
+        if(Physics.Raycast(transform.position, transform.forward + new Vector3(0, 0.5f, 0), out mineHit, _oreSearchRadius, _oreLayer))
         {
             if(!isMine && !_isFindOre)
             {
                 UIManager.Instance.Message($"[{miningKey}] MineMod");
-                mineOre = hit.transform.GetComponent<Ore>();
+                mineOre = mineHit.transform.GetComponent<Ore>();
                 _isFindOre = true;
             }
         }
@@ -177,13 +176,20 @@ public class Player : MonoBehaviour, IDamageable
     public void Mine()
     {
         _isMining = false;
+
+        PoolingEffect effect;
         if(mineOre.Health - 1 == 0)
         {
             SoundManager.Instance.PlayClip(SoundType.EFFECT, _mineBreak);
+            effect = PoolManager.GetItem<PoolingEffect>("MineBreakEffect");
+            effect.transform.position = mineOre.transform.position;
         }
         mineOre.TakeDamage(1);
         ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, mineOre.dropAmount);
         SoundManager.Instance.PlayClip(SoundType.EFFECT, _mineAttack);
+
+        effect = PoolManager.GetItem<PoolingEffect>("MineAttackEffect");
+        effect.transform.position = mineHit.point;
     }
 
 
@@ -193,6 +199,7 @@ public class Player : MonoBehaviour, IDamageable
         UIManager.Instance.HealthBarReload();
         UIManager.Instance.ScreenDamage();
         UIManager.Instance.Popup(transform, damage.ToString(), true);
+        Camera.main.DOShakeRotation(0.2f, new Vector3(10, 10), 50, 360);
 
         if(_hp <= 0)
         {

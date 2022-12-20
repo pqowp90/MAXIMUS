@@ -99,7 +99,7 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
         UIManager.Instance.Popup(transform, damage.ToString());
         _hpBar.Value -= damage;
 
-        if (Health <= 0)
+        if (_hpBar.Value <= 0)
         {
             Death();
         }

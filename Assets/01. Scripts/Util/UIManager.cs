@@ -53,6 +53,8 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private GameObject _blur;
     private bool _isPause = false;
 
+    [SerializeField] private GameObject _gameoverPanel;
+
     public override void Awake()
     {
         base.Awake();
@@ -227,13 +229,16 @@ public class UIManager : MonoSingleton<UIManager>
             messageText.DOFade(0, 0.3f);
     }
 
-    public void PauseMenu()
+    public void PauseMenu(bool gameover = false)
     {
         _isPause = !_isPause;
-        _pauseMenuPaenl.SetActive(_isPause);
+        if(gameover) _gameoverPanel.SetActive(true);
+        else
+            _pauseMenuPaenl.SetActive(_isPause);
         _blur.SetActive(_isPause);
         Cursor.lockState = _isPause ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = _isPause;
         Time.timeScale = _isPause ? 0 : 1;
     }
+
 }

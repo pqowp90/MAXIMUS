@@ -19,4 +19,9 @@ public class MineAnimation : MonoBehaviour
     {
         _player.playerMove.animator.ResetTrigger("Mine");
     }
+
+    public void Die()
+    {
+        UIManager.Instance.PauseMenu(true);
+    }
 }

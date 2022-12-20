@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
 
 public class SliderSound : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class SliderSound : MonoBehaviour
     private AudioMixer audioMixer;
 
     [SerializeField]
-    private Text valueText,nameText;
+    private TMP_Text valueText,nameText;
     private void Start(){
         slider = GetComponentInChildren<Slider>();
         audioMixer = MenuUi.Instance.audioMixer;

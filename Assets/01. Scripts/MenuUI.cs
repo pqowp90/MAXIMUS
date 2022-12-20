@@ -10,7 +10,7 @@ public class MenuUi : MonoSingleton<MenuUi>
     public bool isOption=false;
     public override void Awake(){
         option=Instantiate(Resources.Load<GameObject>("Option"));
-        audioMixer = Resources.Load<AudioMixer>("AllMixer");
+        audioMixer = Resources.Load<AudioMixer>("AudioMixer");
         option.transform.SetParent(transform);
     }
     public void Option(){

@@ -9,7 +9,6 @@ public class DayCycleManager : MonoSingleton<DayCycleManager>
         Night
     }
 
-    [SerializeField] private bool isCycling = true;
     [SerializeField] public Cycle currentCycle = Cycle.Day;
 
     public Action<Cycle> OnCycled = cycle => { };

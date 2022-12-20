@@ -62,8 +62,8 @@ public class PlayerAttack : MonoBehaviour
             _bullet.transform.position = _turrat.Find("ShootPos").transform.position;
             _bullet.transform.rotation = _turrat.rotation;
             _bullet.projectile.damage = bullet.Damage;
-            _bullet.rigidbody.velocity = Vector3.zero;
-            _bullet.rigidbody.AddForce(_turrat.forward * 7000);
+            _bullet.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            _bullet.GetComponent<Rigidbody>().AddForce(_turrat.forward * 7000);
 
             var shell = PoolManager.GetItem<PoolingEffect>("BulletShell");
             shell.transform.position = _turrat.Find("ShellPos").transform.position;
@@ -73,7 +73,7 @@ public class PlayerAttack : MonoBehaviour
             muzzle.transform.position = _turrat.Find("ShootPos").position;
             muzzle.transform.rotation = _turrat.rotation;
 
-            SoundManager.Instance.PlayClip(_bulletShoot);
+            SoundManager.Instance.PlayClip(SoundType.EFFECT, _bulletShoot);
         }
         
         _isAttackDelay = true;

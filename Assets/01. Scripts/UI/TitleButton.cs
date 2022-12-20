@@ -26,7 +26,7 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         seq.Append(_selectPanel.transform.DOScale(Vector3.one * 1.1f, 0.1f));
         seq.Append(_selectPanel.transform.DOScale(Vector3.one, 0.1f));
 
-        SoundManager.Instance.PlayClip(_swapSound);
+        SoundManager.Instance.PlayClip(SoundType.UI, _swapSound);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -36,18 +36,18 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void GamePlay()
     {
-        SoundManager.Instance.PlayClip(_clickSound);
+        SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
         SceneManager.LoadScene("OverWorld 2");
     }
 
     public void Options()
     {
         MenuUi.Instance.Option(true);
-        SoundManager.Instance.PlayClip(_clickSound);
+        SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
     }
 
     public void GameExit()
     {
-        SoundManager.Instance.PlayClip(_clickSound);
+        SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
     }
 }

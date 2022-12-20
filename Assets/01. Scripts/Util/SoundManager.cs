@@ -12,15 +12,31 @@ public enum SoundType
 
 public class SoundManager : MonoSingleton<SoundManager>
 {
-    private AudioSource _audio;
+    [SerializeField] private AudioSource _uiAudio;
+    [SerializeField] private AudioSource _effectAudio;
+    [SerializeField] private AudioSource _factoryAudio;
+    [SerializeField] private AudioSource _bgmAudio;
 
-    public override void Awake() {
-        _audio = GetComponent<AudioSource>();
-    }
-
-    public void PlayClip(AudioClip clip)
+    public void PlayClip(SoundType type, AudioClip clip)
     {
-        _audio.clip = clip;
-        _audio.PlayOneShot(clip);
+        AudioSource source = null;
+        switch(type)
+        {
+            case SoundType.UI:
+                source = _uiAudio;
+                break;
+            case SoundType.EFFECT:
+                source = _effectAudio;
+                break;
+            case SoundType.FACTORY:
+                source = _factoryAudio;
+                break;
+            case SoundType.BACKGROUND:
+                source = _bgmAudio;
+                break;
+        }
+
+        source.clip = clip;
+        source.PlayOneShot(clip);
     }
 }

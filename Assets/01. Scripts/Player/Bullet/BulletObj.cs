@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BulletObj : MonoBehaviour, IPoolable
 {
-    public Rigidbody rigidbody;
+    public Rigidbody _rigidbody;
     public ECExplodingProjectile projectile;
 
     public void OnPool()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
         projectile = GetComponent<ECExplodingProjectile>();
     }
 }

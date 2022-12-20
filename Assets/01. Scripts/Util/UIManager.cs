@@ -5,12 +5,14 @@ using TMPro;
 using Unity.VisualScripting;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.Rendering.PostProcessing;
 
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField]
     private GameObject damagePopup;
     [SerializeField] private TMP_Text messageText;
+    private Player _player;
 
     #region Item Enter UI Popup
 
@@ -45,7 +47,11 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private Image _dayIcon;
 
     #endregion
-    private Player _player;
+
+    [Header("Pause Menu")]
+    [SerializeField] private GameObject _pauseMenuPaenl;
+    [SerializeField] private GameObject _blur;
+    private bool _isPause = false;
 
     public override void Awake()
     {
@@ -174,7 +180,7 @@ public class UIManager : MonoSingleton<UIManager>
     }
 
     #endregion
-
+    
     public void Popup(Transform pos, string text, bool isPlayer = false)
     {
         var pop = Instantiate(damagePopup);
@@ -219,5 +225,15 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if(messageText.color.a == 1)
             messageText.DOFade(0, 0.3f);
+    }
+
+    public void PauseMenu()
+    {
+        _isPause = !_isPause;
+        _pauseMenuPaenl.SetActive(_isPause);
+        _blur.SetActive(_isPause);
+        Cursor.lockState = _isPause ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = _isPause;
+        Time.timeScale = _isPause ? 0 : 1;
     }
 }

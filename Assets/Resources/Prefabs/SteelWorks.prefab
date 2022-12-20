@@ -6069,7 +6069,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
   factoryRecipesSO:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: ec6863ce43d3788449f7992cca9393b9, type: 2}
+  - {fileID: 11400000, guid: 617d93cbc8c5dd743b3d2670e3938278, type: 2}
+  - {fileID: 11400000, guid: 2a82f22aef5cfd14895d530dd24c3ada, type: 2}
   curRecipe: {fileID: 0}
   inputSpaces: []
   outPutSpace: {fileID: 0}

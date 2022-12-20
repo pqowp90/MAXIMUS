@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67758bf9b7f18e646a92e71c906e3935, type: 3}
-  m_Name: FactoryRecipe
+  m_Name: "\uAE08 \uC8FC\uAD34 \uB808\uC2DC\uD53C"
   m_EditorClassIdentifier: 
   recipeName: "\uAE08 \uC8FC\uC870"
   factoryType: 1

@@ -59,6 +59,8 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     private float realProgress = 0f;
     [SerializeField]
     private TMP_Text makingPersentText;
+    [SerializeField]
+    private TMP_Text CurRecipeName;
 
     //-------------------------------------------
 
@@ -268,6 +270,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         resultPanel.itemImage.sprite = factoryBase.curRecipe.result.item.icon;
         costUIText.text = factoryBase.curRecipe.cost.ToString();
         resultPanel.itemText.text = factoryBase.outPutSpace.count.ToString();
+        CurRecipeName.text = factoryBase.curRecipe.recipeName;
         foreach (var panel in inputPanelList)
         {
             panel.SetActive(false);

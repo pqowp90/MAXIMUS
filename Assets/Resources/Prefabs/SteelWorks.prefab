@@ -5993,6 +5993,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4584013459924016844}
   - component: {fileID: 4584013459924016843}
+  - component: {fileID: 7591431056834420296}
   m_Layer: 11
   m_Name: SteelWorks
   m_TagString: Untagged
@@ -6051,6 +6052,28 @@ MonoBehaviour:
   onOffGameObjects:
   - {fileID: 9061059660263610098}
   - {fileID: 4584013458990880879}
+  rotate: 0
+  noiseAudioSource: {fileID: 0}
+  rangeArray: []
+--- !u!114 &7591431056834420296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4584013459924016845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 626550625f24a9b4fabedb3ac4f8eeee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0}
+  factoryRecipesSO:
+  - {fileID: 0}
+  curRecipe: {fileID: 0}
+  inputSpaces: []
+  outPutSpace: {fileID: 0}
+  productionProgress: 0
 --- !u!1 &4584013460218911710
 GameObject:
   m_ObjectHideFlags: 0

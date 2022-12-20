@@ -202,6 +202,8 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
                     }
                     break;
                     case BuildingType.Foundry:
+                    case BuildingType.Combiner:
+                    case BuildingType.SteelWorks:
                     {
                         if(factoryBase != null)
                             factoryBase.incressProductionProgress = null;

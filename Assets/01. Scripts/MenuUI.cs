@@ -15,10 +15,10 @@ public class MenuUi : MonoSingleton<MenuUi>
     }
     public void Option(){
         option.SetActive(!option.activeSelf);
-        
     }
     public void Option(bool active){
-        option.SetActive(active);        
+        option.SetActive(active);
+        UIManager.Instance.isOption = active;    
     }
     
     

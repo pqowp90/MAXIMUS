@@ -15,7 +15,6 @@ public class Slot : MonoBehaviour
     private Text _amount;
     private GameObject _lockPanel;
     private Item _bullet;
-    private SlotType _slotType;
 
     private void Awake() {
         _icon = transform.Find("Icon").GetComponent<Image>();
@@ -25,7 +24,6 @@ public class Slot : MonoBehaviour
 
     public void Init(Item item)
     {
-        _slotType = SlotType.Bullet;
         _bullet = item;
         _icon.sprite = _bullet.icon;
         _amount.gameObject.SetActive(true);
@@ -35,7 +33,6 @@ public class Slot : MonoBehaviour
 
     public void Init(Sprite skillIcon)
     {
-        _slotType = SlotType.Skill;
         _amount.gameObject.SetActive(false);
         _icon.sprite = skillIcon;
         SlotUnEnable();

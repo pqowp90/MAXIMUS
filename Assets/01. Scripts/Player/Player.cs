@@ -79,7 +79,8 @@ public class Player : MonoBehaviour, IDamageable
         }
         if(Input.GetKeyDown(KeyCode.Escape))
         {
-            UIManager.Instance.PauseMenu();
+            if(UIManager.Instance.isOption) MenuUi.Instance.Option(false);
+            else UIManager.Instance.PauseMenu();
         }
     }
 
@@ -178,11 +179,11 @@ public class Player : MonoBehaviour, IDamageable
         _isMining = false;
         if(mineOre.Health - 1 == 0)
         {
-            SoundManager.Instance.PlayClip(_mineBreak);
+            SoundManager.Instance.PlayClip(SoundType.EFFECT, _mineBreak);
         }
         mineOre.TakeDamage(1);
         ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, mineOre.dropAmount);
-        SoundManager.Instance.PlayClip(_mineAttack);
+        SoundManager.Instance.PlayClip(SoundType.EFFECT, _mineAttack);
     }
 
 

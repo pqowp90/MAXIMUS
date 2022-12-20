@@ -55,6 +55,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     [SerializeField] private GameObject _gameoverPanel;
     [SerializeField] private Image _screenDamageImage;
+    public bool isOption = false;
 
     public override void Awake()
     {

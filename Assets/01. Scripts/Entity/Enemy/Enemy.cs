@@ -22,8 +22,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     private Transform _transform;
     private HPBar _hpBar;
 
-    private bool _isDelay = false; // 공격중인가??
-
     private void Awake()
     {
         Type = EntityType.Enemy;
@@ -85,7 +83,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
         if(length <= Data.attackRange)
         {
             _animator.SetBool("Attack", true);
-            Attack();
         }
         else
         {
@@ -115,16 +112,6 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     public void Attack()
     {
-        if(!_isDelay)
-        {
-            _isDelay = true;
-            Invoke("AttackDelay", Data.attackDelay);
-        }
-    }
-
-    private void AttackDelay()
-    {
-        _isDelay = false;
         if(_animator.GetBool("Attack") == true)
             target.GetComponent<Player>().TakeDamage(Data.damage);
     }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96de4657d0739384e9899fd9be3f3fcd, type: 3}
+  m_Name: Iron ingot
+  m_EditorClassIdentifier: 
+  item_name: "\uCCA0 \uC8FC\uAD34"
+  korian_name: "\uCCA0 \uC8FC\uAD34"
+  item_ID: 5
+  item_type: 5
+  isStackable: 1
+  amount: 206
+  icon: {fileID: 21300000, guid: b0182cf0ee413fe4193f5920febc62a8, type: 3}
+  material: {fileID: 2100000, guid: 435988207dc58c14ba19897d6d86c9e1, type: 2}
+  mesh: {fileID: 1598058932206406000, guid: 8953281e178475e4db1a84970c50dc74, type: 3}
+  explain: "\uCCA0 \uAD11\uC11D\uC744 \uB179\uC5EC\uB9CC\uB4E0 \uC8FC\uAD34.\n\uB0B4\uAD6C\uC131\uC774
+    \uB192\uC544\uC11C \uAC74\uBB3C\uC758 \uBCF4\uAC15\uC7AC\uB098 \uACE8\uC870\uB85C
+    \uC0AC\uC6A9\uB41C\uB2E4."

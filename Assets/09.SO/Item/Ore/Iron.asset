@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Iron
   m_EditorClassIdentifier: 
   item_name: "\uCCA0 \uAD11\uC11D"
-  item_ID: 1
+  korian_name: "\uCCA0 \uAD11\uC11D"
+  item_ID: 2
   item_type: 4
   isStackable: 1
   amount: 74

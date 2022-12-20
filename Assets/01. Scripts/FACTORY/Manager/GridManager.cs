@@ -224,11 +224,7 @@ public class GridManager : MonoSingleton<GridManager>
         {
             
             Building building = hit.collider.GetComponentInParent<Building>();
-            foreach (var recipe in building.ingredientItems)
-            {
-                recipe.item.amount = recipe.count;
-                ItemManager.Instance.ItemEnterAnimation(recipe);
-            }
+            
             
             RemoveRanges();
             CopyRanges((int)building.buildingType, building.rotate);
@@ -241,6 +237,11 @@ public class GridManager : MonoSingleton<GridManager>
             }
             if(leftMouseDown) // 건물을 파괴
             {
+                foreach (var recipe in building.ingredientItems)
+                {
+                    recipe.item.amount = recipe.count;
+                    ItemManager.Instance.ItemEnterAnimation(recipe);
+                }
                 building.gameObject.SetActive(false);
                 if(building.buildingType == BuildingType.ConveyorBelt)
                     ConveyorBeltManager.Instance.Destroy(building.GetComponent<ConveyorBelt>());

@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private LayerMask _layer;
 
-    public Weapon weapon => WeaponManager.Instance.weapon;
+    public Bullet bullet => BulletManager.Instance.currentBullet;
 
     private bool _isAttackDelay = false;
     public bool AttackPossible => _isAttackDelay;
@@ -48,7 +48,7 @@ public class PlayerAttack : MonoBehaviour
             _turrats[1].forward = transform.forward;
         }
 
-        TurratShoot(weapon.bullet.Ammo == 1 ? 1 : 2);
+        TurratShoot(bullet.Ammo == 1 ? 1 : 2);
     }
 
     private void TurratShoot(int amount)
@@ -56,19 +56,19 @@ public class PlayerAttack : MonoBehaviour
         for(int i = 0; i < amount; i++)
         {
             Transform _turrat = _turrats[i];
-            weapon.bullet.Ammo--;
+            bullet.Ammo--;
 
-            var bullet = PoolManager.GetItem<BulletObj>($"Bullet_{weapon.bullet.bullet_name}");
-            bullet.transform.position = _turrat.Find("ShootPos").transform.position;
-            bullet.transform.rotation = _turrat.rotation;
-            bullet.projectile.damage = weapon.bullet.Damage;
-            bullet.rigidbody.velocity = Vector3.zero;
-            bullet.rigidbody.AddForce(_turrat.forward * 7000);
+            var _bullet = PoolManager.GetItem<BulletObj>($"Bullet_{bullet.bulletItem.item_name}");
+            _bullet.transform.position = _turrat.Find("ShootPos").transform.position;
+            _bullet.transform.rotation = _turrat.rotation;
+            _bullet.projectile.damage = bullet.Damage;
+            _bullet.rigidbody.velocity = Vector3.zero;
+            _bullet.rigidbody.AddForce(_turrat.forward * 7000);
 
             var shell = PoolManager.GetItem<PoolingEffect>("BulletShell");
             shell.transform.position = _turrat.Find("ShellPos").transform.position;
 
-            var muzzle = Instantiate(WeaponManager.Instance.weapon.bullet.muzzlePrefab);
+            var muzzle = Instantiate(BulletManager.Instance.currentBullet.muzzlePrefab);
             muzzle.transform.parent = _turrat.Find("ShootPos");
             muzzle.transform.position = _turrat.Find("ShootPos").position;
             muzzle.transform.rotation = _turrat.rotation;
@@ -78,7 +78,7 @@ public class PlayerAttack : MonoBehaviour
         
         _isAttackDelay = true;
         UIManager.Instance.SlotAmountReload();
-        Invoke("AttackDelay", weapon.bullet.attackDelay);
+        Invoke("AttackDelay", bullet.attackDelay);
     }
 
     private void AttackDelay()

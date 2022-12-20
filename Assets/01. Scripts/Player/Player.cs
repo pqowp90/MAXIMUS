@@ -64,7 +64,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         SearchItem();
         SearchOre();
-        SwapWeapon();
+        SwapBullet();
         if (Input.GetButton("Fire1") && Time.timeScale != 0)
         {
             Attak();
@@ -83,11 +83,11 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    private void SwapWeapon()
+    private void SwapBullet()
     {
         float wheelInput = Input.GetAxis("Mouse ScrollWheel");
         if (wheelInput == 0) return;
-        WeaponManager.Instance.SwapWeapon(wheelInput > 0);
+        BulletManager.Instance.SwapBullet(wheelInput > 0);
     }
 
     private void SearchItem()
@@ -165,7 +165,7 @@ public class Player : MonoBehaviour, IDamageable
             return;
         }
 
-        if (attack.weapon == null || attack.weapon.bullet.Ammo == 0) return;
+        if (attack.bullet == null || attack.bullet.Ammo == 0) return;
 
         if (!attack.AttackPossible)
         {
@@ -190,6 +190,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         _hp -= damage;
         UIManager.Instance.HealthBarReload();
+        UIManager.Instance.ScreenDamage();
         UIManager.Instance.Popup(transform, damage.ToString(), true);
 
         if(_hp <= 0)

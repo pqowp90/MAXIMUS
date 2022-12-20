@@ -20,6 +20,14 @@ public class ItemManager : MonoSingleton<ItemManager>
     {
         PoolManager.CreatePool<DropItem>("DropItem", poolObj, 50);
     }
+    public Item TakeItem(int id, int amount)
+    {
+        Item item = inventorySO.itemList.Find(x => x.item_ID == id);
+        if (item == null) return null;
+        if (item.amount < amount) return null;
+        item.amount -= amount;
+        return item;
+    }
 
     public DropItem DropItem(Vector3 pos, Item item)
     {

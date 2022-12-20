@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96de4657d0739384e9899fd9be3f3fcd, type: 3}
   m_Name: gold alloy
   m_EditorClassIdentifier: 
-  item_name: "\uAE08 \uD569\uAE08"
-  korian_name: "\uAE08 \uD569\uAE08"
+  item_name: "\uAE08 \uD569\uAE08 \uC8FC\uAD34"
+  korian_name: "\uAE08 \uD569\uAE08 \uC8FC\uAD34"
   item_ID: 7
   item_type: 5
   isStackable: 1
   amount: 99973
-  icon: {fileID: 21300000, guid: 1a341ea28f53b8d499b4ce3ce161cf33, type: 3}
+  icon: {fileID: 21300000, guid: 458f650d4e761cf4b90e5c91f55dfa21, type: 3}
   material: {fileID: 2100000, guid: 9077266c224b2194e83f9ebfd4517803, type: 2}
   mesh: {fileID: -802373276872804759, guid: 0b2b694212bdeb4489412db9902cb4ae, type: 3}
   explain: "\uAE08\uACFC \uCCA0 \uAD11\uC11D\uC744 \uC870\uD569\uD574\uC11C \uB9CC\uB4E0\uB2E4\n\uAC15\uB3C4\uAC00

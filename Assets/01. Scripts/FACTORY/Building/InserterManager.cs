@@ -16,7 +16,7 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
             {
                 if(item.canIn)
                 {
-                    _inserter.nextItemCarrierBase = item;
+                    _inserter.nextItemCarrierBase.Add(item);
                 }
             }
         }
@@ -70,19 +70,23 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
         movedItem.Clear();
         foreach (var item in inserters)
         {
-            if(item.nextItemCarrierBase != null && item.beforeItemCarrierBase != null)
+            ItemSpace _beforeItemCarrierBase = item.beforeItemCarrierBase;
+            foreach (var _nextItemCarrierBase in item.nextItemCarrierBase)
             {
-                if(item.beforeItemCarrierBase.dropItem != null || item.beforeItemCarrierBase.spaceType == SpaceType.Multy)
+                if(_nextItemCarrierBase != null && _beforeItemCarrierBase != null)
                 {
-                    if(item.nextItemCarrierBase.dropItem == null || item.nextItemCarrierBase.spaceType == SpaceType.Multy)
+                    if(_beforeItemCarrierBase.dropItem != null || _beforeItemCarrierBase.spaceType == SpaceType.Multy)
                     {
-                        DropItem dropItem = movedItem.Find(x => x == item.beforeItemCarrierBase.dropItem);
-                        if(dropItem == null)
+                        if(_nextItemCarrierBase.dropItem == null || _nextItemCarrierBase.spaceType == SpaceType.Multy)
                         {
-                            item.nextItemCarrierBase.GiveItem(item.beforeItemCarrierBase);
-                            if(item.nextItemCarrierBase.dropItem)
-                                item.nextItemCarrierBase.dropItem.transform.position = item.transform.position;
-                            movedItem.Add(item.nextItemCarrierBase.dropItem);
+                            DropItem dropItem = movedItem.Find(x => x == _beforeItemCarrierBase.dropItem);
+                            if(dropItem == null)
+                            {
+                                _nextItemCarrierBase.GiveItem(_beforeItemCarrierBase);
+                                if(_nextItemCarrierBase.dropItem)
+                                    _nextItemCarrierBase.dropItem.transform.position = item.transform.position;
+                                movedItem.Add(_nextItemCarrierBase.dropItem);
+                            }
                         }
                     }
                 }

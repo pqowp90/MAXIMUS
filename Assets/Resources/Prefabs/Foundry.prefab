@@ -16351,6 +16351,10 @@ MonoBehaviour:
   - {fileID: 1550847040764564089}
   rotate: 0
   noiseAudioSource: {fileID: 0}
+  ingredientItems:
+  - item: {fileID: 11400000, guid: 13c1eee79854dad42bd2ce7076644eec, type: 2}
+    count: 3
+  rangeArray: []
 --- !u!114 &9012126348795403923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16367,6 +16371,7 @@ MonoBehaviour:
   factoryRecipesSO:
   - {fileID: 11400000, guid: 0bd9aea5e0ab16547b28dd26755029fd, type: 2}
   - {fileID: 11400000, guid: b285333587142484da4461660db8b3f8, type: 2}
+  - {fileID: 11400000, guid: c418631444f3fc241a2165a3e1dfa970, type: 2}
   curRecipe: {fileID: 0}
   inputSpaces: []
   outPutSpace: {fileID: 0}

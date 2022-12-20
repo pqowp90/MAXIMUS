@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67758bf9b7f18e646a92e71c906e3935, type: 3}
+  m_Name: "\uAE08 \uC8FC\uAD34 \uB808\uC2DC\uD53C"
+  m_EditorClassIdentifier: 
+  recipeName: "\uAE08 \uC8FC\uC870"
+  factoryType: 1
+  ingredients:
+  - item: {fileID: 11400000, guid: 9cc307ccc83bb3b41b9c656b5da8b093, type: 2}
+    count: 1
+  cost: 3
+  result:
+    item: {fileID: 11400000, guid: e0bfccc176de5b14f9f00f60593e6bec, type: 2}
+    count: 1

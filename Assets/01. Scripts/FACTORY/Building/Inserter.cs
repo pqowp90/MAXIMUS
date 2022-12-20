@@ -7,7 +7,7 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
     private int rotation;
     public int Rotation{set{rotation = (value%4 + 4) % 4;}get{return rotation;}}
     public Vector2Int pos;
-    public ItemSpace nextItemCarrierBase;
+    public List<ItemSpace> nextItemCarrierBase = new List<ItemSpace>();
     public ItemSpace beforeItemCarrierBase;
 
 
@@ -17,6 +17,7 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
     public void AddToManager(Vector2Int curPos, int curRotation)
     {
         InserterManager.Instance.Build(curPos, curRotation, this);
+        nextItemCarrierBase.Clear();
     }
     public void SetTransform(int _rotation, Vector2Int _pos)
     {

@@ -26,7 +26,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
         outPutSpace.canIn = false;
         outPutSpace.canOut = true;
         outPutSpace.spaceType = SpaceType.Multy;
-        for (int i = 0; i < factoryRecipesSO[0].ingredients.Count; i++)
+        for (int i = 0; i < 3; i++)
         {
             inputSpaces.Add(gameObject.AddComponent<ItemSpace>());
             inputSpaces[i].Reset();

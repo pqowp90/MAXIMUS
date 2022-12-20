@@ -224,6 +224,12 @@ public class GridManager : MonoSingleton<GridManager>
         {
             
             Building building = hit.collider.GetComponentInParent<Building>();
+            foreach (var recipe in building.ingredientItems)
+            {
+                recipe.item.amount = recipe.count;
+                ItemManager.Instance.ItemEnterAnimation(recipe);
+            }
+            
             RemoveRanges();
             CopyRanges((int)building.buildingType, building.rotate);
             GetRanges((int)building.buildingType, true);
@@ -245,6 +251,7 @@ public class GridManager : MonoSingleton<GridManager>
                 {
                     grid.SetGrid(new Vector2Int(Mathf.RoundToInt(vector2Ints[i].x) + (int)building.transform.position.x, Mathf.RoundToInt(vector2Ints[i].y) + (int)building.transform.position.z), 0);
                 }
+                
                 RemoveRanges();
                 curBuildingName.TurnOnOffGroup(false);
             }
@@ -384,6 +391,7 @@ public class GridManager : MonoSingleton<GridManager>
                 if(!canBuild) return;
 
 
+                if(!IngredientUI.Instance.CheckIngredient()) return;
                 IngredientUI.Instance.ClearIngredient();
                 curBuildingName.TurnOnOffGroup(false);
                 {
@@ -515,6 +523,7 @@ public class GridManager : MonoSingleton<GridManager>
         {
             if(buildingGameObject.Count > cnt)
             {
+                IngredientUI.Instance.SetIngredient(buildingGameObject[0].GetComponent<Building>().ingredientItems, false);
                 buildingGameObject[0].SetActive(false);
                 buildingGameObject.Remove(buildingGameObject[0]);
                 rangeGameobjects[0].gameObject.SetActive(false);
@@ -591,6 +600,7 @@ public class GridManager : MonoSingleton<GridManager>
     }
     private void RemoveBuildings()
     {
+        IngredientUI.Instance.CancleIngredient();
         foreach (var item in buildingGameObject)
         {
             item?.SetActive(false);

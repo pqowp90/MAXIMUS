@@ -28,7 +28,7 @@ public class Building : MonoBehaviour, IPoolable
     [SerializeField]
     private AudioSource noiseAudioSource;
     [SerializeField]
-    private List<Recipe> ingredientItems = new List<Recipe>();
+    public List<Recipe> ingredientItems = new List<Recipe>();
     
     
 
@@ -109,7 +109,7 @@ public class Building : MonoBehaviour, IPoolable
         onoff = false;
         AudioSourceCheck();
         SetBuildingOnOff(onoff);
-        IngredientUI.Instance.SetIngredient(ingredientItems);
+        IngredientUI.Instance.SetIngredient(ingredientItems, true);
     }
     private void SetBuildingOnOff(bool _onoff)
     {

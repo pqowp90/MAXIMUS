@@ -78,6 +78,7 @@ public class ItemManager : MonoSingleton<ItemManager>
         ItemEnterAnimation(itemObj, amount);
         UIManager.Instance.InventoryItemAdd(item);
     }
+    
 
     private void ItemEnterAnimation(GameObject obj, int amount)
     {
@@ -88,6 +89,12 @@ public class ItemManager : MonoSingleton<ItemManager>
         seq.AppendCallback(() => obj.SetActive(false));
         seq.AppendCallback(()=>UIManager.Instance.ItemEnter(obj.GetComponent<DropItem>().item, amount));
         seq.AppendCallback(()=>UIManager.Instance.InventoryReload(obj.GetComponent<DropItem>().item));
+    }
+    public void ItemEnterAnimation(Recipe recipe)
+    {
+        Sequence seq = DOTween.Sequence();
+        UIManager.Instance.ItemEnter(recipe.item, recipe.count);
+        UIManager.Instance.InventoryReload(recipe.item);
     }
 
     public List<Item> GetItemsByType(ITEM_TYPE iTEM_TYPE)

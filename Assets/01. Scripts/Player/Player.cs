@@ -194,7 +194,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if(_hp <= 0)
         {
-            Debug.LogError("PLAYER DEATH");
+            playerMove.animator.SetTrigger("Die");
         }
     }
 }

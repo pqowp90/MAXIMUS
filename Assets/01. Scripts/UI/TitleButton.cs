@@ -42,6 +42,7 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void Options()
     {
+        MenuUi.Instance.Option();
         SoundManager.Instance.PlayClip(_clickSound);
     }
 

@@ -9,6 +9,8 @@ using System;
 public class FactoryUIManager : MonoSingleton<FactoryUIManager>
 {
     [SerializeField]
+    public GameObject billBoardCanvas;
+    [SerializeField]
     private LayerMask buildingLayerMask;
     [Header("DropperUI")]
     //-------------------------------------------
@@ -74,6 +76,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     }
     private void SetDropperUI()
     {
+        billBoardCanvas.SetActive(false);
         foreach (var item in dropperItemPanels)
         {
             item.SetActive(false);
@@ -89,6 +92,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     }
     private void SetBulletContainerUI()
     {
+        billBoardCanvas.SetActive(false);
         foreach (var item in dropperItemPanels)
         {
             item.SetActive(false);
@@ -246,6 +250,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             FactoryUI.SetActive(false);
             factoryBase = null;
         }
+        billBoardCanvas.SetActive(true);
     }
     private void SetRecipe(FactoryBase factoryBase)
     {

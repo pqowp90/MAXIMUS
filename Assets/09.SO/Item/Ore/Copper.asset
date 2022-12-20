@@ -17,9 +17,9 @@ MonoBehaviour:
   item_ID: 4
   item_type: 4
   isStackable: 1
-  amount: 99973
+  amount: 99966
   icon: {fileID: 21300000, guid: 16137b8adedd0c146ac5da8e044ef2db, type: 3}
-  material: {fileID: 2100000, guid: d9e1b6c3e4fee524fb9f4db3f5380fe3, type: 2}
+  material: {fileID: 2100000, guid: 19b239e7ef0012f4b9f36123fd985f27, type: 2}
   mesh: {fileID: -802373276872804759, guid: 0b2b694212bdeb4489412db9902cb4ae, type: 3}
   explain: "\uC624\uBC84\uC6D4\uB4DC\uC5D0\uC11C \uCC44\uAD74\uB418\uB294 \uAD11\uBB3C\uC774\uB2E4.\n\uC804\uB3C4\uC131\uC774
     \uB192\uC544\uC11C \uC804\uC790\uBD80\uD488 \uC81C\uC791\uC5D0 \uC0AC\uC6A9\uB41C\uB2E4."

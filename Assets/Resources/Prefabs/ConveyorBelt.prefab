@@ -236,6 +236,12 @@ MonoBehaviour:
   buildingType: 0
   renderAndMaterials: []
   onOffGameObjects: []
+  rotate: 0
+  noiseAudioSource: {fileID: 0}
+  ingredientItems:
+  - item: {fileID: 11400000, guid: 13c1eee79854dad42bd2ce7076644eec, type: 2}
+    count: 1
+  rangeArray: []
 --- !u!114 &8685199386319511805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,9 +271,4 @@ MonoBehaviour:
   GroupID: 0
   nextConveyorBelt: {fileID: 0}
   beforeConveyorBelts: []
-  space:
-    _itemSpace: {fileID: 0}
-    body: {fileID: 0}
-    connectSO: {fileID: 0}
-    canIn: 1
-    canOut: 1
+  space: {fileID: 0}

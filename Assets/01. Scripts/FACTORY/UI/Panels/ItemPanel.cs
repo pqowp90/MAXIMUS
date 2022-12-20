@@ -14,13 +14,17 @@ public class ItemPanel : MonoBehaviour, IPoolable
     public TMP_Text  itemDiscription;
     public int itemID;
     public ItemSpace itemSpace;
-    public void SetItemRecipe(Item item, int count)
+    public Item item;
+    public ItemPanel SetItemRecipe(Item item, int count)
     {
+        this.item = item;
         itemImage.sprite = item.icon;
         itemText.text = count.ToString();
+        return this;
     }
     public void ResetPanel()
     {
+        item = null;
         itemImage.sprite = null;
         itemText.text = "";
     }

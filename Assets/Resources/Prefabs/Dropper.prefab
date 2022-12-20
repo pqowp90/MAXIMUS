@@ -5186,6 +5186,12 @@ MonoBehaviour:
   - {fileID: 8325566535904149546}
   - {fileID: 6578791178164762573}
   - {fileID: 8062480758415563507}
+  rotate: 0
+  noiseAudioSource: {fileID: 0}
+  ingredientItems:
+  - item: {fileID: 11400000, guid: 13c1eee79854dad42bd2ce7076644eec, type: 2}
+    count: 5
+  rangeArray: []
 --- !u!114 &2967078867881744546
 MonoBehaviour:
   m_ObjectHideFlags: 0

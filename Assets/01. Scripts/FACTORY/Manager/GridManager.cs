@@ -382,6 +382,9 @@ public class GridManager : MonoSingleton<GridManager>
                 
                 
                 if(!canBuild) return;
+
+
+                IngredientUI.Instance.ClearIngredient();
                 curBuildingName.TurnOnOffGroup(false);
                 {
                     

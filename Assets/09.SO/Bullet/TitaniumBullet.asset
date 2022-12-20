@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d79456bd68ffb84ab748e7e74f28a40, type: 3}
+  m_Name: TitaniumBullet
+  m_EditorClassIdentifier: 
+  bulletItem: {fileID: 11400000, guid: 720440fcff9b108499288ff62a1a2c99, type: 2}
+  attackDelay: 1
+  minDamage: 8
+  maxDamage: 20
+  muzzlePrefab: {fileID: 1000012903210382, guid: 3a548f79be2642041af8667558f82732, type: 3}

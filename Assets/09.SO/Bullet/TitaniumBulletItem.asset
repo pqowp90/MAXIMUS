@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96de4657d0739384e9899fd9be3f3fcd, type: 3}
+  m_Name: TitaniumBulletItem
+  m_EditorClassIdentifier: 
+  item_name: TitaniumBullet
+  korian_name: "\uD2F0\uD0C0\uB284 \uD0C4\uD658"
+  item_ID: -1
+  item_type: 3
+  isStackable: 1
+  amount: 0
+  icon: {fileID: 21300000, guid: d717571f5b390d041a44a1ce5201d79a, type: 3}
+  material: {fileID: 0}
+  mesh: {fileID: 0}
+  explain: 

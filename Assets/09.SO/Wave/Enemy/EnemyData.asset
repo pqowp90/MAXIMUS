@@ -17,6 +17,6 @@ MonoBehaviour:
   health: 20
   speed: 1
   damage: 5
-  attackDelay: 2
+  attackDelay: 1.13
   attackRange: 2
   dropItemTable: {fileID: 11400000, guid: a1d1b1307556d8f46b76f04463a5d59e, type: 2}

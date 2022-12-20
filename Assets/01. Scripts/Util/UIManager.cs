@@ -54,6 +54,7 @@ public class UIManager : MonoSingleton<UIManager>
     private bool _isPause = false;
 
     [SerializeField] private GameObject _gameoverPanel;
+    [SerializeField] private Image _screenDamageImage;
 
     public override void Awake()
     {
@@ -78,14 +79,14 @@ public class UIManager : MonoSingleton<UIManager>
         {
             if(type == SlotType.Bullet)
             {
-                if(WeaponManager.Instance.weaponList.Count <= i)
+                if(BulletManager.Instance.bulletList.Count <= i)
                 {
                     _slotList[i].Lock(true);
                 }
                 else
                 {
                     _slotList[i].Lock(false);
-                    _slotList[i].Init(WeaponManager.Instance.weaponList[i].bullet.bulletItem);
+                    _slotList[i].Init(BulletManager.Instance.bulletList[i].bulletItem);
                 }
             }
             else if(type == SlotType.Skill)
@@ -106,7 +107,7 @@ public class UIManager : MonoSingleton<UIManager>
     public void SlotChange()
     {
         _slotList[_slotIndex].SlotUnEnable();
-        _slotIndex = WeaponManager.Instance.WeaponIndex;
+        _slotIndex = BulletManager.Instance.BulletIndex;
         _slotList[_slotIndex].SlotEnable();
     }
 
@@ -241,4 +242,10 @@ public class UIManager : MonoSingleton<UIManager>
         Time.timeScale = _isPause ? 0 : 1;
     }
 
+    public void ScreenDamage()
+    {
+        DG.Tweening.Sequence seq = DOTween.Sequence();
+        seq.Append(_screenDamageImage.DOFade(0.8f, 0.1f));
+        seq.Append(_screenDamageImage.DOFade(0, 0.3f));
+    }
 }

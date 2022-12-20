@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d79456bd68ffb84ab748e7e74f28a40, type: 3}
+  m_Name: IronBullet
+  m_EditorClassIdentifier: 
+  bullet_name: IronBullet
+  attackDelay: 0.5
+  minDamage: 1
+  maxDamage: 3
+  muzzlePrefab: {fileID: 1584403288528622, guid: 2eb0d1c997028f344ba8ee6cc887fab7, type: 3}
+  bulletItem: {fileID: 11400000, guid: 23c4aed59f721c54aa2e1e453b2733a8, type: 2}

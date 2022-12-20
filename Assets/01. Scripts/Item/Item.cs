@@ -18,6 +18,7 @@ public class Item : ScriptableObject
 {
     [Header("아이템 정보")]
     public string item_name = "";
+    public string korian_name = "";
     public int item_ID = -1;
     public ITEM_TYPE item_type = ITEM_TYPE.Item;
     public bool isStackable = false;

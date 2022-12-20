@@ -17,5 +17,9 @@ public class MenuUi : MonoSingleton<MenuUi>
         option.SetActive(!option.activeSelf);
         
     }
+    public void Option(bool active){
+        option.SetActive(active);        
+    }
+    
     
 }

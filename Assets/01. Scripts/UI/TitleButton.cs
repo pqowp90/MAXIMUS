@@ -21,6 +21,7 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         _selectPanel.SetActive(true);
         _selectPanel.transform.localScale = Vector3.one * 0.9f;
 
+        DOTween.defaultTimeScaleIndependent = true;
         Sequence seq = DOTween.Sequence();
         seq.Append(_selectPanel.transform.DOScale(Vector3.one * 1.1f, 0.1f));
         seq.Append(_selectPanel.transform.DOScale(Vector3.one, 0.1f));

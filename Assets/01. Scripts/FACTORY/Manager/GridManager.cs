@@ -52,7 +52,7 @@ public enum BuildingType
     SteelWorks,
     Dropper,
     BulletContainer,
-    //Combiner,
+    Combiner,
     // ...
     Count,
 }

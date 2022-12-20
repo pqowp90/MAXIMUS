@@ -46,27 +46,17 @@ public class Building : MonoBehaviour, IPoolable
             noiseAudioSource.playOnAwake = false;
             noiseAudioSource.spatialBlend = 1;
             noiseAudioSource.maxDistance = 20f;
+            noiseAudioSource.outputAudioMixerGroup = FactorySoundManager.Instance.soundContaner.GetAudioMixerGroup("Factory");
         }
     }
     public void SetBuildingType(Vector2Int curPos, int curRotation)
     {
         pos = curPos;
         rotate = curRotation;
-        string typeName = buildingType.ToString();
-        switch (buildingType)
-        {
-            case BuildingType.Foundry:
-            case BuildingType.SteelWorks:
-            typeName = "FactoryBase";
-            break;
-        }
-        var type = GetComponent(typeName);
-        if(type != null)
-        {
-            type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});
-        }
+
         rangeArray.Clear();
         rangeArray.AddRange(range);
+
         for (int i = 0; i < range.Count; i++)
         {
             rangeArray[i] = new Vector2Int(range[i].y, -range[i].x);
@@ -80,13 +70,30 @@ public class Building : MonoBehaviour, IPoolable
                 rangeArray[j] = new Vector2Int(rangeArray[j].y, -rangeArray[j].x);
             }
         }
+
+        string typeName = buildingType.ToString();
+        switch (buildingType)
+        {
+            case BuildingType.Foundry:
+            case BuildingType.SteelWorks:
+            case BuildingType.Combiner:
+            typeName = "FactoryBase";
+            break;
+        }
+        var type = GetComponent(typeName);
+        if(type != null)
+        {
+            type.GetType().GetMethod("AddToManager").Invoke(type, new object[]{curPos, curRotation});
+        }
+        
+        
         foreach (var item in rangeArray)
         {
             InserterManager.Instance.FindAdjacency(curPos + item);
         }
         
     }
-    private List<Vector2Int> rangeArray = new List<Vector2Int>();
+    public List<Vector2Int> rangeArray = new List<Vector2Int>();
     private void OnDrawGizmos() {
         for (int i = 0; i < rangeArray.Count; i++)
         {

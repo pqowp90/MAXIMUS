@@ -8,7 +8,7 @@ public class FactoryBaseManager : MonoSingleton<FactoryBaseManager>, BuildAbilit
     public void Build(Vector2Int _pos, int _rotation, FactoryBase building)
     {
         building.SetTransform(_rotation, _pos);
-        foreach (var item in building.GetComponent<Building>().range)
+        foreach (var item in building.GetComponent<Building>().rangeArray)
         {
             //GridManager.Instance.canInsertPoss.TryAdd(item + _pos, building.outPutSpace);
             GridManager.Instance.canInsertPoss.TryAdd(item + _pos, new List<ItemSpace>());

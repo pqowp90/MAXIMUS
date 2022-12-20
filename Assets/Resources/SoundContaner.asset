@@ -17,3 +17,9 @@ MonoBehaviour:
     audioClips: {fileID: 8300000, guid: c9a4de1b0fe90b6498784232eb8404b9, type: 3}
   - name: FactoryImpactSound
     audioClips: {fileID: 8300000, guid: e7116abb38b3fd14f87b3b68efa5a4b9, type: 3}
+  audioMixerGroups:
+  - {fileID: -7182997760871932744, guid: 8e95ddbfe3a9ccb44ac8edf1ceb43367, type: 2}
+  - {fileID: -2216634477093236687, guid: 8e95ddbfe3a9ccb44ac8edf1ceb43367, type: 2}
+  - {fileID: -2833225066889620476, guid: 8e95ddbfe3a9ccb44ac8edf1ceb43367, type: 2}
+  - {fileID: -2636327858113824137, guid: 8e95ddbfe3a9ccb44ac8edf1ceb43367, type: 2}
+  - {fileID: 24300002, guid: 8e95ddbfe3a9ccb44ac8edf1ceb43367, type: 2}

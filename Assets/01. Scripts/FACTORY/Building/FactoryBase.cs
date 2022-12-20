@@ -20,6 +20,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
     
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
+        audioSource.outputAudioMixerGroup = FactorySoundManager.Instance.soundContaner.GetAudioMixerGroup("Factory");
         outPutSpace = gameObject.AddComponent<ItemSpace>();
         outPutSpace.Reset();
         outPutSpace.canIn = false;

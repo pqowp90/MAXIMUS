@@ -76,7 +76,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     }
     private void SetDropperUI()
     {
-        billBoardCanvas.SetActive(false);
+        
         foreach (var item in dropperItemPanels)
         {
             item.SetActive(false);
@@ -92,7 +92,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     }
     private void SetBulletContainerUI()
     {
-        billBoardCanvas.SetActive(false);
+        
         foreach (var item in dropperItemPanels)
         {
             item.SetActive(false);
@@ -173,8 +173,10 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             CloseTap();
             
             Building building = hit.collider.GetComponentInParent<Building>();
+            
             if(building != null)
             {
+                
                 if(GridManager.Instance.disassemblyMode || GridManager.Instance.buildingMode)
                     return;
                 switch (building.buildingType)
@@ -212,6 +214,8 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
                     break;
                 }
             }
+            if(dropper != null || factoryBase != null || bulletContainer != null)
+                billBoardCanvas.SetActive(false);
         }else{
             CloseTap();
             
@@ -251,6 +255,9 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
             factoryBase = null;
         }
         billBoardCanvas.SetActive(true);
+        factoryBase = null;
+        dropper = null;
+        bulletContainer = null;
     }
     private void SetRecipe(FactoryBase factoryBase)
     {

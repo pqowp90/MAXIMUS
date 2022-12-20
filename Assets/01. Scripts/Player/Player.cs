@@ -76,7 +76,10 @@ public class Player : MonoBehaviour, IDamageable
                 MineMod(true);
                 UIManager.Instance.MessageDown();
             }
-            
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            UIManager.Instance.PauseMenu();
         }
     }
 

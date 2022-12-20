@@ -80,6 +80,7 @@ public class ItemSpace : MonoBehaviour
             {
                 _space.TakeItem().gameObject.SetActive(false);
                 connectSO.amount++;
+                SpaceShip.Instance.ConnectItem(connectSO);
             }
         }
     }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab3b4ce16edf4650b5c6be4f5fe268c9, type: 3}
   m_Name: Enemy2Data
   m_EditorClassIdentifier: 
-  type: 1
+  type: 0
   prefab: {fileID: 6520250954926321781, guid: 45e78e4a948eb9a4b9fd419e19ac4196, type: 3}
   health: 15
   speed: 1

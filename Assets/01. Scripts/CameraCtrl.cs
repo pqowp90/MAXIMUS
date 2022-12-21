@@ -49,10 +49,12 @@ public class CameraCtrl : MonoBehaviour
 
     private void LateUpdate()
     {
+        if(Time.timeScale == 0) return;
+
         if (objTarget == null) return;
 
         if (_objTargetTransform == null) _objTargetTransform = objTarget.transform;
-
+        
         ThirdCamera();
         RotateCamera();
     }

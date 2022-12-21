@@ -45,6 +45,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Sound")]
     [SerializeField] private AudioClip _mineAttack;
     [SerializeField] private AudioClip _mineBreak;
+    [SerializeField] private AudioClip _ammoEmptyAudio;
 
     public UnityEvent<float> OnDamageTaken { get; set; }
 
@@ -179,7 +180,14 @@ public class Player : MonoBehaviour, IDamageable
             return;
         }
 
-        if (attack.bullet == null || attack.bullet.Ammo == 0) return;
+        if (attack.bullet == null) return;
+
+        if(attack.bullet.Ammo == 0)
+        {
+            UIManager.Instance.SlotNotting();
+            SoundManager.Instance.PlayClip(SoundType.EFFECT, _ammoEmptyAudio);
+            return;
+        }
 
         if (!attack.AttackPossible)
         {

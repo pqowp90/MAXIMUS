@@ -10,6 +10,7 @@ public class Wave
     public WaveSO WAVESO => _waveInfo;
 
     public int EnemyCount => _enemies.Count();
+    [SerializeField]
 
     private List<Ore> _ores = new List<Ore>();
 

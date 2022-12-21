@@ -29,6 +29,7 @@ public class Building : MonoBehaviour, IPoolable
     private AudioSource noiseAudioSource;
     [SerializeField]
     public List<Recipe> ingredientItems = new List<Recipe>();
+    public List<Vector2Int> rangeArray = new List<Vector2Int>();
     
     
 
@@ -38,7 +39,8 @@ public class Building : MonoBehaviour, IPoolable
         string myName = this.gameObject.name;
         myName = myName.Split('(')[0];
         buildingType = Enum.Parse<BuildingType>(myName);
-        AudioSourceCheck();
+        if(buildingType != BuildingType.ConveyorBelt || buildingType != BuildingType.Inserter)
+            AudioSourceCheck();
     }
     private void AudioSourceCheck()
     {
@@ -95,7 +97,6 @@ public class Building : MonoBehaviour, IPoolable
         }
         
     }
-    public List<Vector2Int> rangeArray = new List<Vector2Int>();
     private void OnDrawGizmos() {
         for (int i = 0; i < rangeArray.Count; i++)
         {
@@ -115,10 +116,12 @@ public class Building : MonoBehaviour, IPoolable
     {
         if(_onoff)
         {
-            noiseAudioSource.clip = FactorySoundManager.Instance.soundContaner.GetAudioClip("FactoryNoise1");
-            noiseAudioSource.volume = UnityEngine.Random.Range(0.3f, 0.32f);
-            noiseAudioSource.Play();
-            noiseAudioSource.loop = true;
+            if(noiseAudioSource == null){
+                noiseAudioSource.clip = FactorySoundManager.Instance.soundContaner.GetAudioClip("FactoryNoise1");
+                noiseAudioSource.volume = UnityEngine.Random.Range(0.3f, 0.32f);
+                noiseAudioSource.Play();
+                noiseAudioSource.loop = true;
+            }
 
             foreach (var item in renderAndMaterials)
             {
@@ -127,9 +130,9 @@ public class Building : MonoBehaviour, IPoolable
             
         }
         else{
-            
-            if(noiseAudioSource.isPlaying)
-                noiseAudioSource.Stop();
+            if(noiseAudioSource == null)
+                if(noiseAudioSource.isPlaying)
+                    noiseAudioSource.Stop();
             foreach (var item in renderAndMaterials)
             {
                 item.meshRenderer.material = item.material2;

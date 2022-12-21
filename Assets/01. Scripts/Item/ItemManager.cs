@@ -26,6 +26,7 @@ public class ItemManager : MonoSingleton<ItemManager>
         if (item == null) return null;
         if (item.amount < amount) return null;
         item.amount -= amount;
+        UIManager.Instance.InventoryReload(item);
         return item;
     }
 
@@ -88,6 +89,7 @@ public class ItemManager : MonoSingleton<ItemManager>
                 if(_item.isStackable == true)
                 {
                     _item.amount += amount;
+                    ItemEnterAnimation(new Recipe(item, amount));
                     return;
                 }
             }
@@ -112,7 +114,6 @@ public class ItemManager : MonoSingleton<ItemManager>
     }
     public void ItemEnterAnimation(Recipe recipe)
     {
-        Sequence seq = DOTween.Sequence();
         UIManager.Instance.ItemEnter(recipe.item, recipe.count);
         UIManager.Instance.InventoryReload(recipe.item);
     }

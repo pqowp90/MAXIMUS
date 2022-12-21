@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using DG.Tweening;
+using System;
 
 public class CameraCtrl : MonoBehaviour
 {
@@ -29,8 +31,25 @@ public class CameraCtrl : MonoBehaviour
     [SerializeField]
     private float heightMaxLemit;
     public LayerMask whatIsGround;
+    private bool _isBackPack = false;
+    public bool isBackPack{get{return _isBackPack;}set{_isBackPack = value;MoveCameraToBackPack();}}
+    public Action GoGoBackPack;
 
-    
+    private void MoveCameraToBackPack()
+    {
+        if(isBackPack){
+            DG.Tweening.Sequence mySequence = DOTween.Sequence();
+            mySequence.Append(_camTransform.DOMove(_goBackPackObj.position - _goBackPackObj.forward * 2f + _goBackPackObj.up * 0.5f,0.3f));
+            mySequence.Append(_camTransform.DOLookAt(_goBackPackObj.position,0.7f));
+            mySequence.Append(_camTransform.DOMove(_goBackPackObj.position, 0.5f));
+            mySequence.AppendCallback(()=>{if(GoGoBackPack != null)GoGoBackPack.Invoke();});
+        }else{
+            DG.Tweening.Sequence mySequence = DOTween.Sequence();
+            mySequence.Append(_camTransform.DOMove(_goBackPackObj.position, 0f));
+            mySequence.AppendCallback(()=>{if(GoGoBackPack != null)GoGoBackPack.Invoke();});
+            mySequence.Append(_camTransform.DOMove(_goBackPackObj.position - _goBackPackObj.forward * 2f, 0.3f));
+        }
+    }
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -47,16 +66,17 @@ public class CameraCtrl : MonoBehaviour
         InputManager.Instance.mainCamera = gameObject;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         if(Time.timeScale == 0) return;
 
         if (objTarget == null) return;
 
         if (_objTargetTransform == null) _objTargetTransform = objTarget.transform;
-        
-        ThirdCamera();
-        RotateCamera();
+        if(!isBackPack){
+            ThirdCamera();
+            RotateCamera();
+        }
     }
 
     private float _nowDistance;

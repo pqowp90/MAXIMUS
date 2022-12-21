@@ -16,13 +16,17 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     
     public override void Awake() {
         base.Awake();
-        InputManager.Instance.KeyAction -= OnKeyAction;
-        InputManager.Instance.KeyAction += OnKeyAction;
+        // InputManager.Instance.KeyAction -= OnKeyAction;
+        // InputManager.Instance.KeyAction += OnKeyAction;
         
         InputManager.Instance.factoryMode = factoryMode;
         
         
         
+    }
+    private void Update()
+    {
+        OnKeyAction();
     }
     private void Start() {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -48,10 +52,11 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         if(Input.GetKeyDown(KeyCode.X))
         {
-            UpdateScene();
+            
+            GoBackPack.Instance.GoBag();
         }
     }
-    private void UpdateScene()
+    public void UpdateScene()
     {
         factoryMode = !factoryMode;
         InputManager.Instance.factoryMode = factoryMode;

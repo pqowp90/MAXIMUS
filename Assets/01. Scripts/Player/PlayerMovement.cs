@@ -44,7 +44,11 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
+        InputManager.Instance.KeyAction-=MyInput;
+        InputManager.Instance.KeyAction+=MyInput;
+
     }
+    
 
     private void Start()
     {
@@ -57,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, 0.2f, whatIsGround);
 
-        MyInput();
         SpeedControl();
 
         // handle drag
@@ -69,7 +72,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if(InputManager.Instance.stopInput)
+            MovePlayer();
     }
     private float realHorizontalInput;
     private float realVerticalInput;

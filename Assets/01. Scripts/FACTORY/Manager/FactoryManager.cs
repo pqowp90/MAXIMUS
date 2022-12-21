@@ -18,7 +18,7 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         base.Awake();
         // InputManager.Instance.KeyAction -= OnKeyAction;
         // InputManager.Instance.KeyAction += OnKeyAction;
-        
+        SceneManager.sceneLoaded += OnSceneLoaded;
         InputManager.Instance.factoryMode = factoryMode;
         
         
@@ -28,12 +28,13 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     {
         OnKeyAction();
     }
+
     private void Start() {
-        SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.LoadScene("Factory", LoadSceneMode.Additive);
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        factoryMode = false;
         if(scene.name == "Factory")
         {
             factory = scene.GetRootGameObjects()[0];
@@ -43,7 +44,6 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         }
         overworld.SetActive(true);
         factory.SetActive(false);
-        factoryMode = false;
         Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
         Cursor.visible = factoryMode;
 

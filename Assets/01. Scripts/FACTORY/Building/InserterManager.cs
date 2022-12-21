@@ -19,13 +19,14 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
                 {
                     inserter.beforeItemCarrierBase = null;
                 }
-                foreach (var item2 in inserter.nextItemCarrierBase)
+                for (int i = 0; i < inserter.nextItemCarrierBase.Count; i++)
                 {
-                    if(item2 == itemSpace)
+                    if(inserter.nextItemCarrierBase[i] == itemSpace)
                     {
                         inserter.nextItemCarrierBase.Remove(itemSpace);
                     }
                 }
+
             }
         }
     }

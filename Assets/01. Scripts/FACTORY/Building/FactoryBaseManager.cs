@@ -25,7 +25,7 @@ public class FactoryBaseManager : MonoSingleton<FactoryBaseManager>, BuildAbilit
     {
         foreach (var item in building.GetComponent<Building>().rangeArray)
         {
-            InserterManager.Instance.DeleteMe(item, building.outPutSpace);
+            InserterManager.Instance.DeleteMe(building.pos + item, building.outPutSpace);
             foreach (var item2 in building.inputSpaces)
             {
                 InserterManager.Instance.DeleteMe(item, item2);

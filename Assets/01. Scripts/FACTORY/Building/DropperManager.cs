@@ -22,7 +22,7 @@ public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Droppe
     {
         foreach (var item in building.GetComponent<Building>().rangeArray)
         {
-            InserterManager.Instance.DeleteMe(item, building.space);
+            InserterManager.Instance.DeleteMe(building.pos + item, building.space);
         }
         
         List<Vector2Int> buildingRanges = building.GetComponent<Building>().range;

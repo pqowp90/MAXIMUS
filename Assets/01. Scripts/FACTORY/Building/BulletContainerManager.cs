@@ -21,6 +21,10 @@ public class BulletContainerManager : MonoSingleton<BulletContainerManager>, Bui
 
     public void Destroy(BulletContainer building)
     {
+        foreach (var item in building.GetComponent<Building>().rangeArray)
+        {
+            InserterManager.Instance.DeleteMe(building.pos + item, building.space);
+        }
         List<Vector2Int> buildingRanges = building.GetComponent<Building>().range;
         foreach (var item in buildingRanges)
         {

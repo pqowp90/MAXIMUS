@@ -52,5 +52,11 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void GameExit()
     {
         SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }

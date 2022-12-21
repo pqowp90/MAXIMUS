@@ -118,7 +118,10 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
     public void Attack()
     {
         if(_animator.GetBool("Attack") == true)
+        {
+            if(target.GetComponent<Player>().Health <= 0) return;
             target.GetComponent<Player>().TakeDamage(Data.damage);
+        }
     }
 
     public void OnPool()

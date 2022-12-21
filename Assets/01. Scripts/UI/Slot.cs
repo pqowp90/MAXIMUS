@@ -12,6 +12,7 @@ public enum SlotType
 public class Slot : MonoBehaviour
 {
     private Image _icon;
+    public Image Icon => _icon;
     private Text _amount;
     private GameObject _lockPanel;
     private Item _bullet;

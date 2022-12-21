@@ -119,6 +119,13 @@ public class UIManager : MonoSingleton<UIManager>
     {
         _slotList[_slotIndex].AmountReload();
     }
+
+    public void SlotNotting()
+    {
+        DG.Tweening.Sequence seq = DOTween.Sequence();
+        seq.Append(_slotList[_slotIndex].Icon.DOColor(Color.red, 0.05f));
+        seq.Append(_slotList[_slotIndex].Icon.DOColor(Color.white, 0.05f));
+    }
     #endregion
 
     #region Inventory

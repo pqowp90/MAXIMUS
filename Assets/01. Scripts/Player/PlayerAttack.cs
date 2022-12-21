@@ -18,6 +18,10 @@ public class PlayerAttack : MonoBehaviour
 
     private Vector3 _direction;
 
+    [Header("Animation")]
+    [SerializeField] private Animator _turret1Animatior;
+    [SerializeField] private Animator _turret2Animatior;
+
     [Header("Sound")]
     [SerializeField] private AudioClip _bulletShoot;
 
@@ -78,6 +82,10 @@ public class PlayerAttack : MonoBehaviour
         
         _isAttackDelay = true;
         UIManager.Instance.SlotAmountReload();
+
+        _turret1Animatior.SetTrigger("Shoot");
+        _turret2Animatior.SetTrigger("Shoot");
+
         Invoke("AttackDelay", bullet.attackDelay);
     }
 

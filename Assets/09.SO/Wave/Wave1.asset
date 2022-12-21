@@ -19,4 +19,4 @@ MonoBehaviour:
   maxOreSpawnDelay: 11
   enemySpawnList:
   - eData: {fileID: 11400000, guid: 147f238b866e14a408c5a15b1ec00b23, type: 2}
-    count: 10
+    count: 8

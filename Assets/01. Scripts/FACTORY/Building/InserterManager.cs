@@ -9,6 +9,10 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
     Vector2Int[] dir_rotation = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
     public void FindAround(Inserter _inserter)
     {
+        Vector2Int pos = _inserter.pos + dir_rotation[_inserter.Rotation];
+        Debug.DrawRay(new Vector3(_inserter.pos.x, 0f, _inserter.pos.y), new Vector3(pos.x, 0f, pos.y), Color.red, 5f);
+        pos = _inserter.pos - dir_rotation[_inserter.Rotation];
+        Debug.DrawRay(new Vector3(_inserter.pos.x, 0f, _inserter.pos.y), new Vector3(pos.x, 0f, pos.y), Color.red, 5f);
         List<ItemSpace> space = null;
         if(GridManager.Instance.canInsertPoss.TryGetValue(_inserter.pos + dir_rotation[_inserter.Rotation], out space))
         {
@@ -39,7 +43,7 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
             Inserter inserter = null;
             if(inserterPoss.TryGetValue(pos + item, out inserter))
             {
-                InserterManager.Instance.FindAround(inserter);
+                FindAround(inserter);
             }
         }
     }
@@ -52,8 +56,9 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
             inserters.Add(_inserter);
             inserterPoss.Add(_pos, _inserter);
             _inserter.SetTransform(_rotation, _pos);
-            FindAround(_inserter);
+            
         }
+        FindAround(_inserter);
     }
 
     public void Destroy(Inserter _inserter)

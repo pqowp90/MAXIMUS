@@ -28,11 +28,12 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
     public void DeleteBuilding()
     {
         if(beforeItemCarrierBase != null)
-            if(beforeItemCarrierBase.spaceType == SpaceType.Connected && beforeItemCarrierBase.canOut){
-                Debug.Log("Inserter DeleteBuilding");
-                beforeItemCarrierBase.dropItem.gameObject.SetActive(false);
-                beforeItemCarrierBase.dropItem = null;
-            }
+            if(beforeItemCarrierBase.dropItem!=null)
+                if(beforeItemCarrierBase.spaceType == SpaceType.Connected && beforeItemCarrierBase.canOut){
+                    Debug.Log("Inserter DeleteBuilding");
+                    beforeItemCarrierBase.dropItem.gameObject.SetActive(false);
+                    beforeItemCarrierBase.dropItem = null;
+                }
         InserterManager.Instance.Destroy(this);
     }
 }

@@ -3,48 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
-public class SceneLoad : MonoBehaviour
+public class SceneLoad : MonoSingleton<SceneLoad>
 {
-    static string nextScene;
+    [SerializeField] Image _loadPanel;
+    [SerializeField] GameObject _loadingBar;
+    [SerializeField] Slider _loadSlider;
 
-    [SerializeField] private Slider _slider;
-
-    public static void LoadScene(string sceneName)
-    {
-        nextScene = sceneName;
-        SceneManager.LoadScene("Loading");
+    public override void Awake() {
+        base.Awake();
+        _loadPanel.gameObject.SetActive(false);
+        _loadPanel.DOFade(0, 0);
+        _loadingBar.gameObject.SetActive(false);
+        _loadSlider.value = 0;
     }
 
     private void Start() {
-        StartCoroutine(LoadSceneProcess());
+        DontDestroyOnLoad(this);
     }
 
-    private IEnumerator LoadSceneProcess()
+    public void LoadScene(int sceneId)
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
-        op.allowSceneActivation = false;
+        _loadPanel.gameObject.SetActive(true);
 
-        float timer = 0f;
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_loadPanel.DOFade(1, 0.2f));
+        seq.AppendCallback(()=>_loadingBar.gameObject.SetActive(true));
+        seq.AppendCallback(()=>StartCoroutine(Loading(sceneId)));
+    }
+
+    private IEnumerator Loading(int sceneID)
+    {
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneID);
+
         while(!op.isDone)
         {
+            float value = Mathf.Clamp01(op.progress / 0.9f);
+
+            _loadSlider.value = value;
+
             yield return null;
-
-            if(op.progress < 0.9f)
-            {
-                _slider.value = op.progress;
-            }
-            else
-            {
-                timer += Time.deltaTime;
-                _slider.value = Mathf.Lerp(0.9f, 1f, timer);
-                if(_slider.value >= 1f)
-                {
-                    op.allowSceneActivation = true;
-                    yield break;
-                }
-            }
         }
-    }
 
+        Sequence seq = DOTween.Sequence();
+        seq.AppendCallback(()=>_loadingBar.gameObject.SetActive(true));
+        seq.Append(_loadPanel.DOFade(0, 0.2f));
+        seq.AppendCallback(()=>_loadPanel.gameObject.SetActive(false));
+        seq.AppendCallback(()=>_loadingBar.gameObject.SetActive(false));
+    }
 }

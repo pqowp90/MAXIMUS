@@ -40,15 +40,7 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void GamePlay()
     {
         SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
-
-        _loadingPanel.gameObject.SetActive(true);
-        _loadingPanel.DOFade(0, 0);
-        _loadingPanel.transform.GetChild(0).gameObject.SetActive(false);
-
-        Sequence seq = DOTween.Sequence();
-        seq.Append(_loadingPanel.DOFade(1, 0.2f));
-        seq.AppendCallback(()=>_loadingPanel.transform.GetChild(0).gameObject.SetActive(true));
-        seq.AppendCallback(()=>SceneLoad.LoadScene("OverWorld"));
+        SceneLoad.Instance.LoadScene(1);
     }
 
     public void Options()

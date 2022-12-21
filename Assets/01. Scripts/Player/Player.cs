@@ -198,7 +198,7 @@ public class Player : MonoBehaviour, IDamageable
             effect.transform.position = mineOre.transform.position;
         }
         mineOre.TakeDamage(1);
-        ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, mineOre.dropAmount);
+        ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, 1);
         SoundManager.Instance.PlayClip(SoundType.EFFECT, _mineAttack);
 
         effect = PoolManager.GetItem<PoolingEffect>("MineAttackEffect");

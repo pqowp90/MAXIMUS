@@ -47,8 +47,8 @@ public class Ore : MonoBehaviour, IDamageable, IPoolable
         Health -= damage;
         if(Health == 0)
         {
-            ItemManager.Instance.DropItem(transform.position, data.dropItem, dropAmount * 3);
-            gameObject.SetActive(false);
+            ItemManager.Instance.DropItem(transform.position, data.dropItem, dropAmount);
+            OreManager.Instance.DeathOre(this);
         }
     }
 

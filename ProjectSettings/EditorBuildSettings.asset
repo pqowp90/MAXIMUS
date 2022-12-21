@@ -9,9 +9,6 @@ EditorBuildSettings:
     path: Assets/08. Scene/Title.unity
     guid: aba65fb9de9ee614581cab54176ce10a
   - enabled: 1
-    path: Assets/08. Scene/Loading.unity
-    guid: a17338a79e8586b44bedcaf78551ab86
-  - enabled: 1
     path: Assets/08. Scene/OverWorld.unity
     guid: b75fc7589c6dbbd44b292552c58920f4
   - enabled: 1

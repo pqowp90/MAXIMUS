@@ -9,11 +9,16 @@ public class TickManager : MonoSingleton<TickManager>
     private float TickTime;
     [SerializeField]
     private float timmer = 0f;
+    private bool isGo = true;
     // Start is called before the first frame update
     public override void Awake()
     {
         base.Awake();
         tickTime = TickTime;
+    }
+    public void GoTick(bool _isGo)
+    {
+        isGo = _isGo;
     }
 
     // Update is called once per frame
@@ -23,6 +28,8 @@ public class TickManager : MonoSingleton<TickManager>
     }
     private void TickTimeSpand()
     {
+        if(isGo==false)
+            return;
         timmer += Time.deltaTime;
         if(timmer >= tickTime)
         {

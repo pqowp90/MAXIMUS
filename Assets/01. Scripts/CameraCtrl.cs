@@ -12,6 +12,7 @@ public class CameraCtrl : MonoBehaviour
     private Transform _objTargetTransform = null;
     [SerializeField] private Transform _lookObj = null;
     [SerializeField] private Transform _shoulderLookObj = null;
+    [SerializeField] private Transform _goBackPackObj = null;
     [SerializeField] private Player _player;
 
     [Header("3인칭 카메라")]
@@ -30,7 +31,6 @@ public class CameraCtrl : MonoBehaviour
     public LayerMask whatIsGround;
 
     
-
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;

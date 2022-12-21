@@ -211,13 +211,13 @@ public class UIManager : MonoSingleton<UIManager>
         ui.amountText.text = $"+{amount}";
 
         items.Add(ui.gameObject);
-        ui.transform.position = new Vector3(-130, 130);
+        ui.transform.position = new Vector3(-130, 140);
 
         items[items.Count - 1].transform.DOMoveX(200, 0.3f);
         int cnt = items.Count - 1;
         for(int i = 0; i < items.Count - 1; i++)
         {
-            items[i].transform.DOMoveY(80 * cnt-- + 130, 0.7f);
+            items[i].transform.DOMoveY(80 * cnt-- + 140, 0.7f);
         }
     }
 

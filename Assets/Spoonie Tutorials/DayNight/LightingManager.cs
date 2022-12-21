@@ -7,7 +7,7 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
     //Variables
-    [SerializeField, Range(0, 100)] private float TimeOfDay;
+    [SerializeField, Range(0, 200)] private float TimeOfDay;
 
 
 
@@ -19,9 +19,9 @@ public class LightingManager : MonoBehaviour
         //(Replace with a reference to the game time)
         if(!InputManager.Instance.factoryMode){
             TimeOfDay += Time.deltaTime;
-            TimeOfDay %= 100f; //Modulus to ensure always between 0-24
+            TimeOfDay %= 200f; //Modulus to ensure always between 0-24
         }
-        UpdateLighting(TimeOfDay / 100f);
+        UpdateLighting(TimeOfDay / 200f);
     }
 
 
@@ -37,7 +37,7 @@ public class LightingManager : MonoBehaviour
             DirectionalLight.color = Preset.DirectionalColor.Evaluate(timePercent);
 
             DirectionalLight.transform.localRotation = Quaternion.Euler(new Vector3((timePercent * 360f) - 90f, 170f, 0));
-            if (TimeOfDay <= 20.0f || TimeOfDay >= 80.0f)
+            if (TimeOfDay <= 55.0f || TimeOfDay >= 155.0f)
             {
                 if (DayCycleManager.Instance.currentCycle == DayCycleManager.Cycle.Day)
                     DayCycleManager.Instance.ChangeCycle(DayCycleManager.Cycle.Night);

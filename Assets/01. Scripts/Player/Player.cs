@@ -29,7 +29,6 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Ore")]
     [SerializeField] private LayerMask _oreLayer;
     [SerializeField] private float _oreSearchRadius = 5f;
-    [SerializeField] private AudioClip _mineClip;
 
     private Ore mineOre;
     private RaycastHit mineHit;
@@ -108,25 +107,27 @@ public class Player : MonoBehaviour, IDamageable
         Collider[] _item = Physics.OverlapSphere(transform.position, _itemFindRadius, _itemLayer);
         if (_item.Length > 0)
         {
-            Dictionary<string, int> itemCheckList = new Dictionary<string, int>();
-            Dictionary<string, DropItem> itemList = new Dictionary<string, DropItem>();
+            Dictionary<string, List<DropItem>> itemList = new Dictionary<string, List<DropItem>>();
             foreach (var item in _item)
             {
                 DropItem dropItem = item.transform.parent.GetComponent<DropItem>();
-                if(itemCheckList.ContainsKey(dropItem.item.name))
+                if(dropItem.isEntering) continue;
+
+                if(itemList.ContainsKey(dropItem.item.name))
                 {
-                    itemCheckList[dropItem.item.name]++;
+                    itemList[dropItem.item.name].Add(dropItem);
                 }
                 else
                 {
-                    itemCheckList.Add(dropItem.item.name, 1);
-                    itemList.Add(dropItem.item.name, dropItem);
+                    itemList.Add(dropItem.item.name, new List<DropItem>());
+                    itemList[dropItem.item.name].Add(dropItem);
                 }
             }
 
-            foreach(var item in itemCheckList)
+            foreach(var item in itemList)
             {
-                ItemManager.Instance.GetItem(itemList[item.Key].gameObject, item.Value);
+                item.Value.ForEach(X => X.isEntering = true);
+                ItemManager.Instance.GetItem(item.Value, item.Value.Count);
             }
         }
     }

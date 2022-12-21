@@ -231,7 +231,7 @@ public class GridManager : MonoSingleton<GridManager>
             GetRanges((int)building.buildingType, true);
             curBuildingName.TurnOnOffGroup(true, building.buildingType.ToString());
             List<Vector2Int> vector2Ints = curRanges;
-            for (int i = 0; i < vector2Ints.Count; i++) 
+            for (int i = 0; i < vector2Ints.Count; i++)
             {
                 rangeGameobjects[i].transform.position = new Vector3(Mathf.RoundToInt(vector2Ints[i].x) + building.transform.position.x, 0, Mathf.RoundToInt(vector2Ints[i].y) + building.transform.position.z);
             }
@@ -239,16 +239,10 @@ public class GridManager : MonoSingleton<GridManager>
             {
                 foreach (var recipe in building.ingredientItems)
                 {
-                    recipe.item.amount += recipe.count;
                     ItemManager.Instance.GetItem(recipe.item, recipe.count);
                 }
                 building.gameObject.SetActive(false);
-                // var manager = building.GetComponent(building.buildingType.ToString() + "Manager");
-                // manager.GetType().GetMethod("Destroy").Invoke(manager, new object[]{building.GetComponent(building.buildingType.ToString())});
-                // if(building.buildingType == BuildingType.ConveyorBelt)
-                //     ConveyorBeltManager.Instance.Destroy(building.GetComponent<ConveyorBelt>());
-                // if(building.buildingType == BuildingType.Inserter)
-                //     InserterManager.Instance.Destroy(building.GetComponent<Inserter>());
+
                 
                 for (int i = 0; i < vector2Ints.Count; i++)
                 {

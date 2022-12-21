@@ -29,6 +29,7 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
     {
         if(beforeItemCarrierBase != null)
             if(beforeItemCarrierBase.spaceType == SpaceType.Connected && beforeItemCarrierBase.canOut){
+                Debug.Log("Inserter DeleteBuilding");
                 beforeItemCarrierBase.dropItem.gameObject.SetActive(false);
                 beforeItemCarrierBase.dropItem = null;
             }

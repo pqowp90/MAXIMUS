@@ -10,7 +10,7 @@ public class BulletContainerManager : MonoSingleton<BulletContainerManager>, Bui
         building.SetTransform(_rotation, _pos);
         building.space.canIn = true;
         building.space.canOut = false;
-        foreach (var item in building.GetComponent<Building>().range)
+        foreach (var item in building.GetComponent<Building>().rangeArray)
         {
             GridManager.Instance.canInsertPoss.TryAdd(item + _pos, new List<ItemSpace>());
             GridManager.Instance.canInsertPoss[item + _pos].Add(building.space);

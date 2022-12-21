@@ -69,7 +69,7 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
                 itemSpace.count -= recipe.count;
             }
             productionProgress = 0;
-            outPutSpace.count++;
+            outPutSpace.count+=curRecipe.result.count;
         }
         incressProductionProgress?.Invoke();
     }

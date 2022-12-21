@@ -89,6 +89,9 @@ public class UIManager : MonoSingleton<UIManager>
                     _slotList[i].Lock(false);
                     _slotList[i].Init(BulletManager.Instance.bulletList[i].bulletItem);
                 }
+
+                _slotList[BulletManager.Instance.BulletIndex].SlotEnable();
+                _slotIndex = BulletManager.Instance.BulletIndex;
             }
             else if(type == SlotType.Skill)
             {
@@ -98,11 +101,11 @@ public class UIManager : MonoSingleton<UIManager>
                     _slotList[i].Lock(false);
                     _slotList[i].Init(_skillIcon[i]);
                 }
+
+                _slotList[0].SlotEnable();
+                _slotIndex = 0;
             }
         }
-        
-        _slotList[0].SlotEnable();
-        _slotIndex = 0;
     }
 
     public void SlotChange()

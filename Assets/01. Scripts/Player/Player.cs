@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private bool _isOpenBag;
     public ItemDB inventory;
-    private PlayerAttack attack;
+    public PlayerAttack attack;
     public PlayerMovement playerMove;
 
 
@@ -65,10 +65,22 @@ public class Player : MonoBehaviour, IDamageable
         SearchItem();
         SearchOre();
         SwapBullet();
+        
         if (Input.GetButton("Fire1") && Time.timeScale != 0)
         {
             Attak();
         }
+
+        if (Input.GetButton("Fire2") && Time.timeScale != 0)
+        {
+            attack.ShoulderHold(true);
+        }
+
+        if(Input.GetButtonUp("Fire2") && Time.timeScale != 0)
+        {
+            attack.ShoulderHold(false);
+        }
+
         if(Input.GetKeyUp(miningKey))
         {
             if(_isFindOre == true)
@@ -151,6 +163,7 @@ public class Player : MonoBehaviour, IDamageable
             type = SlotType.Bullet;
 
         UIManager.Instance.SlotInit(type);
+        UIManager.Instance.MessageDown();
     }
 
     private void Attak()

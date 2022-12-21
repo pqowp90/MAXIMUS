@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class PlayerAttack : MonoBehaviour
 {
-    [SerializeField] private List<Transform> _turrats = new List<Transform>();
+    [SerializeField] public List<Transform> turrets = new List<Transform>();
     [SerializeField] private float _radius;
     [SerializeField] private LayerMask _layer;
 
@@ -15,6 +15,9 @@ public class PlayerAttack : MonoBehaviour
 
     private bool _isAttackDelay = false;
     public bool AttackPossible => _isAttackDelay;
+
+    private bool _shoulderHold = false;
+    public bool Shoulder => _shoulderHold;
 
     private Vector3 _direction;
 
@@ -25,33 +28,37 @@ public class PlayerAttack : MonoBehaviour
     [Header("Sound")]
     [SerializeField] private AudioClip _bulletShoot;
 
-    private void Start() {
+    private void Start() 
+    {
         PoolManager.CreatePool<PoolingEffect>("BulletShell", ItemManager.Instance.poolObj, 10);
     }
 
     public void Attack()
     {
-        Collider[] _targets = Physics.OverlapSphere(transform.position, _radius, _layer);
-        if (_targets.Length > 0)
+        if(Shoulder == false)
         {
-            Transform _target = _targets[0].transform;
-            foreach (var target in _targets)
+            Collider[] _targets = Physics.OverlapSphere(transform.position, _radius, _layer);
+            if (_targets.Length > 0)
             {
-                if (Vector3.Distance(transform.position, target.transform.position) < Vector3.Distance(transform.position, _target.transform.position))
+                Transform _target = _targets[0].transform;
+                foreach (var target in _targets)
                 {
-                    _target = target.transform;
+                    if (Vector3.Distance(transform.position, target.transform.position) < Vector3.Distance(transform.position, _target.transform.position))
+                    {
+                        _target = target.transform;
+                    }
                 }
+
+                turrets[0].LookAt(new Vector3(_target.position.x, _target.position.y + Random.Range(1.0f, 3.0f), _target.position.z));
+                turrets[1].LookAt(new Vector3(_target.position.x, _target.position.y + Random.Range(1.0f, 3.0f), _target.position.z));
             }
-
-            _turrats[0].LookAt(new Vector3(_target.position.x, _target.position.y + Random.Range(1.0f, 3.0f), _target.position.z));
-            _turrats[1].LookAt(new Vector3(_target.position.x, _target.position.y + Random.Range(1.0f, 3.0f), _target.position.z));
+            else
+            {
+                turrets[0].forward = transform.forward;
+                turrets[1].forward = transform.forward;
+            }
         }
-        else
-        {
-            _turrats[0].forward = transform.forward;
-            _turrats[1].forward = transform.forward;
-        }
-
+        
         TurratShoot(bullet.Ammo == 1 ? 1 : 2);
     }
 
@@ -59,7 +66,7 @@ public class PlayerAttack : MonoBehaviour
     {
         for(int i = 0; i < amount; i++)
         {
-            Transform _turrat = _turrats[i];
+            Transform _turrat = turrets[i];
             bullet.Ammo--;
 
             var _bullet = PoolManager.GetItem<BulletObj>($"Bullet_{bullet.bulletItem.item_name}");
@@ -92,5 +99,11 @@ public class PlayerAttack : MonoBehaviour
     private void AttackDelay()
     {
         _isAttackDelay = false;
+    }
+
+    public void ShoulderHold(bool hold)
+    {   
+        _shoulderHold = hold;
+        Camera.main.DOFieldOfView(hold ? 40 : 50, 0.2f);
     }
 }

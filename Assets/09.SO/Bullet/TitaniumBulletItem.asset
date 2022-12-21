@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item_name: TitaniumBullet
   korian_name: "\uD2F0\uD0C0\uB284 \uD0C4\uD658"
-  item_ID: -1
+  item_ID: 2
   item_type: 3
   isStackable: 1
   amount: 26
   icon: {fileID: 21300000, guid: d717571f5b390d041a44a1ce5201d79a, type: 3}
-  material: {fileID: 0}
-  mesh: {fileID: 0}
+  material: {fileID: 2100000, guid: 34239133a986a624d835dcc77a14e18b, type: 2}
+  mesh: {fileID: 4300002, guid: d00cdcb963483e54691ae1c5d5c7c2fe, type: 3}
   explain: 

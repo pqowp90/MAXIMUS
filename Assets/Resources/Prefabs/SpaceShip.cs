@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
 public class GoalType
 {
     public Item item = null;
@@ -26,13 +27,10 @@ public class SpaceShip : MonoSingleton<SpaceShip>
             _inputSpace.connectSO = item.item;
             inputItemSpaces.Add(_inputSpace);
         }
-        foreach (var inputItemSpace in inputItemSpaces)
+        foreach (var pos in spaceShipRange)
         {
-            foreach (var pos in spaceShipRange)
-            {
-                GridManager.Instance.canInsertPoss.TryAdd(pos, new List<ItemSpace>());
-                GridManager.Instance.canInsertPoss[pos].Add(inputItemSpace);
-            }
+            GridManager.Instance.canInsertPoss.TryAdd(pos + new Vector2Int(500,500), new List<ItemSpace>());
+            GridManager.Instance.canInsertPoss[pos + new Vector2Int(500,500)].AddRange(inputItemSpaces);
         }
     }
     public void ConnectItem(Item _item)
@@ -47,6 +45,7 @@ public class SpaceShip : MonoSingleton<SpaceShip>
                 }
             }
         }
+        CheckGoal();
     }
     private bool theEnd;
     public void CheckGoal()
@@ -65,5 +64,13 @@ public class SpaceShip : MonoSingleton<SpaceShip>
             Debug.Log("You Win");
             theEnd = true;
         }
+    }
+    private void OnDrawGizmos() {
+        for (int i = 0; i < spaceShipRange.Count; i++)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(new Vector3(spaceShipRange[i].x+500, 0, spaceShipRange[i].y+500), 0.1f);
+        }
+        
     }
 }

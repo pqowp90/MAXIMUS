@@ -11,11 +11,11 @@ public class OreManager : MonoSingleton<OreManager>
         PoolManager.CreatePool<Ore>("Ore", oreParent.gameObject, 20);
     }
     
-    public void SpawnOre(Ore ore, Vector3 pos)
+    public void SpawnOre(OreSO ore, Vector3 pos)
     {
         var enemyObject = PoolManager.GetItem<Ore>("Ore");
-        enemyObject.Init(ore.data, 0);
-        enemyObject.ResourceInit(ore.data.mesh, ore.data.material);
+        enemyObject.Init(ore, 0);
+        enemyObject.ResourceInit(ore.mesh, ore.material);
         enemyObject.transform.localScale = Vector3.one * 4f;
         enemyObject.transform.position = pos;
         enemyObject.transform.rotation = Quaternion.identity;

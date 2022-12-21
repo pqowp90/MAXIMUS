@@ -39,5 +39,22 @@ public class DropItem : MonoBehaviour, IPoolable
     public void OnPool()
     {
         Invoke("DestroyItem", ItemManager.Instance.dropTime);
+        SetScale(Vector3.one);
+        SetRotation(Quaternion.identity);
+    }
+
+    public void SetScale(Vector3 scale)
+    {
+        transform.localScale = scale;
+    }
+
+    public void SetRotation(Vector3 rotation)
+    {
+        transform.rotation = Quaternion.Euler(rotation);
+    }
+
+    public void SetRotation(Quaternion rotation)
+    {
+        transform.rotation = rotation;
     }
 }

@@ -10,8 +10,9 @@ public class CameraCtrl : MonoBehaviour
     private Transform _camTransform = null; //카메라 캐싱준비
     public GameObject objTarget = null;
     private Transform _objTargetTransform = null;
-    [SerializeField]
-    private Transform _lookObj = null;
+    [SerializeField] private Transform _lookObj = null;
+    [SerializeField] private Transform _shoulderLookObj = null;
+    [SerializeField] private Player _player;
 
     [Header("3인칭 카메라")]
     //떨어진 거리
@@ -66,10 +67,12 @@ public class CameraCtrl : MonoBehaviour
     {
         height = Mathf.Clamp(height, heightMinLemit, heightMaxLemit);
 
-        Vector3 cameraPos = camTransform;
-        Vector3 targetPos = _lookObj.position;
+        Transform look = _player.attack.Shoulder ? _shoulderLookObj : _lookObj;
 
-        float _objTargetRotationAngle = _lookObj.eulerAngles.y;
+        Vector3 cameraPos = camTransform;
+        Vector3 targetPos = look.position;
+
+        float _objTargetRotationAngle = look.eulerAngles.y;
         float _objHeight = targetPos.y + height;
 
         float _nowRotationAngle = _camTransform.eulerAngles.y;
@@ -105,11 +108,13 @@ public class CameraCtrl : MonoBehaviour
         //_objTargetTransform.position + new Vector3(0f, 1f, 0f)
         //raycastHit.point
 
-        
-
         _camTransform.position = cameraPos;
 
-        _camTransform.LookAt(_lookObj);
+        _camTransform.LookAt(look);
+        if(_player.attack.Shoulder)
+        {
+            _player.attack.turrets.ForEach(x => x.rotation = _camTransform.rotation);
+        }
     }
 
     private void RotateCamera()

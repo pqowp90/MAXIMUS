@@ -23,6 +23,7 @@ public class EnemyManager : MonoSingleton<EnemyManager>
         Enemies.Remove(enemy);
         enemy.gameObject.SetActive(false);
         enemy.transform.SetParent(ItemManager.Instance.poolObj.transform);
+        Debug.Log(enemy.Data.dropItemTable.DropCount);
         for(int i = 0; i < enemy.Data.dropItemTable.DropCount; i++)
         {
             ItemManager.Instance.DropItem(enemy.transform.position, enemy.Data.dropItemTable.GetDropItem(), 1);

@@ -9,6 +9,10 @@ public class ItemManager : MonoSingleton<ItemManager>
     [SerializeField]
     public ItemDB inventorySO;                  // Inventory SO
 
+    private Dictionary<Item, int> _enterGoalDictionary = new Dictionary<Item, int>();
+    private Dictionary<Item, int> _enterDictionary = new Dictionary<Item, int>();
+    private Dictionary<Item, int> _enterCount = new Dictionary<Item, int>();
+
     [Header("Item Drop")]
     [SerializeField]
     public GameObject poolObj;                // 풀링 부모;
@@ -53,32 +57,27 @@ public class ItemManager : MonoSingleton<ItemManager>
         }
     }
 
-    private List<GameObject> flyingObts = new List<GameObject>();
-    public void GetItem(GameObject itemObj, int amount)
+    public void GetItem(List<DropItem> itemObj, int amount)
     {
-        if (flyingObts.Contains(itemObj) == true) return;
-
-        Item item = itemObj.GetComponent<DropItem>().item;
-        flyingObts.Add(itemObj);
-        
-        foreach(var _item in inventorySO.itemList)
+        if(!_enterDictionary.ContainsKey(itemObj[0].item))
         {
-            if(_item.item_ID == item.item_ID)
-            {
-                if(_item.isStackable == true)
-                {
-                    _item.amount += amount;
-                    ItemEnterAnimation(itemObj, amount);
-                    return;
-                }
-            }
+            _enterGoalDictionary.Add(itemObj[0].item, amount);
+            _enterDictionary.Add(itemObj[0].item, 0);
+            _enterCount.Add(itemObj[0].item, 1);
+        }
+        else
+        {
+            _enterGoalDictionary[itemObj[0].item] *= 10;
+            _enterGoalDictionary[itemObj[0].item] += amount;
+            _enterCount[itemObj[0].item] *= 10;
         }
 
-        item.amount = amount;
-        inventorySO.itemList.Add(item);
-        ItemEnterAnimation(itemObj, amount);
-        UIManager.Instance.InventoryItemAdd(item);
+        foreach(var obj in itemObj)
+        {
+            ItemAdd(obj.gameObject);
+        }
     }
+    
     public void GetItem(Item item, int amount)
     {
 
@@ -101,16 +100,58 @@ public class ItemManager : MonoSingleton<ItemManager>
         UIManager.Instance.InventoryItemAdd(item);
     }
     
+    private void ItemAdd(GameObject itemObj)
+    {
+        Item item = itemObj.GetComponent<DropItem>().item;
+        
+        foreach(var _item in inventorySO.itemList)
+        {
+            if(_item.item_ID == item.item_ID)
+            {
+                if(_item.isStackable == true)
+                {
+                    _item.amount++;
+                    ItemEnterAnimation(itemObj, 1);
+                    return;
+                }
+            }
+        }
+
+        item.amount = 1;
+        inventorySO.itemList.Add(item);
+        ItemEnterAnimation(itemObj, 1);
+        UIManager.Instance.InventoryItemAdd(item);
+    }
+
+    private void ItemEnter(Item item)
+    {
+        _enterDictionary[item]++;
+        if(_enterDictionary[item] == _enterGoalDictionary[item] / _enterCount[item])
+        {
+            UIManager.Instance.ItemEnter(item, _enterDictionary[item]);
+            _enterCount[item] /= 10;
+            _enterDictionary[item] = 0;
+            _enterGoalDictionary[item] /= 10;
+            if(_enterCount[item] == 0)
+            {
+                _enterCount.Remove(item);
+                _enterDictionary.Remove(item);
+                _enterGoalDictionary.Remove(item);
+            }
+        }
+    }
 
     private void ItemEnterAnimation(GameObject obj, int amount)
     {
-        obj.GetComponent<DropItem>().OffRb(true);
+        DropItem dItem = obj.GetComponent<DropItem>();
+        dItem.OffRb(true);
 
         Sequence seq = DOTween.Sequence();
         seq.Append(obj.transform.DOMove(_itemGiveTrm.position, 0.5f).SetEase(Ease.InCubic));
         seq.AppendCallback(() => obj.SetActive(false));
-        seq.AppendCallback(()=>UIManager.Instance.ItemEnter(obj.GetComponent<DropItem>().item, amount));
-        seq.AppendCallback(()=>UIManager.Instance.InventoryReload(obj.GetComponent<DropItem>().item));
+        seq.AppendCallback(()=>ItemEnter(dItem.item));
+        seq.AppendCallback(()=>UIManager.Instance.InventoryReload(dItem.item));
+        seq.AppendCallback(()=>dItem.isEntering = false);
     }
     public void ItemEnterAnimation(Recipe recipe)
     {

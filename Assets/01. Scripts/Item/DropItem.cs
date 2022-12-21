@@ -11,6 +11,7 @@ public class DropItem : MonoBehaviour, IPoolable
     public MeshFilter meshFilter;
     public MeshCollider meshCollider;
     public Rigidbody rb;
+    public bool isEntering = false;
 
     private void Awake()
     {

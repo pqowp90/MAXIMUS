@@ -37,10 +37,10 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         _selectPanel.SetActive(false);
     }
 
-    public void GamePlay()
+    public void SceneLoadClick(int num)
     {
         SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
-        SceneLoad.Instance.LoadScene(1);
+        SceneLoad.Instance.LoadScene(num);
     }
 
     public void Options()

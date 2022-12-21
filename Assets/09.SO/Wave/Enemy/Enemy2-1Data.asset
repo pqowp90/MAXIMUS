@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Enemy2-1Data
   m_EditorClassIdentifier: 
   type: 1
-  prefab: {fileID: 6520250954926321781, guid: 4c8d0883bd4f1c44995e4f49fc5c7408, type: 3}
+  prefab: {fileID: 6520250954926321781, guid: 45e78e4a948eb9a4b9fd419e19ac4196, type: 3}
   health: 20
   speed: 1
   damage: 8

@@ -43,7 +43,7 @@ public class Wave
             }
             else
             {
-                tempSum += _ores[i].rate;
+                    tempSum += _waveInfo.oreSpawnList[i].rate;
             }
         }
 

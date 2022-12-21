@@ -37,7 +37,7 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void GamePlay()
     {
         SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
-        SceneManager.LoadScene("OverWorld 2");
+        SceneLoad.LoadScene("OverWorld");
     }
 
     public void Options()

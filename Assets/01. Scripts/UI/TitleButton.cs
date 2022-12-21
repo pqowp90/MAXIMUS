@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -12,8 +12,11 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private AudioClip _swapSound;
     [SerializeField] private AudioClip _clickSound;
 
+    [SerializeField] private Image _loadingPanel;
+
     private void Awake() {
         _selectPanel = transform.Find("SelectPanel").gameObject;
+        _loadingPanel?.gameObject.SetActive(false);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -37,7 +40,15 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void GamePlay()
     {
         SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
-        SceneLoad.LoadScene("OverWorld");
+
+        _loadingPanel.gameObject.SetActive(true);
+        _loadingPanel.DOFade(0, 0);
+        _loadingPanel.transform.GetChild(0).gameObject.SetActive(false);
+
+        Sequence seq = DOTween.Sequence();
+        seq.Append(_loadingPanel.DOFade(1, 0.2f));
+        seq.AppendCallback(()=>_loadingPanel.transform.GetChild(0).gameObject.SetActive(true));
+        seq.AppendCallback(()=>SceneLoad.LoadScene("OverWorld"));
     }
 
     public void Options()

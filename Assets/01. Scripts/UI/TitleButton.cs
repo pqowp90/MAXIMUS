@@ -1,16 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.Playables;
+
 
 public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private GameObject _selectPanel;
-
+    [SerializeField] private PlayableDirector _director;
     [SerializeField] private AudioClip _swapSound;
     [SerializeField] private AudioClip _clickSound;
+    [SerializeField] private GameObject _cat;
+    [SerializeField] private GameObject explosion;
 
     [SerializeField] private Image _loadingPanel;
 
@@ -40,7 +45,21 @@ public class TitleButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void SceneLoadClick(int num)
     {
         SoundManager.Instance.PlayClip(SoundType.UI, _clickSound);
+        _director.Play();
         SceneLoad.Instance.LoadScene(num);
+        StartCoroutine(OnCat());
+        
+    }
+    private IEnumerator OnCat()
+    {
+        _cat.SetActive(false);
+        yield return new WaitForSeconds(3.75f);
+        _cat.SetActive(true);
+        
+    }
+    public void Explosion()
+    {
+        Instantiate(explosion, _cat.transform.position, Quaternion.identity);
     }
 
     public void Options()

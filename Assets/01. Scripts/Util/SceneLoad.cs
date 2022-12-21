@@ -44,6 +44,14 @@ public class SceneLoad : MonoSingleton<SceneLoad>
             _loadSlider.value = value;
 
             yield return null;
+            if(value >= 1)
+            {
+                yield return new WaitForSeconds(3f);
+                _loadSlider.value = 1;
+                FindObjectOfType<TitleButton>().Explosion();
+                break;
+            }
+            
         }
         
 
@@ -52,5 +60,7 @@ public class SceneLoad : MonoSingleton<SceneLoad>
         seq.Append(_loadPanel.DOFade(0, 0.2f));
         seq.AppendCallback(()=>_loadPanel.gameObject.SetActive(false));
         seq.AppendCallback(()=>_loadingBar.gameObject.SetActive(false));
+        yield return new WaitForSeconds(3f);
+        op.allowSceneActivation = true;
     }
 }

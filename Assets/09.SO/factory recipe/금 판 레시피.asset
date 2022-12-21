@@ -19,5 +19,5 @@ MonoBehaviour:
     count: 1
   cost: 5
   result:
-    item: {fileID: 11400000, guid: e7b2c760966b3d34dbb316a77e435380, type: 2}
+    item: {fileID: 11400000, guid: 6cc8d8190f0c7844faf49a913a0d88a3, type: 2}
     count: 1

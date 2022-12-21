@@ -12,6 +12,11 @@ public class Recipe
 {
     public Item item;
     public int count;
+    public Recipe(Item _item, int _count)
+    {
+        item = _item;
+        count = _count;
+    }
 }
 
 [CreateAssetMenu( fileName = "FactoryRecipe", menuName = "Factorys/FactoryRecipes" )]

@@ -27,9 +27,14 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
     [SerializeField]
     private BulletContainer bulletContainer;
     private List<GameObject> dropperItemPanels = new List<GameObject>();
+    [SerializeField]
+    private GameObject yesUI;
+    [SerializeField]
+    private GameObject noneUI;
     //-------------------------------------------
     [Header("FactoryUI")]
     //-------------------------------------------
+    
     [SerializeField]
     private GameObject makingUI;
     [SerializeField]
@@ -83,7 +88,19 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         {
             item.SetActive(false);
         }
-        List<Item> items = ItemManager.Instance.GetItemsByType(ITEM_TYPE.Ore);
+        List<Item> items = new List<Item>();
+        foreach (var item in ItemManager.Instance.GetItemsByType(ITEM_TYPE.Ore))
+        {
+            items.Add(item);
+        }
+        foreach (var item in ItemManager.Instance.GetItemsByType(ITEM_TYPE.Ingredient))
+        {
+            items.Add(item);
+        }
+        foreach (var item in ItemManager.Instance.GetItemsByType(ITEM_TYPE.Bullet))
+        {
+            items.Add(item);
+        }
         foreach (var item in items)
         {
             ItemPanel itemPanel = PoolManager.GetItem<ItemPanel>("ItemPanel");
@@ -111,10 +128,16 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
 
     private void SetCurItemPanel(Item item, ItemPanel _ItemPanel)
     {
-        if(!item)
+        if(!item){
+            yesUI.SetActive(false);
+            noneUI.SetActive(true);
             return;
+
+        }
+        yesUI.SetActive(true);
+        noneUI.SetActive(false);
         _ItemPanel.itemImage.sprite = item.icon;
-        _ItemPanel.itemText.text = item.item_name;
+        _ItemPanel.itemText.text = item.korian_name;
         if(_ItemPanel.itemDiscription)
             _ItemPanel.itemDiscription.text = item.explain;
         _ItemPanel.itemID = item.item_ID;

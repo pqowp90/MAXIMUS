@@ -239,19 +239,22 @@ public class GridManager : MonoSingleton<GridManager>
             {
                 foreach (var recipe in building.ingredientItems)
                 {
-                    recipe.item.amount = recipe.count;
-                    ItemManager.Instance.ItemEnterAnimation(recipe);
+                    recipe.item.amount += recipe.count;
+                    ItemManager.Instance.GetItem(recipe.item, recipe.count);
                 }
                 building.gameObject.SetActive(false);
-                if(building.buildingType == BuildingType.ConveyorBelt)
-                    ConveyorBeltManager.Instance.Destroy(building.GetComponent<ConveyorBelt>());
-                if(building.buildingType == BuildingType.Inserter)
-                    InserterManager.Instance.Destroy(building.GetComponent<Inserter>());
-
+                // var manager = building.GetComponent(building.buildingType.ToString() + "Manager");
+                // manager.GetType().GetMethod("Destroy").Invoke(manager, new object[]{building.GetComponent(building.buildingType.ToString())});
+                // if(building.buildingType == BuildingType.ConveyorBelt)
+                //     ConveyorBeltManager.Instance.Destroy(building.GetComponent<ConveyorBelt>());
+                // if(building.buildingType == BuildingType.Inserter)
+                //     InserterManager.Instance.Destroy(building.GetComponent<Inserter>());
+                
                 for (int i = 0; i < vector2Ints.Count; i++)
                 {
                     grid.SetGrid(new Vector2Int(Mathf.RoundToInt(vector2Ints[i].x) + (int)building.transform.position.x, Mathf.RoundToInt(vector2Ints[i].y) + (int)building.transform.position.z), 0);
                 }
+                building.GetComponent<BuildingTransfrom>().DeleteBuilding();
                 
                 RemoveRanges();
                 curBuildingName.TurnOnOffGroup(false);

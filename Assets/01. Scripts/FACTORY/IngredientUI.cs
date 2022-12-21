@@ -46,4 +46,26 @@ public class IngredientUI : MonoSingleton<IngredientUI>
         }
         itemPanels.Clear();
     }
+    public void DeleteBuilding(ItemSpace _space)
+    {
+        if(_space.spaceType == SpaceType.Solo){
+            if(_space.dropItem != null){
+                ItemManager.Instance.GetItem(_space.dropItem.item, 1);
+                _space.dropItem.gameObject.SetActive(false);
+                _space.Reset();
+            }
+        }
+        else if(_space.spaceType == SpaceType.Multy){
+            if(_space.connectSO != null){
+                ItemManager.Instance.GetItem(_space.connectSO, _space.count);
+            }
+        }
+        else if(_space.spaceType == SpaceType.Connected){
+            if(_space.dropItem != null){
+                ItemManager.Instance.GetItem(_space.dropItem.item, 1);
+                _space.dropItem.gameObject.SetActive(false);
+                _space.Reset();
+            }
+        }
+    }
 }

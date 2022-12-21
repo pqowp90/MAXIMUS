@@ -24,5 +24,15 @@ public class Inserter : MonoBehaviour, BuildingTransfrom
         Rotation = _rotation;
         pos = _pos;
     }
+
+    public void DeleteBuilding()
+    {
+        if(beforeItemCarrierBase != null)
+            if(beforeItemCarrierBase.spaceType == SpaceType.Connected && beforeItemCarrierBase.canOut){
+                beforeItemCarrierBase.dropItem.gameObject.SetActive(false);
+                beforeItemCarrierBase.dropItem = null;
+            }
+        InserterManager.Instance.Destroy(this);
+    }
 }
 

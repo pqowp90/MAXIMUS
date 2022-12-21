@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67758bf9b7f18e646a92e71c906e3935, type: 3}
   m_Name: "\uD2F0\uD0C0\uB284 \uB808\uC2DC\uD53C"
   m_EditorClassIdentifier: 
-  recipeName: "\uBC30\uD130\uB9AC \uC81C\uC791"
+  recipeName: "\uD2F0\uD0C0\uB284 \uC81C\uC791"
   factoryType: 0
   ingredients:
   - item: {fileID: 11400000, guid: 9d9b17f1347a042489832c094ca4ac39, type: 2}
@@ -23,5 +23,5 @@ MonoBehaviour:
     count: 1
   cost: 30
   result:
-    item: {fileID: 11400000, guid: 23c370d2b15eaa249bd4a2bb48c00c1a, type: 2}
+    item: {fileID: 11400000, guid: 56db9a736a2bbad4890a5e48b1a1d8f6, type: 2}
     count: 1

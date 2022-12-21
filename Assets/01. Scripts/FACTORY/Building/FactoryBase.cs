@@ -104,4 +104,13 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
             billboard.UpdateText("None", null);
         }
     }
+    public void DeleteBuilding()
+    {
+        IngredientUI.Instance.DeleteBuilding(outPutSpace);
+        foreach (var item in inputSpaces)
+        {
+            IngredientUI.Instance.DeleteBuilding(item);
+        }
+        FactoryBaseManager.Instance.Destroy(this);
+    }
 }

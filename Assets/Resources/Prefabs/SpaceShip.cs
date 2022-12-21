@@ -31,6 +31,7 @@ public class SpaceShip : MonoSingleton<SpaceShip>
         {
             GridManager.Instance.canInsertPoss.TryAdd(pos + new Vector2Int(500,500), new List<ItemSpace>());
             GridManager.Instance.canInsertPoss[pos + new Vector2Int(500,500)].AddRange(inputItemSpaces);
+            GridManager.Instance.grid.SetGrid(pos + new Vector2Int(500,500), 1000);
         }
     }
     public void ConnectItem(Item _item)
@@ -39,7 +40,7 @@ public class SpaceShip : MonoSingleton<SpaceShip>
         {
             if(inputItems[i].item == _item)
             {
-                if(inputItems[i].count <= _item.amount)
+                if(--inputItems[i].count <= 0)
                 {
                     inputItems[i].isGoal = true;
                 }

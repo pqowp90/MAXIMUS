@@ -41,4 +41,10 @@ public class ConveyorBelt : MonoBehaviour, BuildingTransfrom
         Rotation = _rotation;
         pos = _pos;
     }
+
+    public void DeleteBuilding()
+    {
+        IngredientUI.Instance.DeleteBuilding(space);
+        ConveyorBeltManager.Instance.Destroy(this);
+    }
 }

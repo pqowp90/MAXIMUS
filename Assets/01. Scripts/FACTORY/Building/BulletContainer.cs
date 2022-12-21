@@ -55,4 +55,9 @@ public class BulletContainer : MonoBehaviour, BuildingTransfrom
         }
         
     }
+
+    public void DeleteBuilding()
+    {
+        BulletContainerManager.Instance.Destroy(this);
+    }
 }

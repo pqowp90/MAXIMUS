@@ -54,4 +54,10 @@ public class Dropper : MonoBehaviour, BuildingTransfrom
         }
         
     }
+
+    public void DeleteBuilding()
+    {
+        IngredientUI.Instance.DeleteBuilding(space);
+        DropperManager.Instance.Destroy(this);
+    }
 }

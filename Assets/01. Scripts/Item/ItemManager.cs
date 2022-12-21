@@ -78,6 +78,26 @@ public class ItemManager : MonoSingleton<ItemManager>
         ItemEnterAnimation(itemObj, amount);
         UIManager.Instance.InventoryItemAdd(item);
     }
+    public void GetItem(Item item, int amount)
+    {
+
+        foreach(var _item in inventorySO.itemList)
+        {
+            if(_item.item_ID == item.item_ID)
+            {
+                if(_item.isStackable == true)
+                {
+                    _item.amount += amount;
+                    return;
+                }
+            }
+        }
+
+        item.amount = amount;
+        inventorySO.itemList.Add(item);
+        ItemEnterAnimation(new Recipe(item, amount));
+        UIManager.Instance.InventoryItemAdd(item);
+    }
     
 
     private void ItemEnterAnimation(GameObject obj, int amount)

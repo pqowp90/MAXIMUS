@@ -13,8 +13,12 @@ public class DropItemInfo
 [CreateAssetMenu(fileName = "Drop Item Table SO", menuName = "Inventory/Items/DropItemTable")]
 public class DropItemTableSO : ScriptableObject
 {
-
     public List<DropItemInfo> itemList;
+
+    public int dropMinCount;
+    public int dropMaxCount;
+    public int DropCount => UnityEngine.Random.Range(dropMinCount, dropMaxCount);
+
     public Item GetDropItem()
     {
         float sum = 0f;

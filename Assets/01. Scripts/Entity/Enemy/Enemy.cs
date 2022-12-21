@@ -94,10 +94,16 @@ public sealed class Enemy : Entity, IEnemy, IDamageable, IPoolable
 
     public void TakeDamage(float damage)
     {
-        Health -= damage;
-        OnDamageTaken?.Invoke(damage);
-        UIManager.Instance.Popup(transform, damage.ToString());
-        _hpBar.Value -= damage;
+        float dmg = damage;
+        if(Health - dmg < 0) // 10 - 13 < 0
+        {
+            dmg += Health - dmg;
+        }
+
+        Health -= dmg;
+        OnDamageTaken?.Invoke(dmg);
+        UIManager.Instance.Popup(transform, dmg.ToString());
+        _hpBar.Value -= dmg;
 
         if (_hpBar.Value <= 0)
         {

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1977a6db5800a2e40b293714d18d7904, type: 3}
+  m_Name: Wave6
+  m_EditorClassIdentifier: 
+  oreSpawnList:
+  - oData: {fileID: 11400000, guid: 9e2503ef6597648469eb06b8f8111cdb, type: 2}
+    rate: 3
+  - oData: {fileID: 11400000, guid: 2a5362e119096de4a9443cb2d4e3a457, type: 2}
+    rate: 4
+  - oData: {fileID: 11400000, guid: 54e0d5be4dbbaf347a34f7a7add79c05, type: 2}
+    rate: 3
+  minOreSpawnDelay: 8
+  maxOreSpawnDelay: 20
+  enemySpawnList:
+  - eData: {fileID: 11400000, guid: 3d78de11d6db2934684985d0689c7d18, type: 2}
+    count: 3
+  - eData: {fileID: 11400000, guid: 7b350958b1f1e1e4b92674f413c3ceef, type: 2}
+    count: 5
+  - eData: {fileID: 11400000, guid: 7d4b1f0d17ddcd742a07760dfa6a4d7b, type: 2}
+    count: 2

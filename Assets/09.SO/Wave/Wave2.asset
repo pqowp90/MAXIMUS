@@ -10,13 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1977a6db5800a2e40b293714d18d7904, type: 3}
-  m_Name: Wave1
+  m_Name: Wave2
   m_EditorClassIdentifier: 
   oreSpawnList:
   - oData: {fileID: 11400000, guid: 9e2503ef6597648469eb06b8f8111cdb, type: 2}
+    rate: 9
+  - oData: {fileID: 11400000, guid: 2a5362e119096de4a9443cb2d4e3a457, type: 2}
     rate: 1
-  minOreSpawnDelay: 3
-  maxOreSpawnDelay: 8
+  minOreSpawnDelay: 8
+  maxOreSpawnDelay: 20
   enemySpawnList:
   - eData: {fileID: 11400000, guid: 147f238b866e14a408c5a15b1ec00b23, type: 2}
-    count: 5
+    count: 7

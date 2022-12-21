@@ -20,37 +20,26 @@ public class Wave
     {
         _waveInfo = sO;
 
-        InitializeOres();
         InitializeEnemies();
         InitializeSpawnRanges();
     }
 
-    private void InitializeOres()
-    {
-        foreach(var o in _waveInfo.oreSpawnList)
-        {
-            Ore ore = new Ore();
-            ore.Init(o.oData, o.rate);
-            _ores.Add(ore);
-        }
-    }
-
-    public Ore GetOre()
+    public OreSO GetOre()
     {
         float sum = 0f;
-        for (int i = 0; i < _ores.Count; i++)
+        for (int i = 0; i < _waveInfo.oreSpawnList.Count; i++)
         {
-            sum += _ores[i].rate;
+            sum += _waveInfo.oreSpawnList[i].rate;
         }
 
         float randomValue = UnityEngine.Random.Range(0, sum);
         float tempSum = 0;
 
-        for (int i = 0; i < _ores.Count; i++)
+        for (int i = 0; i < _waveInfo.oreSpawnList.Count; i++)
         {
-            if (randomValue >= tempSum && randomValue < tempSum + _ores[i].rate)
+            if (randomValue >= tempSum && randomValue < tempSum + _waveInfo.oreSpawnList[i].rate)
             {
-                return _ores[i];
+                return _waveInfo.oreSpawnList[i].oData;
             }
             else
             {
@@ -58,7 +47,7 @@ public class Wave
             }
         }
 
-        return _ores[0];
+        return _waveInfo.oreSpawnList[0].oData;
     }
 
     private void InitializeEnemies()

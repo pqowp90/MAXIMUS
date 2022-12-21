@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab3b4ce16edf4650b5c6be4f5fe268c9, type: 3}
-  m_Name: EnemyData
+  m_Name: Enemy2-1Data
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   prefab: {fileID: 6520250954926321781, guid: 4c8d0883bd4f1c44995e4f49fc5c7408, type: 3}
   health: 20
   speed: 1
-  damage: 5
-  attackDelay: 1.13
-  attackRange: 2
-  dropItemTable: {fileID: 11400000, guid: a1d1b1307556d8f46b76f04463a5d59e, type: 2}
+  damage: 8
+  attackRange: 3
+  dropItemTable: {fileID: 11400000, guid: 3a190b4053a64dc48a342befa6380433, type: 2}

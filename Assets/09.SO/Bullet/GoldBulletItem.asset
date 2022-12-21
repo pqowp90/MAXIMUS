@@ -17,7 +17,7 @@ MonoBehaviour:
   item_ID: 1
   item_type: 3
   isStackable: 1
-  amount: 2147482357
+  amount: 0
   icon: {fileID: 21300000, guid: 7af2cac539a862c42ac9d72329291a52, type: 3}
   material: {fileID: 2100000, guid: 916b2293ac663d1439fe5d89dee994c1, type: 2}
   mesh: {fileID: 4300004, guid: d00cdcb963483e54691ae1c5d5c7c2fe, type: 3}

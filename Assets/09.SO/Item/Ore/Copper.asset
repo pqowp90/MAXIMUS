@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item_name: "\uAD6C\uB9AC \uAD11\uC11D"
   korian_name: "\uAD6C\uB9AC \uAD11\uC11D"
-  item_ID: 4
+  item_ID: 5
   item_type: 4
   isStackable: 1
-  amount: 99966
+  amount: 0
   icon: {fileID: 21300000, guid: 16137b8adedd0c146ac5da8e044ef2db, type: 3}
   material: {fileID: 2100000, guid: 19b239e7ef0012f4b9f36123fd985f27, type: 2}
   mesh: {fileID: -802373276872804759, guid: 0b2b694212bdeb4489412db9902cb4ae, type: 3}

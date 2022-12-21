@@ -36,7 +36,7 @@ public class SceneLoad : MonoSingleton<SceneLoad>
     private IEnumerator Loading(int sceneID)
     {
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneID);
-
+        op.allowSceneActivation = false;
         while(!op.isDone)
         {
             float value = Mathf.Clamp01(op.progress / 0.9f);
@@ -45,6 +45,7 @@ public class SceneLoad : MonoSingleton<SceneLoad>
 
             yield return null;
         }
+        
 
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(()=>_loadingBar.gameObject.SetActive(true));

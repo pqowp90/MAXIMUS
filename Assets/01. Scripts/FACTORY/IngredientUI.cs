@@ -51,7 +51,6 @@ public class IngredientUI : MonoSingleton<IngredientUI>
         if(_space.spaceType == SpaceType.Solo){
             if(_space.dropItem != null){
                 ItemManager.Instance.GetItem(_space.dropItem.item, 1);
-                _space.dropItem.gameObject.SetActive(false);
                 _space.Reset();
             }
         }
@@ -63,7 +62,6 @@ public class IngredientUI : MonoSingleton<IngredientUI>
         else if(_space.spaceType == SpaceType.Connected){
             if(_space.dropItem != null){
                 ItemManager.Instance.GetItem(_space.dropItem.item, 1);
-                _space.dropItem.gameObject.SetActive(false);
                 _space.Reset();
             }
         }

@@ -20,6 +20,11 @@ public class DropperManager : MonoSingleton<DropperManager>, BuildAbility<Droppe
 
     public void Destroy(Dropper building)
     {
+        foreach (var item in building.GetComponent<Building>().rangeArray)
+        {
+            InserterManager.Instance.DeleteMe(item, building.space);
+        }
+        
         List<Vector2Int> buildingRanges = building.GetComponent<Building>().range;
         foreach (var item in buildingRanges)
         {

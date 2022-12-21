@@ -21,9 +21,11 @@ public class ItemSpace : MonoBehaviour
     public SpaceType spaceType = SpaceType.Solo;
     public int count = 0;
     public void Reset() {
-        
+        if(dropItem){
+            dropItem.gameObject.SetActive(false);
+            dropItem = null;
+        }
         connectSO = null;
-        dropItem = null;
         count = 0;
     }
     private void ChangeSO()
@@ -54,9 +56,11 @@ public class ItemSpace : MonoBehaviour
             {
                 return;
             }
-            if(dropItem == null && _space.dropItem.item == connectSO){
-                dropItem = _space.TakeItem();
-                count++;
+            if(dropItem == null){
+                if(_space.dropItem.item == connectSO){
+                    dropItem = _space.TakeItem();
+                    count++;
+                }
             }
             
             else if(_space.dropItem.item == connectSO)

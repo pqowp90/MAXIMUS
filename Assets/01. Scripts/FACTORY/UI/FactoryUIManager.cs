@@ -215,6 +215,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
                         if(curItemPanel != null && dropper != null)
                             SetCurItemPanel(dropper.space.connectSO, curItemPanel);
                         dropperUI.SetActive(true);
+                        UIManager.Instance._inventoryPanelPrefab.SetActive(false);
                     }
                     break;
                     case BuildingType.BulletContainer:
@@ -224,6 +225,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
                         if(bulletContainer != null)
                             SetCurItemPanel(bulletContainer.space.connectSO, curItemPanel);
                         dropperUI.SetActive(true);
+                        UIManager.Instance._inventoryPanelPrefab.SetActive(false);
                     }
                     break;
                     case BuildingType.Foundry:
@@ -274,6 +276,7 @@ public class FactoryUIManager : MonoSingleton<FactoryUIManager>
         if(dropperUI.activeSelf)
         {
             dropperUI.SetActive(false);
+            UIManager.Instance._inventoryPanelPrefab.SetActive(true);
             dropper = null;
         }
         if(FactoryUI.activeSelf)

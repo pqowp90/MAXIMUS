@@ -41,6 +41,10 @@ public class FactoryBase : MonoBehaviour, BuildingTransfrom
     {
         curRecipe = _recipe;
         outPutSpace.connectSO = _recipe.result.item;
+        foreach (var item in inputSpaces)
+        {
+            item.Reset();
+        }
         for (int i = 0; i < _recipe.ingredients.Count; i++)
         {
             inputSpaces[i].connectSO = _recipe.ingredients[i].item;

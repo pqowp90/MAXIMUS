@@ -7,11 +7,33 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
     private List<Inserter> inserters = new List<Inserter>();
     Dictionary<Vector2Int, Inserter> inserterPoss = new Dictionary<Vector2Int, Inserter>();
     Vector2Int[] dir_rotation = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
+    public void DeleteMe(Vector2Int pos, ItemSpace itemSpace)
+    {
+        foreach (var item1 in dir_rotation)
+        {
+            Inserter inserter = null;
+            if(inserterPoss.TryGetValue(pos + item1, out inserter))
+            {
+                Debug.Log("찾았다");
+                if(inserter.beforeItemCarrierBase == itemSpace)
+                {
+                    inserter.beforeItemCarrierBase = null;
+                }
+                foreach (var item2 in inserter.nextItemCarrierBase)
+                {
+                    if(item2 == itemSpace)
+                    {
+                        inserter.nextItemCarrierBase.Remove(itemSpace);
+                    }
+                }
+            }
+        }
+    }
     public void FindAround(Inserter _inserter)
     {
-        Vector2Int pos = _inserter.pos + dir_rotation[_inserter.Rotation];
+        Vector2Int pos = dir_rotation[_inserter.Rotation];
         Debug.DrawRay(new Vector3(_inserter.pos.x, 0f, _inserter.pos.y), new Vector3(pos.x, 0f, pos.y), Color.red, 5f);
-        pos = _inserter.pos - dir_rotation[_inserter.Rotation];
+        pos = - dir_rotation[_inserter.Rotation];
         Debug.DrawRay(new Vector3(_inserter.pos.x, 0f, _inserter.pos.y), new Vector3(pos.x, 0f, pos.y), Color.red, 5f);
         List<ItemSpace> space = null;
         if(GridManager.Instance.canInsertPoss.TryGetValue(_inserter.pos + dir_rotation[_inserter.Rotation], out space))
@@ -84,6 +106,8 @@ public class InserterManager : MonoSingleton<InserterManager>, BuildAbility<Inse
                     {
                         if(_nextItemCarrierBase.dropItem == null || _nextItemCarrierBase.spaceType == SpaceType.Multy)
                         {
+                            if(_beforeItemCarrierBase.spaceType == SpaceType.Multy && _nextItemCarrierBase.spaceType == SpaceType.Multy)
+                                break;
                             DropItem dropItem = movedItem.Find(x => x == _beforeItemCarrierBase.dropItem);
                             if(dropItem == null)
                             {

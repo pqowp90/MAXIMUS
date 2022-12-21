@@ -124,6 +124,7 @@ public class ConveyorBeltManager : MonoSingleton<ConveyorBeltManager>, BuildAbil
 
     public void Destroy(ConveyorBelt conveyorBelt)
     {
+        InserterManager.Instance.DeleteMe(conveyorBelt.pos, conveyorBelt.space);
         conveyorBelts.Remove(conveyorBelt);
         ConveyorBelt getConveyorBelt = null;
         GridManager.Instance.canInsertPoss.Remove(conveyorBelt.pos);

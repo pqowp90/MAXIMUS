@@ -23,6 +23,20 @@ public class FactoryBaseManager : MonoSingleton<FactoryBaseManager>, BuildAbilit
 
     public void Destroy(FactoryBase building)
     {
+        foreach (var item in building.GetComponent<Building>().rangeArray)
+        {
+            InserterManager.Instance.DeleteMe(item, building.outPutSpace);
+            foreach (var item2 in building.inputSpaces)
+            {
+                InserterManager.Instance.DeleteMe(item, item2);
+            }
+        }
+        foreach (var item in building.inputSpaces)
+        {
+            InserterManager.Instance.DeleteMe(building.pos, item);
+        }
+        InserterManager.Instance.DeleteMe(building.pos, building.outPutSpace);
+
         List<Vector2Int> buildingRanges = building.GetComponent<Building>().range;
         foreach (var item in buildingRanges)
         {

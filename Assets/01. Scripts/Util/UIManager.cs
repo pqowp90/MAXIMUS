@@ -38,7 +38,7 @@ public class UIManager : MonoSingleton<UIManager>
     [Header("Item Inventory")]
     private List<InventoryPanel> _inventoryPanels = new List<InventoryPanel>();
     [SerializeField] private Transform _inventoryPanel;
-    [SerializeField] private GameObject _inventoryPanelPrefab;
+    [SerializeField] public GameObject _inventoryPanelPrefab;
 
     [Header("Day")]
     [SerializeField] private Sprite _sunIcon;

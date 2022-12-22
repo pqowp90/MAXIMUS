@@ -153,6 +153,8 @@ public class ItemManager : MonoSingleton<ItemManager>
         seq.AppendCallback(()=>UIManager.Instance.InventoryReload(dItem.item));
         seq.AppendCallback(()=>dItem.isEntering = false);
     }
+
+    
     public void ItemEnterAnimation(Recipe recipe)
     {
         UIManager.Instance.ItemEnter(recipe.item, recipe.count);

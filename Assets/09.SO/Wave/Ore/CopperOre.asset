@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CopperOre
   m_EditorClassIdentifier: 
   oreName: "\uAD6C\uB9AC\uAD11\uC11D"
-  mesh: {fileID: 699755090186341016, guid: e3cfe15e55b524c48a19daff2f21aa19, type: 3}
+  mesh: {fileID: -802373276872804759, guid: 0b2b694212bdeb4489412db9902cb4ae, type: 3}
   material: {fileID: 2100000, guid: 19b239e7ef0012f4b9f36123fd985f27, type: 2}
   dropMinAmount: 1
   dropMaxAmount: 5

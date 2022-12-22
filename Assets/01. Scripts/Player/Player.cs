@@ -56,8 +56,8 @@ public class Player : MonoBehaviour, IDamageable
        _hp = _maxHp;
        UIManager.Instance.HelathBarInit();
 
-       PoolManager.CreatePool<PoolingEffect>("MineAttackEffect", ItemManager.Instance.poolObj, 10);
-       PoolManager.CreatePool<PoolingEffect>("MineBreakEffect", ItemManager.Instance.poolObj, 10);
+       //PoolManager.CreatePool<PoolingEffect>("MineAttackEffect", ItemManager.Instance.poolObj, 10);
+       //PoolManager.CreatePool<PoolingEffect>("MineBreakEffect", ItemManager.Instance.poolObj, 10);
     }
 
     private void Update()
@@ -199,19 +199,19 @@ public class Player : MonoBehaviour, IDamageable
     {
         _isMining = false;
 
-        PoolingEffect effect;
+        //PoolingEffect effect;
         if(mineOre.Health - 1 == 0)
         {
             SoundManager.Instance.PlayClip(SoundType.EFFECT, _mineBreak);
-            effect = PoolManager.GetItem<PoolingEffect>("MineBreakEffect");
-            effect.transform.position = mineOre.transform.position;
+            //effect = PoolManager.GetItem<PoolingEffect>("MineBreakEffect");
+            //effect.transform.position = mineOre.transform.position;
         }
         mineOre.TakeDamage(1);
         ItemManager.Instance.DropItem(mineOre.transform.position, mineOre.data.dropItem, 1);
         SoundManager.Instance.PlayClip(SoundType.EFFECT, _mineAttack);
 
-        effect = PoolManager.GetItem<PoolingEffect>("MineAttackEffect");
-        effect.transform.position = mineHit.point;
+        //effect = PoolManager.GetItem<PoolingEffect>("MineAttackEffect");
+        //effect.transform.position = mineHit.point;
     }
 
 

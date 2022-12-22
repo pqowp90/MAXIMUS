@@ -53,14 +53,18 @@ public class SceneLoad : MonoSingleton<SceneLoad>
             }
             
         }
-        
 
         Sequence seq = DOTween.Sequence();
-        seq.AppendCallback(()=>_loadingBar.gameObject.SetActive(true));
-        seq.Append(_loadPanel.DOFade(0, 0.2f));
-        seq.AppendCallback(()=>_loadPanel.gameObject.SetActive(false));
         seq.AppendCallback(()=>_loadingBar.gameObject.SetActive(false));
+        seq.Append(_loadPanel.DOFade(0, 0.2f));
         yield return new WaitForSeconds(3f);
+        StartCoroutine(ClosePanel());
         op.allowSceneActivation = true;
+    }
+
+    private IEnumerator ClosePanel()
+    {
+        yield return new WaitForSeconds(1f);
+        _loadPanel.gameObject.SetActive(false);
     }
 }

@@ -20,10 +20,8 @@ public class FactoryManager : MonoSingleton<FactoryManager>
         // InputManager.Instance.KeyAction += OnKeyAction;
         SceneManager.sceneLoaded += OnSceneLoaded;
         InputManager.Instance.factoryMode = factoryMode;
-        
-        
-        
     }
+
     private void Update()
     {
         OnKeyAction();
@@ -32,22 +30,23 @@ public class FactoryManager : MonoSingleton<FactoryManager>
     private void Start() {
         SceneManager.LoadScene("Factory", LoadSceneMode.Additive);
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         factoryMode = false;
         if(scene.name == "Factory")
         {
-            factory = scene.GetRootGameObjects()[0];
+            factory = scene.GetRootGameObjects()[1];
             factory?.SetActive(factoryMode);
-            InputManager.Instance.factoryCamera = scene.GetRootGameObjects()[1].transform.GetChild(0).gameObject;
+            InputManager.Instance.factoryCamera = scene.GetRootGameObjects()[0].transform.GetChild(0).gameObject;
             InputManager.Instance.SetMode();
+            overworld.SetActive(true);
+            factory.SetActive(false);
+            Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
+            Cursor.visible = factoryMode;
         }
-        overworld.SetActive(true);
-        factory.SetActive(false);
-        Cursor.lockState = (factoryMode)?CursorLockMode.Confined:CursorLockMode.Locked;
-        Cursor.visible = factoryMode;
-
     }
+
     private void OnKeyAction()
     {
         if(Input.GetKeyDown(KeyCode.X))

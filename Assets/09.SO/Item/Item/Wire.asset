@@ -18,8 +18,10 @@ MonoBehaviour:
   item_type: 5
   isStackable: 1
   amount: 0
-  icon: {fileID: 21300000, guid: b0182cf0ee413fe4193f5920febc62a8, type: 3}
+  icon: {fileID: 21300000, guid: a9bf6e0d63a7c1045896dceba4a3b220, type: 3}
   material: {fileID: 2100000, guid: 435988207dc58c14ba19897d6d86c9e1, type: 2}
-  mesh: {fileID: 1598058932206406000, guid: 8953281e178475e4db1a84970c50dc74, type: 3}
+  mesh: {fileID: 426408045869953323, guid: ee0beaf57a25ded44aafe59eb78fc7e0, type: 3}
   explain: "\uC804\uB3C4\uCCB4\uB85C \uB9CC\uB4E0 \uC804\uC120\n\uAC10\uC544\uC11C
     \uCF54\uC77C\uB85C \uB9CC\uB4E4 \uC218 \uC788\uB2E4"
+  meshScale: {x: 1, y: 1, z: 1}
+  meshRotation: {x: 0, y: 0, z: 0}

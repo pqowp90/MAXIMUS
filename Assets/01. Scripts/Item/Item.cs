@@ -32,4 +32,6 @@ public class Item : ScriptableObject
     [Header("설명")]
     [TextArea(15, 20)]
     public string explain;
+    public Vector3 meshScale = Vector3.one;
+    public Vector3 meshRotation;
 }

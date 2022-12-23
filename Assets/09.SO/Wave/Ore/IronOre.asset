@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronOre
   m_EditorClassIdentifier: 
   oreName: "\uCCA0\uAD11\uC11D"
-  mesh: {fileID: 1634252586104278139, guid: f0d74ba13edf10c41aaa4c602e2eba1c, type: 3}
+  mesh: {fileID: -802373276872804759, guid: 0b2b694212bdeb4489412db9902cb4ae, type: 3}
   material: {fileID: 2100000, guid: 70865d647b040334e84539f57bc0cea9, type: 2}
   dropMinAmount: 3
   dropMaxAmount: 10

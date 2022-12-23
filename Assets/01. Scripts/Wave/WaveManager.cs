@@ -164,7 +164,8 @@ public class WaveManager : MonoSingleton<WaveManager>
             return;
         }
 
-        var position = player.position + new Vector3( Random.Range((_oreSpawnRadius / 2) * -1, _oreSpawnRadius / 2), 0, Random.Range((_oreSpawnRadius / 2) * -1, _oreSpawnRadius / 2));
+        var position = player.position + new Vector3( Random.Range((_oreSpawnRadius / 2) * -1, _oreSpawnRadius / 2), 
+        0, Random.Range((_oreSpawnRadius / 2) * -1, _oreSpawnRadius / 2));
 
         RaycastHit hit;
         Physics.Raycast(position, Vector3.down, out hit, Mathf.Infinity, _groundLayer);

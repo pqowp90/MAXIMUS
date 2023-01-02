@@ -35,7 +35,7 @@ public class MissionManager : MonoSingleton<MissionManager>
                     _engineAmount = 10;
                     _missionPanel[0].MissionComplete();
                 }
-                _missionPanel[0].Reload($"엔진 수리하기 ( {_striffenerAmount}/10 )");
+                _missionPanel[0].Reload($"엔진 수리하기 ( {_engineAmount}/10 )");
                 break;
 
             case SPACE_ITEM.BATTERY:
@@ -46,7 +46,7 @@ public class MissionManager : MonoSingleton<MissionManager>
                     _batteryAmount = 20;
                     _missionPanel[1].MissionComplete();
                 }
-                _missionPanel[1].Reload($"배터리 넣기 ( {_striffenerAmount}/20 )");
+                _missionPanel[1].Reload($"배터리 넣기 ( {_batteryAmount}/20 )");
                 break;
 
             case SPACE_ITEM.STIFFENER:

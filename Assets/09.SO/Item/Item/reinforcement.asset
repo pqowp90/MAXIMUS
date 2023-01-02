@@ -18,7 +18,9 @@ MonoBehaviour:
   item_type: 5
   isStackable: 1
   amount: 0
-  icon: {fileID: 21300000, guid: b0182cf0ee413fe4193f5920febc62a8, type: 3}
+  icon: {fileID: 21300000, guid: 3492e9eb6292141eb942d0c9beface29, type: 3}
   material: {fileID: 2100000, guid: 435988207dc58c14ba19897d6d86c9e1, type: 2}
-  mesh: {fileID: 1598058932206406000, guid: 8953281e178475e4db1a84970c50dc74, type: 3}
+  mesh: {fileID: 8044144653785620913, guid: f341bae79a3892c4bad1f66b9338fb10, type: 3}
   explain: "\uBCF4\uAC15\uC7AC."
+  meshScale: {x: 1, y: 1, z: 1}
+  meshRotation: {x: 0, y: 0, z: 0}

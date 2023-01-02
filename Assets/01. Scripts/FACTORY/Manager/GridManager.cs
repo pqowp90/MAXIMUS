@@ -106,7 +106,6 @@ public class GridManager : MonoSingleton<GridManager>
     private Vector2Int jupingPos = Vector2Int.zero;
     [SerializeField]
     private VignettingEffect vignettingEffect;
-    private Test test;
     
     
 
@@ -131,7 +130,6 @@ public class GridManager : MonoSingleton<GridManager>
         //Build(new Vector2Int(10, 10), BuildingType.Foundation);
         //Build(new Vector2Int(10, 10), BuildingType.Hub);
         vignettingEffect = FindObjectOfType<VignettingEffect>();
-        test = GetComponent<Test>();
         InputManager.Instance.FactoryKeyAction -= InputKey;
         InputManager.Instance.FactoryKeyAction += InputKey;
     }
@@ -197,18 +195,7 @@ public class GridManager : MonoSingleton<GridManager>
             vignettingEffect.StartEffect(disassemblyMode);
         }
 
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            RaycastHit hit;
-            if(Physics.Raycast(Camera.main.ScreenPointToRay(mousePos),out hit, Mathf.Infinity, buildingLayerMask))
-            {
-                ConveyorBelt building = hit.collider.GetComponentInParent<ConveyorBelt>();
-                if(building != null)
-                {
-                    test.TestFunc(building);
-                }
-            }
-        }
+
 
         
     }

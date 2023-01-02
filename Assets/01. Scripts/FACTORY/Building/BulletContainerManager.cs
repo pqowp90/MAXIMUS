@@ -25,7 +25,7 @@ public class BulletContainerManager : MonoSingleton<BulletContainerManager>, Bui
         {
             InserterManager.Instance.DeleteMe(building.pos + item, building.space);
         }
-        List<Vector2Int> buildingRanges = building.GetComponent<Building>().range;
+        List<Vector2Int> buildingRanges = building.GetComponent<Building>().rangeArray;
         foreach (var item in buildingRanges)
         {
             GridManager.Instance.canInsertPoss.Remove(item + building.pos);
